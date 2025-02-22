@@ -1,0 +1,477 @@
+{
+  "InitialConfig": {
+    "FellowshipPlayer": {
+      "Coins": 2,
+      "Units": 15,
+      "Towers": 7
+    },
+    "SauronPlayer": {
+      "Coins": 1,
+      "Units": 15,
+      "Towers": 7
+    }
+  },
+  "StartingPlayer": "Sauron",
+  "TotalCoinCount": 30,
+  "LandmarkTilesToUse": [
+    {
+      "Name": "BaradDur",
+      "FortressToPlaceTo": "Mordor",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 3,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "RaceEffect": {
+            "Name": "PlayAnyDiscardedCard"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Isengard",
+      "FortressToPlaceTo": "Enedwaith",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 3,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "DiscardGreyCardEffect": {
+            "CardsToDiscard": 1
+          }
+        },
+        {
+          "BlueChapterCard": {
+            "SpaceToMoveOnRingQuestTrack": 1
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Erebor",
+      "FortressToPlaceTo": "Rhovanion",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 2,
+        "Courage": 1,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "PurpleChapterCard": {
+            "MoveOnCentralBoard": 1,
+            "CoinsToTakeFromEnemy": 0
+          }
+        },
+        {
+          "YellowChapterCard": {
+            "CoinsToTake": 5
+          }
+        }
+      ]
+    },
+    {
+      "Name": "MinasTirith",
+      "FortressToPlaceTo": "Gondor",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 1,
+        "Courage": 0,
+        "Knowledge": 2,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "RedChapterCard": {
+            "UnitsToPlace": 1
+          }
+        },
+        {
+          "BlueChapterCard": {
+            "SpaceToMoveOnRingQuestTrack": 2
+          }
+        }
+      ]
+    },
+    {
+      "Name": "HelmsDeep",
+      "FortressToPlaceTo": "Rohan",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "RedChapterCard": {
+            "UnitsToPlace": 3
+          }
+        }
+      ]
+    },
+    {
+      "Name": "GreyHavens",
+      "FortressToPlaceTo": "Lindon",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 3,
+        "Courage": 0,
+        "Knowledge": 2,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "RevealRaceTokens": {
+            "TokensToReveal": 2,
+            "RacesToRevealFrom": ["Elves", "Humans", "Dwarves", "Mages", "Hobbits", "Ents"]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Bree",
+      "FortressToPlaceTo": "Arnor",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 3,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "RedChapterCard": {
+            "UnitsToPlace": 2
+          }
+        },
+        {
+          "PurpleChapterCard": {
+            "MoveOnCentralBoard": 2,
+            "CoinsToTakeFromEnemy": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ChapterCardsToUse": [],
+  "QuestOfTheRingTrack": [ "S", "", "", "", "F", "B1", ""],
+  "Races": [
+    {
+      "Name": "Elves",
+      "AllianceTokens": [
+        {
+          "TakeTurnAfterCardRaceEffect": {
+            "CardColor": "Yellow"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Humans",
+      "AllianceTokens": [
+
+      ]
+    },
+    {
+      "Name": "Dwarves",
+      "AllianceTokens": [
+
+      ]
+    },
+    {
+      "Name": "Mages",
+      "AllianceTokens": [
+
+      ]
+    },
+    {
+      "Name": "Hobbits",
+      "AllianceTokens": [
+
+      ]
+    },
+    {
+      "Name": "Ents",
+      "AllianceTokens": [
+
+      ]
+    }
+  ],
+  "Rounds": [
+    {
+      "CoinsPerChapterCardDiscard": 1,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [2, 3],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 1,
+          "DependsOn": [3, 4],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 2,
+          "DependsOn": [5, 6],
+          "IsFaceUp": false
+        },{
+          "ID": 3,
+          "DependsOn": [6, 7],
+          "IsFaceUp": false
+        },{
+          "ID": 4,
+          "DependsOn": [7, 8],
+          "IsFaceUp": false
+        },{
+          "ID": 5,
+          "DependsOn": [9, 10],
+          "IsFaceUp": true
+        },{
+          "ID": 6,
+          "DependsOn": [10, 11],
+          "IsFaceUp": true
+        },{
+          "ID": 7,
+          "DependsOn": [11, 12],
+          "IsFaceUp": true
+        },{
+          "ID": 8,
+          "DependsOn": [12, 13],
+          "IsFaceUp": true
+        },{
+          "ID": 9,
+          "DependsOn": [14, 15],
+          "IsFaceUp": false
+        },{
+          "ID": 10,
+          "DependsOn": [15, 16],
+          "IsFaceUp": false
+        },{
+          "ID": 11,
+          "DependsOn": [16, 17],
+          "IsFaceUp": false
+        },{
+          "ID": 12,
+          "DependsOn": [17, 18],
+          "IsFaceUp": false
+        },{
+          "ID": 13,
+          "DependsOn": [17, 18],
+          "IsFaceUp": false
+        },{
+          "ID": 14,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 15,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 16,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 17,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true
+        }
+      ]
+    },
+    {
+      "CoinsPerChapterCardDiscard": 2,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [6],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 1,
+          "DependsOn": [6, 7],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 2,
+          "DependsOn": [7, 8],
+          "IsFaceUp": true
+        },{
+          "ID": 3,
+          "DependsOn": [8, 9],
+          "IsFaceUp": true
+        },{
+          "ID": 4,
+          "DependsOn": [9, 10],
+          "IsFaceUp": true
+        },{
+          "ID": 5,
+          "DependsOn": [10],
+          "IsFaceUp": true
+        },{
+          "ID": 6,
+          "DependsOn": [11],
+          "IsFaceUp": false
+        },{
+          "ID": 7,
+          "DependsOn": [11, 12],
+          "IsFaceUp": false
+        },{
+          "ID": 8,
+          "DependsOn": [12, 13],
+          "IsFaceUp": false
+        },{
+          "ID": 9,
+          "DependsOn": [13, 14],
+          "IsFaceUp": false
+        },{
+          "ID": 10,
+          "DependsOn": [14],
+          "IsFaceUp": false
+        },{
+          "ID": 11,
+          "DependsOn": [15],
+          "IsFaceUp": true
+        },{
+          "ID": 12,
+          "DependsOn": [15, 16],
+          "IsFaceUp": true
+        },{
+          "ID": 13,
+          "DependsOn": [16, 17],
+          "IsFaceUp": true
+        },{
+          "ID": 14,
+          "DependsOn": [17],
+          "IsFaceUp": true
+        },{
+          "ID": 15,
+          "DependsOn": [18],
+          "IsFaceUp": false
+        },{
+          "ID": 16,
+          "DependsOn": [18, 19],
+          "IsFaceUp": false
+        },{
+          "ID": 17,
+          "DependsOn": [19],
+          "IsFaceUp": false
+        },{
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true
+        }
+      ]
+    },
+    {
+      "CoinsPerChapterCardDiscard": 3,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [2, 3],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 1,
+          "DependsOn": [3, 4],
+          "IsFaceUp": true
+        },
+        {
+          "ID": 2,
+          "DependsOn": [5, 6],
+          "IsFaceUp": false
+        },{
+          "ID": 3,
+          "DependsOn": [6, 7],
+          "IsFaceUp": false
+        },{
+          "ID": 4,
+          "DependsOn": [7, 8],
+          "IsFaceUp": false
+        },{
+          "ID": 5,
+          "DependsOn": [9],
+          "IsFaceUp": true
+        },{
+          "ID": 6,
+          "DependsOn": [9],
+          "IsFaceUp": true
+        },{
+          "ID": 7,
+          "DependsOn": [10],
+          "IsFaceUp": true
+        },{
+          "ID": 8,
+          "DependsOn": [10],
+          "IsFaceUp": true
+        },{
+          "ID": 9,
+          "DependsOn": [11, 12],
+          "IsFaceUp": false
+        },{
+          "ID": 10,
+          "DependsOn": [13, 14],
+          "IsFaceUp": false
+        },{
+          "ID": 11,
+          "DependsOn": [15],
+          "IsFaceUp": true
+        },{
+          "ID": 12,
+          "DependsOn": [15, 16],
+          "IsFaceUp": true
+        },{
+          "ID": 13,
+          "DependsOn": [16, 17],
+          "IsFaceUp": true
+        },{
+          "ID": 14,
+          "DependsOn": [17],
+          "IsFaceUp": true
+        },{
+          "ID": 15,
+          "DependsOn": [18],
+          "IsFaceUp": false
+        },{
+          "ID": 16,
+          "DependsOn": [18, 19],
+          "IsFaceUp": false
+        },{
+          "ID": 17,
+          "DependsOn": [19],
+          "IsFaceUp": false
+        },{
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true
+        },{
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true
+        }
+      ]
+    }
+  ]
+}

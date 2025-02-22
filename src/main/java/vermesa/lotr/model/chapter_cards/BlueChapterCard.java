@@ -4,6 +4,7 @@ public class BlueChapterCard extends ChapterCard {
     private final int moveCount;
 
     public BlueChapterCard(int moveCount) {
+        super(null, null, false);
         this.moveCount = moveCount;
     }
 

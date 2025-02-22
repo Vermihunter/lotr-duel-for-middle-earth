@@ -1,8 +1,11 @@
 package vermesa.lotr.model.landmark_effects;
 
-public class MinasTirith extends LandmarkEffect {
-    @Override
-    public void execute() {
+import vermesa.lotr.model.moves.MoveResult;
 
+public class MinasTirith extends LandmarkTile {
+    
+    @Override
+    public MoveResult makeMove() {
+        return null;
     }
 }

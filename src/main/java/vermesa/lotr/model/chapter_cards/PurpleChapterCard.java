@@ -6,6 +6,7 @@ public class PurpleChapterCard extends ChapterCard {
     private final int removeOneEnemyUnitFromAnyRegionCount;
 
     public PurpleChapterCard(int takeEnemyCoinCount, int moveOneUnitToAdjacentRegionCount, int removeOneEnemyUnitFromAnyRegionCount) {
+        super(null, null, false);
         this.takeEnemyCoinCount = takeEnemyCoinCount;
         this.moveOneUnitToAdjacentRegionCount = moveOneUnitToAdjacentRegionCount;
         this.removeOneEnemyUnitFromAnyRegionCount = removeOneEnemyUnitFromAnyRegionCount;

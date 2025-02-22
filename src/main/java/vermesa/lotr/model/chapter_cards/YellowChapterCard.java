@@ -4,6 +4,7 @@ public class YellowChapterCard extends ChapterCard {
     private final int coins;
 
     public YellowChapterCard(int coins) {
+        super(null, null, false);
         this.coins = coins;
     }
 

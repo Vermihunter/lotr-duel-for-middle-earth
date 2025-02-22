@@ -1,8 +1,11 @@
 package vermesa.lotr.model.landmark_effects;
 
-public class GreyHavens extends LandmarkEffect{
-    @Override
-    public void execute() {
+import vermesa.lotr.model.moves.MoveResult;
 
+public class GreyHavens extends LandmarkTile {
+
+    @Override
+    public MoveResult makeMove() {
+        return null;
     }
 }

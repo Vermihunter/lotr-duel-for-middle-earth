@@ -6,6 +6,7 @@ public class GreenChapterCard extends ChapterCard {
     private final Race race;
 
     public GreenChapterCard(Race race) {
+        super(null, null, false);
         this.race = race;
     }
 

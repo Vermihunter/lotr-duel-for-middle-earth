@@ -1,7 +1,7 @@
 package vermesa.lotr.model.race_effects;
 
-public interface IRaceEffect {
+import vermesa.lotr.model.IAction;
 
-    public RaceEffectApplyAttributes apply();
+public interface IRaceEffect extends IAction {
     public boolean isOneTimeCard();
 }

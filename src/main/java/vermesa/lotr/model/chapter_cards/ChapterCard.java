@@ -1,15 +1,15 @@
 package vermesa.lotr.model.chapter_cards;
 
-import vermesa.lotr.model.ChainingSymbol;
-import vermesa.lotr.model.SkillSet;
+import vermesa.lotr.model.*;
 
 import java.util.ArrayList;
 
-public class ChapterCard {
+public class ChapterCard implements IAction {
     /**
      * A list of cards that are dependent on this card i.e. the list of cards that will be
      * available only after playing this card.
      */
+
     private final ArrayList<ChapterCard> dependentOnThis = new ArrayList<ChapterCard>();
     private final SkillSet requiredSkillSet;
     private final ChainingSymbol chainingSymbol;
@@ -26,5 +26,18 @@ public class ChapterCard {
     public void addDependency(ChapterCard card) {
         dependentOnThis.add(card);
         card.remainingDependencies++;
+    }
+
+    public boolean isFaceUp() {
+        return isFaceUp;
+    }
+
+    public ChainingSymbol getChainingSymbol() {
+        return chainingSymbol;
+    }
+
+    @Override
+    public ActionResult action(GameContext ctx, GameState state) {
+        return null;
     }
 }

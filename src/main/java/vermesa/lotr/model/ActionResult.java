@@ -1,5 +1,4 @@
 package vermesa.lotr.model;
 
-public class LandmarkTile {
-
+public class ActionResult {
 }

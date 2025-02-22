@@ -8,6 +8,7 @@ public class RedChapterCard extends ChapterCard {
     private final Region regionSauron;
 
     public RedChapterCard(int unitCount, Region regionFellowship, Region regionSauron) {
+        super(null, null, false);
         this.unitCount = unitCount;
         this.regionFellowship = regionFellowship;
         this.regionSauron = regionSauron;

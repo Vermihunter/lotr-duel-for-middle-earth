@@ -14,5 +14,6 @@ public class Main {
         // Read JSON from file
         JsonConfig config = objectMapper.readValue(new File("DefaultConfig.json"), JsonConfig.class);
         System.out.println(config);
+        var game = config.createGame();
     }
 }

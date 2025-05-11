@@ -2,17 +2,28 @@ package vermesa.lotr.model.central_board;
 
 import vermesa.lotr.model.player.Player;
 
+import java.util.ArrayList;
+
 public class Region {
     private final RegionType regionType;
+    private final String fortressName;
+    private final ArrayList<Region> connectedRegions;
     private Player fortress;
     private Player unit;
     private int unitCount;
 
-    public Region(RegionType regionType) {
+
+    public Region(RegionType regionType, String fortressName) {
         this.regionType = regionType;
+        this.fortressName = fortressName;
+        this.connectedRegions = new ArrayList<Region>();
         fortress = null;
         unit = null;
         unitCount = 0;
+    }
+
+    public void addConnectedRegion(Region region) {
+        connectedRegions.add(region);
     }
 
     public void addUnits(Player player, int unitCount) {

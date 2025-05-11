@@ -6,5 +6,12 @@ public class GameState {
     Player playerOnMove;
     Player nextPlayerOnMove;
 
+    public GameState(Player playerOnMove, Player nextPlayerOnMove) {
+        this.playerOnMove = playerOnMove;
+        this.nextPlayerOnMove = nextPlayerOnMove;
+    }
 
+    public void setNextPlayerOnMove(Player nextPlayerOnMove) {
+        this.nextPlayerOnMove = nextPlayerOnMove;
+    }
 }

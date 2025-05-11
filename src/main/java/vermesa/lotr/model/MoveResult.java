@@ -1,4 +1,4 @@
 package vermesa.lotr.model;
 
-public class ActionResult {
+public class MoveResult {
 }

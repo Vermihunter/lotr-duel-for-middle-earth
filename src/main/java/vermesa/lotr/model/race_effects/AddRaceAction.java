@@ -1,6 +1,6 @@
 package vermesa.lotr.model.race_effects;
 
-public class AddEaglesRaceEffect implements IRaceEffect {
+public class AddRaceAction implements IRaceEffect {
     @Override
     public RaceEffectApplyAttributes apply() {
         return null;

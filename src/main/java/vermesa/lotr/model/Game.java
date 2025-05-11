@@ -1,8 +1,5 @@
 package vermesa.lotr.model;
 
-import vermesa.lotr.model.moves.IMove;
-import vermesa.lotr.model.moves.MoveResult;
-
 import java.util.ArrayList;
 
 public class Game {

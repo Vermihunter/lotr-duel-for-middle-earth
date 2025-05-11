@@ -6,4 +6,5 @@ public class SkillsetConfig {
     public int Courage;
     public int Knowledge;
     public int Leadership;
+    public boolean IsOptional = false;
 }

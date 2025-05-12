@@ -20,9 +20,17 @@ import java.util.List;
 public class ChapterCardPlayMove extends ChapterCardMove {
     private final boolean addedThroughChaining;
 
-    public ChapterCardPlayMove(ChapterCard chapterCard, boolean addedThroughChaining) {
+    private ChapterCardPlayMove(ChapterCard chapterCard, boolean addedThroughChaining) {
         super(chapterCard);
         this.addedThroughChaining = addedThroughChaining;
+    }
+
+    public static ChapterCardPlayMove withSkills(ChapterCard chapterCard) {
+        return new ChapterCardPlayMove(chapterCard, false);
+    }
+
+    public static ChapterCardPlayMove throughChainingSymbols(ChapterCard chapterCard) {
+        return new ChapterCardPlayMove(chapterCard, true);
     }
 
     /**

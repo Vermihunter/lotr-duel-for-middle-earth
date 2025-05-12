@@ -2,6 +2,8 @@ package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.chapter_cards.ChainingSymbols;
+import vermesa.lotr.model.moves.MoveResult;
 import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.moves.ChapterCardDiscardMove;
 import vermesa.lotr.model.moves.ChapterCardPlayMove;
@@ -39,7 +41,7 @@ public class Game {
         return possibleMoves;
     }
 
-    public ActionResult makeMove(IAction move) {
+    public MoveResult makeMove(IAction move) {
         ActionResult moveRes = move.action(context, state);
 
         boolean shiftPlayers = moveRes.shiftNextPlayer();
@@ -59,12 +61,13 @@ public class Game {
             state.setFollowUpMoves(moveRes.followUpActions());
         }
 
-        return moveRes;
+        return new MoveResult(true);
     }
 
     private void addChapterCardMoves(ArrayList<IAction> moves) {
         var playableChapterCards = state.getCurrentRoundInformation().getChapterCards().getPlayableChapterCards();
         Player playerOnMove = state.getPlayerOnMove();
+        var playerChainingSymbols = playerOnMove.getPlayerState().getChainingSymbols();
 
         var playerSkills = playerOnMove.getSkills();
         int playerCoins = playerOnMove.getCoins();
@@ -75,17 +78,18 @@ public class Game {
 
             SkillSet requiredSkills = playableChapterCard.context().requiredSkillSet();
             int coinsToPlayCard = playableChapterCard.context().coinsToPlay();
-
-            // Check if the player has enough Skills+Coins to play the card
             int skillsMissing = playerSkills.missingSkills(requiredSkills);
-            if (skillsMissing + coinsToPlayCard <= playerCoins) {
-                moves.add(new ChapterCardPlayMove(playableChapterCard, false));
-            }
-            // TODO: Check for chaining possibility → this should be checked first
-            // Check if the player can play the card through chaining symbol
-            else if (true) {
 
+            // Check if the player can play the card through chaining symbol
+            ChainingSymbols freeToPlayChainingSymbol = playableChapterCard.context().playForFreeChainingSymbol();
+            if (freeToPlayChainingSymbol != null && playerChainingSymbols.contains(freeToPlayChainingSymbol)) {
+                moves.add(ChapterCardPlayMove.throughChainingSymbols(playableChapterCard));
             }
+            // Check if the player has enough Skills+Coins to play the card
+            else if (skillsMissing + coinsToPlayCard <= playerCoins) {
+                moves.add(ChapterCardPlayMove.withSkills(playableChapterCard));
+            }
+
         }
     }
 

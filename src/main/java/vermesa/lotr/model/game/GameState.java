@@ -1,9 +1,10 @@
 package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.central_board.CentralBoard;
 import vermesa.lotr.model.player.Player;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameState {
@@ -13,12 +14,20 @@ public class GameState {
     private int currentRoundNumber;
     private int totalCoins;
     private List<IAction> followUpMoves;
+    private final GameContext gameContext;
+    private CurrentGameState currentGameState;
 
-    public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins) {
+    public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins, GameContext gameContext) {
         this.playerOnMove = playerOnMove;
         this.nextPlayerOnMove = nextPlayerOnMove;
-        this.currentRoundNumber = 0;
+        this.gameContext = gameContext;
         this.totalCoins = totalCoins;
+        this.currentRoundNumber = 0;
+        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber);
+    }
+
+    public CurrentGameState getCurrentGameState() {
+        return currentGameState;
     }
 
     public List<IAction> getFollowUpMoves() {
@@ -46,9 +55,6 @@ public class GameState {
         return totalCoins;
     }
 
-    public void initialize(GameContext gameContext) {
-        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber);
-    }
 
     public Player getPlayerOnMove() {
         return playerOnMove;
@@ -58,23 +64,84 @@ public class GameState {
         return nextPlayerOnMove;
     }
 
-    void shiftPlayers() {
+    public void shiftPlayers() {
+        currentGameState = checkGameState();
+        if (currentGameState != CurrentGameState.HAS_NOT_ENDED) {
+            return;
+        }
+
         Player tmp = playerOnMove;
         playerOnMove = nextPlayerOnMove;
         nextPlayerOnMove = tmp;
     }
 
-    /*
-    public void setNextPlayerOnMove(Player nextPlayerOnMove) {
-        this.nextPlayerOnMove = nextPlayerOnMove;
+    private CurrentGameState checkGameState() {
+        CurrentGameState questOfTheRingState = checkQuestOfTheRingState();
+        CurrentGameState supportOfTheRacesState = checkSupportOfTheRacesState();
+        CurrentGameState conqueringMiddleEarthState = checkConqueringMiddleEarthState();
+
+        return null;
     }
-     */
+
+    private CurrentGameState checkConqueringMiddleEarthState() {
+        if (playerPresentInAllRegions(gameContext.getFellowshipPlayer())) {
+            return CurrentGameState.FELLOWSHIP_WON;
+        }
+
+        if (playerPresentInAllRegions(gameContext.getSauronPlayer())) {
+            return CurrentGameState.SAURON_WON;
+        }
+
+        return CurrentGameState.HAS_NOT_ENDED;
+    }
+
+    private boolean playerPresentInAllRegions(Player player) {
+        var regions = gameContext.getCentralBoard().regions();
+        return regions.stream()
+                .filter(region -> region.getFortress() == player || region.getUnit() == player)
+                .count() == regions.size();
+    }
+
+    private CurrentGameState checkSupportOfTheRacesState() {
+        if (playerHasSupportOfTheRaces(gameContext.getFellowshipPlayer())) {
+            return CurrentGameState.FELLOWSHIP_WON;
+        }
+
+        if (playerHasSupportOfTheRaces(gameContext.getSauronPlayer())) {
+            return CurrentGameState.SAURON_WON;
+        }
+
+        return CurrentGameState.HAS_NOT_ENDED;
+    }
+
+    private boolean playerHasSupportOfTheRaces(Player player) {
+        return Arrays.stream(player.getSupportingRaces())
+                .filter(s -> s > 0)
+                .count() >= 6;
+    }
+
+    private CurrentGameState checkQuestOfTheRingState() {
+        var questOfTheRingTrack = gameContext.getQuestOfTheRingTrack();
+        int fellowShipInd = questOfTheRingTrack.getFellowshipPlayerIndex();
+        int sauronInd = questOfTheRingTrack.getSauronPlayerIndex();
+        int width = questOfTheRingTrack.getWidth();
+
+        if (fellowShipInd == width) {
+            return CurrentGameState.FELLOWSHIP_WON;
+        }
+
+        if (sauronInd >= fellowShipInd) {
+            return CurrentGameState.SAURON_WON;
+        }
+
+        return CurrentGameState.HAS_NOT_ENDED;
+    }
 
     public RoundInformation getCurrentRoundInformation() {
         return currentRoundInformation;
     }
 
-    public void startNewRound(GameContext gameContext) {
+    public void startNewRound() {
         currentRoundNumber++;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber);
     }

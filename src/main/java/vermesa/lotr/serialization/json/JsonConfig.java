@@ -66,9 +66,8 @@ public class JsonConfig implements IGameConfig {
 
 
         var context = contextBuilder.build();
-        var state = constructGameState(sauronPlayer, fellowshipPlayer);
+        var state = constructGameState(sauronPlayer, fellowshipPlayer, context);
 
-        state.initialize(context);
 
         return new Game(context, state);
     }
@@ -130,7 +129,7 @@ public class JsonConfig implements IGameConfig {
                 c.Color);
     }
 
-    private GameState constructGameState(SauronPlayer sauronPlayer, FellowshipPlayer fellowshipPlayer) {
+    private GameState constructGameState(SauronPlayer sauronPlayer, FellowshipPlayer fellowshipPlayer, GameContext context) {
         Player startingPlayer;
         Player otherPlayer;
 
@@ -144,7 +143,7 @@ public class JsonConfig implements IGameConfig {
             throw new IllegalArgumentException("Invalid starting player: " + StartingPlayer);
         }
 
-        return new GameState(startingPlayer, otherPlayer, TotalCoinCount);
+        return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);
     }
 
 

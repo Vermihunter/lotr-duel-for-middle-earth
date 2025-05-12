@@ -32,6 +32,22 @@ public class GameContext {
     private GameContext() {
     }
 
+    public CentralBoard getCentralBoard() {
+        return centralBoard;
+    }
+
+    public FellowshipPlayer getFellowshipPlayer() {
+        return fellowshipPlayer;
+    }
+
+    public SauronPlayer getSauronPlayer() {
+        return sauronPlayer;
+    }
+
+    public QuestOfTheRingTrack getQuestOfTheRingTrack() {
+        return questOfTheRingTrack;
+    }
+
     public ArrayList<RoundInformation> getRoundInformations() {
         return roundInformations;
     }

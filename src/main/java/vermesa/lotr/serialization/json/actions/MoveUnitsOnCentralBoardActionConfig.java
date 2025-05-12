@@ -1,9 +1,9 @@
 package vermesa.lotr.serialization.json.actions;
 
 
-import vermesa.lotr.model.actions.CentralBoardUnitMoveStrategy;
+import vermesa.lotr.model.actions.central_board_actions.CentralBoardUnitMoveStrategy;
 import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.actions.MoveUnitsOnCentralBoardAction;
+import vermesa.lotr.model.actions.central_board_actions.MoveUnitsOnCentralBoardAction;
 import vermesa.lotr.model.central_board.Region;
 
 import java.util.HashMap;

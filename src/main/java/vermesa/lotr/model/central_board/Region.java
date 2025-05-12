@@ -55,15 +55,15 @@ public class Region {
         }
     }
 
-    void removeFortress() {
+    public void removeFortress() {
         fortress = null;
     }
 
-    void addFortress(Player player) {
+    public void placeFortress(Player player) {
         fortress = player;
     }
-
     public Player getFortress() { return fortress; }
+
     public Player getUnit() { return unit; }
     public int getUnitCount() { return unitCount; }
     public RegionType getRegionType() { return regionType; }

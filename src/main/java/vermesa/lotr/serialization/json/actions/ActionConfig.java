@@ -22,6 +22,10 @@ import java.util.HashMap;
         @JsonSubTypes.Type(value = MultiChoiceActionConfig.class, name = "MultiChoice"),
         @JsonSubTypes.Type(value = TakeEnemyCoinsActionConfig.class, name = "TakeEnemyCoins"),
         @JsonSubTypes.Type(value = TakeEnemyUnitFromCentralBoardActionConfig.class, name = "TakeEnemyUnitFromCentralBoard"),
+        @JsonSubTypes.Type(value = TakeAnotherTurnActionConfig.class, name = "TakeAnotherTurn"),
+        @JsonSubTypes.Type(value = RemoveEnemyFortressActionConfig.class, name = "RemoveEnemyFortress"),
+
+
 })
 public abstract class ActionConfig {
     abstract public IAction constructAction(HashMap<String, Region> regionMapper);

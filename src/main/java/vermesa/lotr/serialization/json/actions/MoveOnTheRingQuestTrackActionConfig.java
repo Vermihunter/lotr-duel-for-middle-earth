@@ -1,7 +1,7 @@
 package vermesa.lotr.serialization.json.actions;
 
 import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.actions.MoveOnTheRingQuestTrackAction;
+import vermesa.lotr.model.actions.ring_quest_track_actions.MoveOnTheRingQuestTrackAction;
 import vermesa.lotr.model.central_board.Region;
 
 import java.util.HashMap;

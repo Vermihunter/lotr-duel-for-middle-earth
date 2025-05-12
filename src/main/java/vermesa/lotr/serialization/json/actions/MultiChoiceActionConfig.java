@@ -1,7 +1,6 @@
 package vermesa.lotr.serialization.json.actions;
 
 import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.actions.MultiChoiceAction;
 import vermesa.lotr.model.central_board.Region;
 
 import java.util.HashMap;

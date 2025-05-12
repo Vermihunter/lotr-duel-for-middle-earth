@@ -1,6 +1,6 @@
 package vermesa.lotr.serialization.json.actions;
 
-import vermesa.lotr.model.Race;
+import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
 

@@ -1,6 +1,6 @@
 package vermesa.lotr.serialization;
 
-import vermesa.lotr.model.Game;
+import vermesa.lotr.model.game.Game;
 
 public interface IGameConfig {
     public Game createGame();

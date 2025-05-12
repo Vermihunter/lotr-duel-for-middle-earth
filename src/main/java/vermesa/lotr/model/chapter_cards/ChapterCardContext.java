@@ -1,20 +1,16 @@
 package vermesa.lotr.model.chapter_cards;
 
+import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.actions.IAction;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ChapterCardContext {
-    private final List<List<IAction>> cardContexts = new ArrayList<>(ChapterCardColors.values().length);
+public record ChapterCardContext(
+        SkillSet requiredSkillSet,
+        ChainingSymbols gainedChainingSymbol,
+        ChainingSymbols playForFreeChainingSymbol,
+        ArrayList<IAction> actions,
+        int coinsToPlay,
+        ChapterCardColors color) {
 
-    public ChapterCardContext() {
-        for (int i = 0; i < ChapterCardColors.values().length; i++) {
-            cardContexts.add(new ArrayList<>());
-        }
-    }
-
-    public List<IAction> getCardContext(ChapterCardColors color) {
-        return cardContexts.get(color.ordinal());
-    }
 }

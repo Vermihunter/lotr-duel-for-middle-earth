@@ -1,8 +1,5 @@
 package vermesa.lotr.serialization.json.actions;
 
-import vermesa.lotr.model.GameContext;
-import vermesa.lotr.model.GameState;
-import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
 

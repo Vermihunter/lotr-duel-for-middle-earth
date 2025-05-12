@@ -15,5 +15,11 @@ public class Main {
         JsonConfig config = objectMapper.readValue(new File("DefaultConfig.json"), JsonConfig.class);
         System.out.println(config);
         var game = config.createGame();
+
+        var firstMoves = game.getPossibleMoves();
+        System.out.println(firstMoves);
+
+        game.makeMove(firstMoves.get(3));
+        System.out.println("Move done");
     }
 }

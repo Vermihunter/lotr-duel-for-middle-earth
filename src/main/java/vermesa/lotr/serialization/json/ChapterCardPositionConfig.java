@@ -1,9 +1,9 @@
 package vermesa.lotr.serialization.json;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ChapterCardPositionConfig {
     public int ID;
-    public List<Integer> DependsOn;
+    public ArrayList<Integer> DependsOn;
     public boolean IsFaceUp;
 }

@@ -14,13 +14,16 @@ public class RaceEffectCallbackEventHandler {
 
     public RaceEffectCallbackEventHandler() {
         this.eventHandlers = new ArrayList<>(RaceEffectCallbackEventType.values().length);
+        for (RaceEffectCallbackEventType _ : RaceEffectCallbackEventType.values()) {
+            this.eventHandlers.add(new ArrayList<>());
+        }
     }
 
-    void addEventHandler(RaceEffectCallbackEventType eventType, IAction eventHandler) {
+    public void addEventHandler(RaceEffectCallbackEventType eventType, IAction eventHandler) {
         this.eventHandlers.get(eventType.ordinal()).add(eventHandler);
     }
 
-    void signalEvent(RaceEffectCallbackEventType eventType, GameContext gameContext, GameState gameState) {
+    public void signalEvent(RaceEffectCallbackEventType eventType, GameContext gameContext, GameState gameState) {
         for (IAction eventHandler : this.eventHandlers.get(eventType.ordinal())) {
             eventHandler.action(gameContext, gameState);
         }

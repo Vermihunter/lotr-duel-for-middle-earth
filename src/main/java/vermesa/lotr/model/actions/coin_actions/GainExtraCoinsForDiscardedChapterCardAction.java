@@ -7,6 +7,7 @@ import vermesa.lotr.model.actions.IAction;
 
 /**
  * Humans race effect → takes double amount of coins for discarding Chapter cards
+ * TODO: this is part of the event callback handlers, add it there, the configuration reader could be used
  */
 public class GainExtraCoinsForDiscardedChapterCardAction implements IAction {
     private final int[] extraCoinsPerRound;

@@ -1,16 +1,15 @@
 package vermesa.lotr.model.landmark_effects;
 
+import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
-import vermesa.lotr.model.moves.IMove;
-import vermesa.lotr.model.moves.MoveResult;
 import vermesa.lotr.model.skills.SkillSet;
 
 import java.util.List;
 
-public class LandmarkTile implements IMove {
+public class LandmarkTile implements IAction {
     private final List<IAction> actions;
     private final SkillSet requiredSkillset;
     private final Region region;
@@ -21,14 +20,8 @@ public class LandmarkTile implements IMove {
         this.region = region;
     }
 
-
-    /*@Override
-    public boolean isPlayableByPlayer(Player player) {
-        return false;
-    }
-*/
     @Override
-    public MoveResult playMove(GameContext ctx, GameState state) {
+    public ActionResult action(GameContext ctx, GameState state) {
         return null;
     }
 }

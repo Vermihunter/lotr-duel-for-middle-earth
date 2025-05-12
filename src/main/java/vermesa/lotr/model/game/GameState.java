@@ -1,6 +1,10 @@
 package vermesa.lotr.model.game;
 
+import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameState {
     private Player playerOnMove;
@@ -8,6 +12,7 @@ public class GameState {
     private RoundInformation currentRoundInformation;
     private int currentRoundNumber;
     private int totalCoins;
+    private List<IAction> followUpMoves;
 
     public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins) {
         this.playerOnMove = playerOnMove;
@@ -15,6 +20,19 @@ public class GameState {
         this.currentRoundNumber = 0;
         this.totalCoins = totalCoins;
     }
+
+    public List<IAction> getFollowUpMoves() {
+        return followUpMoves;
+    }
+
+    public void setFollowUpMoves(List<IAction> followUpMoves) {
+        this.followUpMoves = followUpMoves;
+    }
+
+    public void resetFollowUpMoves() {
+        followUpMoves = null;
+    }
+
 
     public void putBackCoinsToReserve(int coins) {
         totalCoins += coins;
@@ -38,6 +56,12 @@ public class GameState {
 
     public Player getNextPlayerOnMove() {
         return nextPlayerOnMove;
+    }
+
+    void shiftPlayers() {
+        Player tmp = playerOnMove;
+        playerOnMove = nextPlayerOnMove;
+        nextPlayerOnMove = tmp;
     }
 
     /*

@@ -34,6 +34,7 @@ public class QuestOfTheRingTrack {
     }
 
     public void MovePlayer(Player player, int move) {
+
         switch (player) {
             case SauronPlayer ignored -> MovePlayer(player, sauronPlayerIndex, move);
             case FellowshipPlayer ignored -> MovePlayer(player, fellowshipPlayerIndex, move);

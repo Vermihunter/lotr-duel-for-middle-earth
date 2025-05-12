@@ -1,12 +1,12 @@
 {
   "InitialConfig": {
     "FellowshipPlayer": {
-      "Coins": 2,
+      "Coins": 3,
       "Units": 15,
       "Towers": 7
     },
     "SauronPlayer": {
-      "Coins": 1,
+      "Coins": 2,
       "Units": 15,
       "Towers": 7
     }

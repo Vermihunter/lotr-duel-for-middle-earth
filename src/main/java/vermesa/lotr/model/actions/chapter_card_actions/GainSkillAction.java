@@ -2,23 +2,18 @@ package vermesa.lotr.model.actions.chapter_card_actions;
 
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
+import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
-public class GainSkillAction implements IAction {
-    private final SkillSet skillsToGain;
-
-    public GainSkillAction(SkillSet skillsToGain) {
-        this.skillsToGain = skillsToGain;
-    }
+public record GainSkillAction(SkillSet skillsToGain) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        return null;
-    }
+        Player playerOnMove = state.getPlayerOnMove();
+        playerOnMove.getSkills().addSkillSet(skillsToGain);
 
-    public SkillSet getSkillsToGain() {
-        return skillsToGain;
+        return ActionResult.OK;
     }
 }

@@ -7,12 +7,7 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
 
-public class DiscardEnemyGreyCardAction implements IAction {
-    private final SkillSet skillsetToDiscard;
-
-    public DiscardEnemyGreyCardAction(SkillSet skillsetToDiscard) {
-        this.skillsetToDiscard = skillsetToDiscard;
-    }
+public record DiscardEnemyGreyCardAction(SkillSet skillsetToDiscard) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

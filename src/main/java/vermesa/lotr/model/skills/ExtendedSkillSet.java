@@ -51,14 +51,13 @@ public class ExtendedSkillSet {
     }
 
     public void addSkillSet(SkillSet skillSet) {
-        fixedSkillSets.add(skillSet);
+        if (skillSet instanceof OptionalSkillSet) {
+            optionalSkillSets.add((OptionalSkillSet) skillSet);
+        } else {
+            fixedSkillSets.add(skillSet);
+        }
     }
 
-    public void addOptionalSkillSet(OptionalSkillSet skillSet) {
-        fixedSkillSets.add(skillSet);
-    }
-
-    //  @Override
     public int missingSkills(SkillSet other) {
 
 

@@ -12,6 +12,7 @@
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
     </properties>
 
     <dependencies>
@@ -22,6 +23,39 @@
             <version>2.15.2</version> <!-- Use the latest version -->
         </dependency>
 
+        <!-- JUnit API for writing tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit engine to run the tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Surefire runs your unit tests during “test”/“verify” phases -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <!-- look for *Test.java files -->
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

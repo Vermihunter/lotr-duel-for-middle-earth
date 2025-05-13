@@ -24,6 +24,10 @@ import java.util.HashMap;
         @JsonSubTypes.Type(value = TakeEnemyUnitFromCentralBoardActionConfig.class, name = "TakeEnemyUnitFromCentralBoard"),
         @JsonSubTypes.Type(value = TakeAnotherTurnActionConfig.class, name = "TakeAnotherTurn"),
         @JsonSubTypes.Type(value = RemoveEnemyFortressActionConfig.class, name = "RemoveEnemyFortress"),
+        @JsonSubTypes.Type(value = EventBasedRaceEffectConfig.class, name = "EventBasedRaceEffect"),
+        @JsonSubTypes.Type(value = GainAttributeRaceEffectConfig.class, name = "GainAttributeRaceEffect"),
+        @JsonSubTypes.Type(value = GainExtraCoinsForDiscardedChapterCardActionConfig.class, name = "GainExtraCoinsForDiscardedChapterCard"),
+        @JsonSubTypes.Type(value = OneTimeImmediateRaceEffectConfig.class, name = "OneTimeImmediateRaceEffect"),
 
 
 })

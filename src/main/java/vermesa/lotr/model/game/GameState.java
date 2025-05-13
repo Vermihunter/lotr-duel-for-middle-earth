@@ -15,7 +15,7 @@ public class GameState {
     private int currentRoundNumber;
     private int totalCoins;
     private List<IMove> followUpMoves;
-    private List<LandmarkTile> currentlyUsableLandmarkTiles;
+    private final List<LandmarkTile> currentlyUsableLandmarkTiles;
     private int landmarkTileGlobalIndex;
     private final GameContext gameContext;
     private CurrentGameState currentGameState;

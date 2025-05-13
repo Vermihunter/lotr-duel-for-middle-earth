@@ -149,7 +149,7 @@ public class JsonConfig implements IGameConfig {
         int landmarkTilesToConfigure = context.getLandmarkTileContext().landmarkTilesAtTime();
         var startingLandmarkTiles = context.getLandmarkTiles().stream()
                 .limit(landmarkTilesToConfigure)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context, startingLandmarkTiles);
     }

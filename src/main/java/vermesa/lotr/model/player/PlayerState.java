@@ -17,6 +17,10 @@ public class PlayerState {
         this.obtainedChainingSymbols = new HashSet<>();
     }
 
+    public boolean hasAttribute(RaceEffectAttributes raceEffectAttributes) {
+        return this.raceEffectAttributes.contains(raceEffectAttributes);
+    }
+
     public void addChainingSymbol(ChainingSymbols symbol) {
         obtainedChainingSymbols.add(symbol);
     }

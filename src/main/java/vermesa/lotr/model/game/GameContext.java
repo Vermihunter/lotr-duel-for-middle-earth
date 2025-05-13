@@ -6,6 +6,7 @@ import vermesa.lotr.model.chapter_cards.ChapterCardContext;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardConfig;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
+import vermesa.lotr.model.landmark_effects.LandmarkTileContext;
 import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.model.central_board.Region;
@@ -24,6 +25,7 @@ public class GameContext {
     private SauronPlayer sauronPlayer;
     private QuestOfTheRingTrack questOfTheRingTrack;
     private CentralBoard centralBoard;
+    private LandmarkTileContext landmarkTileContext;
 
 
     /**
@@ -59,6 +61,7 @@ public class GameContext {
         FellowshipPlayer fellowshipPlayer;
         SauronPlayer sauronPlayer;
         QuestOfTheRingTrack questOfTheRingTrack;
+        LandmarkTileContext landmarkTileContext;
 
         Random rand = new Random(123456);
 
@@ -88,6 +91,11 @@ public class GameContext {
             return this;
         }
 
+        public Builder withLandmarkTileContext(LandmarkTileContext landmarkTileContext) {
+            this.landmarkTileContext = landmarkTileContext;
+            return this;
+        }
+
 
         public GameContext build() {
             GameContext gameContext = new GameContext();
@@ -96,6 +104,7 @@ public class GameContext {
             gameContext.sauronPlayer = this.sauronPlayer;
             gameContext.centralBoard = new CentralBoard(regions);
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
+            gameContext.landmarkTileContext = this.landmarkTileContext;
 
             gameContext.roundInformations = roundConfigs.stream()
                     .map(this::createRoundInformation)

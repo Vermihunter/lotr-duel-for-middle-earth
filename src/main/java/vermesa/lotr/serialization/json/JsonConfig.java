@@ -10,6 +10,7 @@ import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
+import vermesa.lotr.model.landmark_effects.LandmarkTileContext;
 import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
@@ -34,6 +35,7 @@ public class JsonConfig implements IGameConfig {
     public ArrayList<ChapterCardConfig> ChapterCardsToUse;
     public ArrayList<RegionConfig> Regions;
     public QuestOfTheRingConfig QuestOfTheRingTrackConfig;
+    public LandmarkTileContextConfig LandmarkTileContext;
 
     private HashMap<String, Region> regionsByName;
 
@@ -44,6 +46,7 @@ public class JsonConfig implements IGameConfig {
         var landmarkTiles = constructLandmarkTiles();
         var roundConfigs = constructRoundConfigs();
         var questOfTheRingTrack = constructQuestOfTheRingTrack();
+        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContext.CoinPerAlreadyPlacedFortressPawn);
         
         SauronPlayer sauronPlayer = new SauronPlayer(
                 InitialConfig.SauronPlayer.Coins,
@@ -56,16 +59,15 @@ public class JsonConfig implements IGameConfig {
                 InitialConfig.FellowshipPlayer.Towers);
 
 
-        var contextBuilder = new GameContext.Builder()
+        var context = new GameContext.Builder()
             .addRegions(regions)
             .addLandmarkTiles(landmarkTiles)
                 .withPlayers(fellowshipPlayer, sauronPlayer)
                 .withRoundConfigs(roundConfigs)
-                .withQuestOfTheRingTrack(questOfTheRingTrack);
-          //  .build();
+                .withQuestOfTheRingTrack(questOfTheRingTrack)
+                .withLandmarkTileContext(landmarkTileContext)
+                .build();
 
-
-        var context = contextBuilder.build();
         var state = constructGameState(sauronPlayer, fellowshipPlayer, context);
 
 

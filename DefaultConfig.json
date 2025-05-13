@@ -13,6 +13,9 @@
   },
   "StartingPlayer": "Sauron",
   "TotalCoinCount": 30,
+  "LandmarkTileContext": {
+    "CoinPerAlreadyPlacedFortressPawn": 1
+  },
   "LandmarkTilesToUse": [
     {
       "FortressToPlaceTo": "Mordor",

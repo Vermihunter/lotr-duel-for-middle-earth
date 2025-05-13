@@ -117,7 +117,6 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
         return switch (chaptercard.context().color()) {
             case BLUE -> RaceEffectCallbackEventType.CHAPTER_CARD_BLUE_USED;
             case GREEN -> RaceEffectCallbackEventType.CHAPTER_CARD_GREEN_USED;
-            case RED -> RaceEffectCallbackEventType.CHAPTER_CARD_RED_USED;
             case YELLOW -> RaceEffectCallbackEventType.CHAPTER_CARD_YELLOW_USED;
             default -> null;
         };

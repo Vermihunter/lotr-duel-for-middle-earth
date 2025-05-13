@@ -35,6 +35,7 @@ public class JsonConfig implements IGameConfig {
     public ArrayList<ChapterCardConfig> ChapterCardsToUse;
     public ArrayList<RegionConfig> Regions;
     public QuestOfTheRingConfig QuestOfTheRingTrackConfig;
+    public ArrayList<RaceConfig> Races;
 
     private HashMap<String, Region> regionsByName;
 

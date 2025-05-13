@@ -15,10 +15,12 @@ public record PlaceUnitsOnCentralBoardAction(List<PlaceUnitOnCentralBoardContext
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player playerOnMove = state.getPlayerOnMove();
-        for (PlaceUnitOnCentralBoardContext unitPlacing : unitPlacings) {
+
+        unitPlacings.forEach(unitPlacing -> {
             unitPlacing.region().addUnits(playerOnMove, unitPlacing.unitsToPlace());
-        }
+        });
 
         return ActionResult.OK;
     }
+
 }

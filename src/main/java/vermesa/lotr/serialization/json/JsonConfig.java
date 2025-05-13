@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static javax.swing.text.html.HTML.Attribute.N;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonConfig implements IGameConfig {
 
@@ -38,7 +36,6 @@ public class JsonConfig implements IGameConfig {
     public ArrayList<ChapterCardConfig> ChapterCardsToUse;
     public ArrayList<RegionConfig> Regions;
     public QuestOfTheRingConfig QuestOfTheRingTrackConfig;
-    public LandmarkTileContextConfig LandmarkTileContext;
 
     private HashMap<String, Region> regionsByName;
 

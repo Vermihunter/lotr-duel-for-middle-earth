@@ -9,6 +9,7 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.chapter_cards.ChapterCard;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +18,27 @@ import java.util.List;
  * in the ChapterCardContext object as a list of IAction objects, all chapter card play
  * moves can be represented by a single class
  */
-public class ChapterCardPlayMove extends ChapterCardMove {
+public class ChapterCardPlayMove extends ChapterCardMove implements Serializable {
     private final boolean addedThroughChaining;
+    private final int coinsToPlay;
 
-    private ChapterCardPlayMove(ChapterCard chapterCard, boolean addedThroughChaining) {
+    private ChapterCardPlayMove(ChapterCard chapterCard, boolean addedThroughChaining, int coinsToPlay) {
         super(chapterCard);
         this.addedThroughChaining = addedThroughChaining;
+        this.coinsToPlay = coinsToPlay;
     }
 
-    public static ChapterCardPlayMove withSkills(ChapterCard chapterCard) {
-        return new ChapterCardPlayMove(chapterCard, false);
+    public static ChapterCardPlayMove withSkills(ChapterCard chapterCard, int coinsToPlay) {
+        return new ChapterCardPlayMove(chapterCard, false, coinsToPlay);
     }
 
     public static ChapterCardPlayMove throughChainingSymbols(ChapterCard chapterCard) {
-        return new ChapterCardPlayMove(chapterCard, true);
+        return new ChapterCardPlayMove(chapterCard, true, 0);
+    }
+
+    @Override
+    public String toString() {
+        return "ChapterCardPlayMove: " + chaptercard.toString();
     }
 
     /**
@@ -48,19 +56,27 @@ public class ChapterCardPlayMove extends ChapterCardMove {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         boolean shiftRounds = true;
-        List<IAction> followUpActions = List.of();
+        List<IMove> followUpActions = List.of();
         Player playerOnMove = state.getPlayerOnMove();
 
         // Executing sub-actions
         for (var action : chaptercard.context().actions()) {
+            if (action == null) {
+                throw new IllegalArgumentException("");
+            }
+
             var subResult = action.action(ctx, state);
+
+            if (subResult == null) {
+                throw new IllegalArgumentException("");
+            }
 
             if (!subResult.shiftNextPlayer()) {
                 shiftRounds = false;
             }
 
             if (!subResult.followUpActions().isEmpty()) {
-                if (followUpActions.isEmpty()) {
+                if (!followUpActions.isEmpty()) {
                     throw new IllegalArgumentException("There were already defined follow up actions - conflict");
                 }
                 followUpActions = subResult.followUpActions();
@@ -85,6 +101,9 @@ public class ChapterCardPlayMove extends ChapterCardMove {
             callbackHandler.signalEvent(RaceEffectCallbackEventType.CHAINING_SYMBOL_USED, ctx, state);
         }
 
+        // Common things on successful Chapter card moves
+        onSuccessfulMove(state);
+
         return new ActionResult(followUpActions, shiftRounds);
     }
 
@@ -102,5 +121,10 @@ public class ChapterCardPlayMove extends ChapterCardMove {
             case YELLOW -> RaceEffectCallbackEventType.CHAPTER_CARD_YELLOW_USED;
             default -> null;
         };
+    }
+
+    @Override
+    public int coinsToPlay() {
+        return coinsToPlay;
     }
 }

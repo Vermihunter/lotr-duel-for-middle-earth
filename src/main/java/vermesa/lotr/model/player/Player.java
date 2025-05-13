@@ -8,9 +8,6 @@ import java.util.HashSet;
 
 public class Player {
     private final ExtendedSkillSet skillSet;
-
-    private final HashSet<ChainingSymbols> chainingSymbols;
-
     private final PlayerState playerState;
 
     // Number of cards per race
@@ -24,7 +21,6 @@ public class Player {
         this.units = units;
         this.towers = towers;
         this.skillSet = new ExtendedSkillSet();
-        this.chainingSymbols = new HashSet<>();
         this.supportingRaces = new int[Race.values().length];
         this.playerState = new PlayerState();
     }
@@ -37,7 +33,7 @@ public class Player {
         supportingRaces[race.ordinal()]++;
     }
 
-    public final int[] getSupportingRaces() {
+    public int[] getSupportingRaces() {
         return supportingRaces;
     }
 
@@ -49,7 +45,6 @@ public class Player {
     public void addCoins(int coins) {
         this.coins += coins;
     }
-
     public void removeCoins(int coins) {
         this.coins -= coins;
     }

@@ -27,6 +27,9 @@ public class SkillSet {
                 .sum();
     }
 
+    public int[] getSkillCounts() {
+        return skillCounts;
+    }
     public boolean isOptional() {
         return false;
     }

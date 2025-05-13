@@ -1,7 +1,6 @@
 package vermesa.lotr.model.skills;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,16 +50,78 @@ public class ExtendedSkillSet {
     }
 
     public void addSkillSet(SkillSet skillSet) {
-        if (skillSet instanceof OptionalSkillSet) {
-            optionalSkillSets.add((OptionalSkillSet) skillSet);
-        } else {
-            fixedSkillSets.add(skillSet);
-        }
+        fixedSkillSets.add(skillSet);
     }
 
-    public int missingSkills(SkillSet other) {
+    public void addOptionalSkillSet(OptionalSkillSet skillSet) {
+        fixedSkillSets.add(skillSet);
+    }
 
+    public int missingSkills(SkillSet required) {
+        SkillSet fixed = combineFixedSkillSets();
+        int[] have = fixed.getSkillCounts();
+        int[] need = required.getSkillCounts();
+        int dims = have.length;
 
-        return 0;
+        // 2) Compute initial deficits and their sum
+        int[] deficits = new int[dims];
+        int totalDef = 0;
+        for (int i = 0; i < dims; i++) {
+            deficits[i] = Math.max(0, need[i] - have[i]);
+            totalDef += deficits[i];
+        }
+
+        if (totalDef == 0) {
+            // already satisfy all requirements just from fixed sets
+            return 0;
+        }
+
+        // 3) Run a small DP/“state‐space search” over your optionalSkillSets
+        //    Each optional group can be used to reduce ONE skill's deficit.
+        //    We track all reachable deficit‐vectors as we consume each optional group.
+        Set<List<Integer>> states = new HashSet<>();
+        states.add(Arrays.stream(deficits).boxed().collect(Collectors.toList()));
+
+        for (SkillSet opt : optionalSkillSets) {
+            int[] bonus = opt.getSkillCounts();
+            Set<List<Integer>> next = new HashSet<>();
+
+            for (List<Integer> st : states) {
+                // a) choose *not* to use this optional at all
+                next.add(st);
+
+                // b) use it to cut down one of the remaining deficits
+                for (int i = 0; i < dims; i++) {
+                    int b = bonus[i];
+                    if (b <= 0 || st.get(i) == 0) continue;
+                    List<Integer> copy = new ArrayList<>(st);
+                    copy.set(i, Math.max(0, copy.get(i) - b));
+                    next.add(copy);
+                }
+            }
+            states = next;
+        }
+
+        // 4) Of all final “deficit‐vectors,” pick the one whose sum is smallest
+        return states.stream()
+                .mapToInt(v -> v.stream().mapToInt(Integer::intValue).sum())
+                .min()
+                .orElse(totalDef); // 0 if you covered everything
+    }
+
+    private SkillSet combineFixedSkillSets() {
+        int length = Skill.values().length;
+        int[] combined = new int[length];
+
+        // Sum them up
+        for (SkillSet ss : fixedSkillSets) {
+            int[] counts = ss.getSkillCounts();
+            for (int i = 0; i < length; i++) {
+                combined[i] += counts[i];
+            }
+        }
+
+        // Construct a new SkillSet; assume constructor defensively copies the array
+        return new SkillSet(combined);
     }
 }

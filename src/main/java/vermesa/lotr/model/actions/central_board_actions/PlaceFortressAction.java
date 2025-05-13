@@ -7,13 +7,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.player.Player;
 
-public class PlaceFortressAction implements IAction {
-    private final Region region;
-
-    public PlaceFortressAction(Region region) {
-        this.region = region;
-    }
-
+public record PlaceFortressAction(Region region) implements IAction {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player playerOnMove = state.getPlayerOnMove();

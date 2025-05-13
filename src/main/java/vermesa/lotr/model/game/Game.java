@@ -3,6 +3,7 @@ package vermesa.lotr.model.game;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.chapter_cards.ChainingSymbols;
+import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.moves.MoveResult;
 import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.moves.ChapterCardDiscardMove;
@@ -21,12 +22,16 @@ public class Game {
         this.state = state;
     }
 
+    public final GameState getState() {
+        return state;
+    }
+
     /**
      * Returns the moves that the player who is on move has as opportunities
      *
      * @return All valid moves that could be sent view Game.makeMove()
      */
-    public List<IAction> getPossibleMoves() {
+    public List<IMove> getPossibleMoves() {
         // If there are moves that must be used, return them
         var possibleFollowUpMoves = state.getFollowUpMoves();
         if (possibleFollowUpMoves != null) {
@@ -34,7 +39,7 @@ public class Game {
         }
 
         // Otherwise construct moves for the current player
-        ArrayList<IAction> possibleMoves = new ArrayList<>();
+        ArrayList<IMove> possibleMoves = new ArrayList<>();
         addChapterCardMoves(possibleMoves);
         addLandmarkTileMoves(possibleMoves);
 
@@ -43,6 +48,10 @@ public class Game {
 
     public MoveResult makeMove(IAction move) {
         ActionResult moveRes = move.action(context, state);
+
+        if (moveRes == null) {
+            throw new IllegalArgumentException();
+        }
 
         boolean shiftPlayers = moveRes.shiftNextPlayer();
         boolean followUpActionsEmpty = moveRes.followUpActions().isEmpty();
@@ -55,16 +64,30 @@ public class Game {
             throw new IllegalArgumentException("If players are not shifted, there must be follow up actions");
         }
 
+        // Act according to the result of actions
         if (shiftPlayers) {
             state.shiftPlayers();
+            state.resetFollowUpMoves();
         } else {
             state.setFollowUpMoves(moveRes.followUpActions());
+        }
+
+        // Possibly initialize a new round if there are no more Chapter cards left
+        if (state.getCurrentRoundInformation().getChapterCards().getPlayableChapterCards().isEmpty()) {
+            if (context.getRoundInformations().size() > state.getCurrentRoundNumber()) {
+                state.startNewRound();
+            } else {
+                if (state.getCurrentGameState() == CurrentGameState.HAS_NOT_ENDED) {
+                    throw new IllegalStateException("Game has ended without a winner");
+                }
+            }
+
         }
 
         return new MoveResult(true);
     }
 
-    private void addChapterCardMoves(ArrayList<IAction> moves) {
+    private void addChapterCardMoves(ArrayList<IMove> moves) {
         var playableChapterCards = state.getCurrentRoundInformation().getChapterCards().getPlayableChapterCards();
         Player playerOnMove = state.getPlayerOnMove();
         var playerChainingSymbols = playerOnMove.getPlayerState().getChainingSymbols();
@@ -87,13 +110,13 @@ public class Game {
             }
             // Check if the player has enough Skills+Coins to play the card
             else if (skillsMissing + coinsToPlayCard <= playerCoins) {
-                moves.add(ChapterCardPlayMove.withSkills(playableChapterCard));
+                moves.add(ChapterCardPlayMove.withSkills(playableChapterCard, coinsToPlayCard + skillsMissing));
             }
 
         }
     }
 
-    private void addLandmarkTileMoves(ArrayList<IAction> moves) {
+    private void addLandmarkTileMoves(ArrayList<IMove> moves) {
 
     }
 

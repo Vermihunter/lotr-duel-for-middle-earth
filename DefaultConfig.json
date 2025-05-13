@@ -82,6 +82,7 @@
         {
           "Type": "PlaceUnitsOnCentralBoard",
           "UnitsToPlace": 1,
+          "Strategy": "ALL_TO_SAME_REGION",
           "PossibleRegionsToPlace": [
             "Gondor"
           ]
@@ -104,6 +105,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "PossibleRegionsToPlace": [
             "Rohan"
           ],
@@ -147,9 +149,9 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
-            "Arnor",
             "Arnor"
           ]
         },
@@ -667,6 +669,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 1,
           "PossibleRegionsToPlace": [
             "Gondor",
@@ -691,6 +694,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 1,
           "PossibleRegionsToPlace": [
             "Enedwaith",
@@ -715,6 +719,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 1,
           "PossibleRegionsToPlace": [
             "Lindon",
@@ -1148,6 +1153,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
             "Lindon",
@@ -1172,6 +1178,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
             "Mordor",
@@ -1196,6 +1203,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
             "Gondor",
@@ -1220,6 +1228,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
             "Lindon",
@@ -1244,6 +1253,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 2,
           "PossibleRegionsToPlace": [
             "Arnor",
@@ -1488,6 +1498,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Enedwaith",
@@ -1512,6 +1523,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Gondor",
@@ -1536,6 +1548,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Rhovanion",
@@ -1560,6 +1573,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Lindon",
@@ -1584,6 +1598,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Rhovanion",
@@ -1608,6 +1623,7 @@
       "Effects": [
         {
           "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
           "UnitsToPlace": 3,
           "PossibleRegionsToPlace": [
             "Enedwaith",
@@ -1631,21 +1647,15 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "TakeEnemyCoins",
-              "CoinsToTake": 1
-            },
-            {
-              "Type": "MoveUnitsOnCentralBoard",
-              "Strategy": [
-                "NEIGHBORING",
-                "NEIGHBORING"
-              ]
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": [
+            "NEIGHBORING",
+            "NEIGHBORING"
+          ]
         }
       ],
       "GainedChainingSymbol": null,
@@ -1664,24 +1674,18 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "TakeEnemyUnitFromCentralBoard",
-              "UnitsToTake": 1
-            },
-            {
-              "Type": "TakeEnemyCoins",
-              "CoinsToTake": 1
-            },
-            {
-              "Type": "MoveUnitsOnCentralBoard",
-              "Strategy": [
-                "NEIGHBORING"
-              ]
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": [
+            "NEIGHBORING"
+          ]
         }
       ],
       "GainedChainingSymbol": null,
@@ -1700,18 +1704,12 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "TakeEnemyUnitFromCentralBoard",
-              "UnitsToTake": 1
-            },
-            {
-              "Type": "TakeEnemyCoins",
-              "CoinsToTake": 2
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 2
         }
       ],
       "GainedChainingSymbol": null,
@@ -1730,18 +1728,12 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "TakeEnemyUnitFromCentralBoard",
-              "UnitsToTake": 2
-            },
-            {
-              "Type": "TakeEnemyCoins",
-              "CoinsToTake": 1
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 2
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
         }
       ],
       "GainedChainingSymbol": null,
@@ -1760,21 +1752,15 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "TakeEnemyUnitFromCentralBoard",
-              "UnitsToTake": 1
-            },
-            {
-              "Type": "MoveUnitsOnCentralBoard",
-              "Strategy": [
-                "NEIGHBORING",
-                "NEIGHBORING"
-              ]
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": [
+            "NEIGHBORING",
+            "NEIGHBORING"
+          ]
         }
       ],
       "GainedChainingSymbol": null,
@@ -1793,18 +1779,12 @@
       },
       "Effects": [
         {
-          "Type": "MultiChoice",
-          "PossibleActions": [
-            {
-              "Type": "MoveUnitsOnCentralBoard",
-              "Strategy": [
-                "NEIGHBORING",
-                "NEIGHBORING",
-                "NEIGHBORING"
-              ]
-            }
-          ],
-          "ActionsToTake": 1
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": [
+            "NEIGHBORING",
+            "NEIGHBORING",
+            "NEIGHBORING"
+          ]
         }
       ],
       "GainedChainingSymbol": null,
@@ -1831,7 +1811,8 @@
         "BonusActions": [
           {
             "Type": "PlaceUnitsOnCentralBoard",
-            "UnitsToPlace": 2,
+            "UnitsToPlace": 1,
+            "Strategy": "ALL_TO_SAME_REGION",
             "PossibleRegionsToPlace": [
               "Arnor",
               "Mordor",

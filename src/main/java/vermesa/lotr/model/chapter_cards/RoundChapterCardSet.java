@@ -65,7 +65,7 @@ public class RoundChapterCardSet {
      *
      * @param chapterCard The chapter card that was played successfully
      */
-    void moveSuccessful(ChapterCard chapterCard) {
+    public void moveSuccessful(ChapterCard chapterCard) {
         int id = chapterCard.id();
         // Decrease the remaining dependency count on all chapter card that is dependent
         // on the successfully played on

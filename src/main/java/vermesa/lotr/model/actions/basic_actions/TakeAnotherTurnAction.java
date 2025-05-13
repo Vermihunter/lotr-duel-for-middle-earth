@@ -9,6 +9,6 @@ public class TakeAnotherTurnAction implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        return null;
+        return new ActionResult(null, false);
     }
 }

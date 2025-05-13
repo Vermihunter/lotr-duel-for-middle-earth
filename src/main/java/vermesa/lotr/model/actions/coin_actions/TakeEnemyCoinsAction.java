@@ -20,6 +20,6 @@ public class TakeEnemyCoinsAction implements IAction {
         otherPlayer.removeCoins(coinsToTake);
         state.putBackCoinsToReserve(coinsToTake);
 
-        return null;
+        return ActionResult.OK;
     }
 }

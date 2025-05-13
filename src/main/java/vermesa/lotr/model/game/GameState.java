@@ -1,7 +1,7 @@
 package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.central_board.CentralBoard;
+import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class GameState {
     private RoundInformation currentRoundInformation;
     private int currentRoundNumber;
     private int totalCoins;
-    private List<IAction> followUpMoves;
+    private List<IMove> followUpMoves;
     private final GameContext gameContext;
     private CurrentGameState currentGameState;
 
@@ -22,19 +22,20 @@ public class GameState {
         this.nextPlayerOnMove = nextPlayerOnMove;
         this.gameContext = gameContext;
         this.totalCoins = totalCoins;
-        this.currentRoundNumber = 0;
-        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber);
+        this.currentRoundNumber = 1;
+        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
+        this.currentGameState = checkGameState();
     }
 
     public CurrentGameState getCurrentGameState() {
         return currentGameState;
     }
 
-    public List<IAction> getFollowUpMoves() {
+    public List<IMove> getFollowUpMoves() {
         return followUpMoves;
     }
 
-    public void setFollowUpMoves(List<IAction> followUpMoves) {
+    public void setFollowUpMoves(List<IMove> followUpMoves) {
         this.followUpMoves = followUpMoves;
     }
 
@@ -55,7 +56,6 @@ public class GameState {
         return totalCoins;
     }
 
-
     public Player getPlayerOnMove() {
         return playerOnMove;
     }
@@ -64,6 +64,10 @@ public class GameState {
         return nextPlayerOnMove;
     }
 
+    /**
+     * Checks if the game has already ended and if not, shifts players i.e. the player that
+     * played the previous move will become the nextPlayerOnMove and vica-versa
+     */
     public void shiftPlayers() {
         currentGameState = checkGameState();
         if (currentGameState != CurrentGameState.HAS_NOT_ENDED) {
@@ -75,31 +79,73 @@ public class GameState {
         nextPlayerOnMove = tmp;
     }
 
+    /**
+     * Evaluates the current game state i.e. the fact whether someone
+     * has won the game or it has not ended yet
+     *
+     * @return The game state stating whether someone has won the game
+     */
     private CurrentGameState checkGameState() {
-        CurrentGameState questOfTheRingState = checkQuestOfTheRingState();
-        CurrentGameState supportOfTheRacesState = checkSupportOfTheRacesState();
-        CurrentGameState conqueringMiddleEarthState = checkConqueringMiddleEarthState();
+        // Collect win conditions
+        CurrentGameState[] winConditions = new CurrentGameState[]{
+                checkQuestOfTheRingState(),
+                checkSupportOfTheRacesState(),
+                checkConqueringMiddleEarthState()
+        };
 
-        return null;
+        // Go through win conditions, if any of them is met, return -→ someone has won the game
+        for (CurrentGameState currentGameState : winConditions) {
+            if (currentGameState != CurrentGameState.HAS_NOT_ENDED) {
+                return currentGameState;
+            }
+        }
+
+        // Nobody won → the game has not ended
+        return CurrentGameState.HAS_NOT_ENDED;
     }
 
     private CurrentGameState checkConqueringMiddleEarthState() {
-        if (playerPresentInAllRegions(gameContext.getFellowshipPlayer())) {
+        long fellowShipPlayerPresentInRegions = playerPresentInRegions(gameContext.getFellowshipPlayer());
+        long sauronPlayerPresentInRegions = playerPresentInRegions(gameContext.getSauronPlayer());
+        var regions = gameContext.getCentralBoard().regions();
+
+        // Fellowship player has conquered all regions -> won the game
+        if (fellowShipPlayerPresentInRegions == regions.size()) {
             return CurrentGameState.FELLOWSHIP_WON;
         }
 
-        if (playerPresentInAllRegions(gameContext.getSauronPlayer())) {
+        // Sauron player has conquered all regions -> won the game
+        if (sauronPlayerPresentInRegions == regions.size()) {
             return CurrentGameState.SAURON_WON;
+        }
+
+        // The game has ended, the winner/draw is decided according to the regions conquered by players
+        if (currentRoundNumber == gameContext.getRoundInformations().size() // last round
+                && currentRoundInformation.getChapterCards().getPlayableChapterCards().isEmpty()) // and no more chapter cards = round has ended
+        {
+            // Sauron player has more regions -> won
+            if (sauronPlayerPresentInRegions > fellowShipPlayerPresentInRegions) {
+                return CurrentGameState.SAURON_WON;
+            }
+            // Fellowship player has more regions -> won
+            else if (fellowShipPlayerPresentInRegions > sauronPlayerPresentInRegions) {
+                return CurrentGameState.FELLOWSHIP_WON;
+            }
+
+            // The same amount of regions are conquered by both players -> draw
+            return CurrentGameState.DRAW;
+
         }
 
         return CurrentGameState.HAS_NOT_ENDED;
     }
 
-    private boolean playerPresentInAllRegions(Player player) {
+
+    private long playerPresentInRegions(Player player) {
         var regions = gameContext.getCentralBoard().regions();
         return regions.stream()
                 .filter(region -> region.getFortress() == player || region.getUnit() == player)
-                .count() == regions.size();
+                .count();
     }
 
     private CurrentGameState checkSupportOfTheRacesState() {
@@ -137,12 +183,16 @@ public class GameState {
         return CurrentGameState.HAS_NOT_ENDED;
     }
 
+    public int getCurrentRoundNumber() {
+        return currentRoundNumber;
+    }
+
     public RoundInformation getCurrentRoundInformation() {
         return currentRoundInformation;
     }
 
     public void startNewRound() {
         currentRoundNumber++;
-        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber);
+        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
     }
 }

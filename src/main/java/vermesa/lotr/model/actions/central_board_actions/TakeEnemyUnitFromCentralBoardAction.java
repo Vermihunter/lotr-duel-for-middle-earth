@@ -4,13 +4,16 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.moves.IMove;
 
-public class TakeEnemyUnitFromCentralBoardAction implements IAction {
+import java.util.List;
+
+public record TakeEnemyUnitFromCentralBoardAction(List<UnitsInRegion> unitsToTake) implements IMove {
 
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-
-        return null;
+        unitsToTake.forEach(unit -> unit.region().removeUnits(unit.units()));
+        return ActionResult.OK;
     }
 }

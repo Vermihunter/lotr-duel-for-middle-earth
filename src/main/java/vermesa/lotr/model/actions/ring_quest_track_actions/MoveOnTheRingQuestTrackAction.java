@@ -4,18 +4,15 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.player.Player;
 
-public class MoveOnTheRingQuestTrackAction implements IAction {
-    private final int moveCount;
-
-    public MoveOnTheRingQuestTrackAction(int moveCount) {
-        this.moveCount = moveCount;
-    }
+public record MoveOnTheRingQuestTrackAction(int moveCount) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        //ctx.
+        Player playerOnMove = state.getPlayerOnMove();
+        ctx.getQuestOfTheRingTrack().movePlayer(playerOnMove, moveCount, ctx, state);
 
-        return null;
+        return ActionResult.OK;
     }
 }

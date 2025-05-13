@@ -1,12 +1,15 @@
 package vermesa.lotr.model.central_board;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vermesa.lotr.model.player.Player;
 
 import java.util.ArrayList;
 
+
 public class Region {
     private final RegionType regionType;
     private final String fortressName;
+    @JsonIgnore
     private final ArrayList<Region> connectedRegions;
     private Player fortress;
     private Player unit;
@@ -44,8 +47,15 @@ public class Region {
         }
     }
 
-    public void removeUnits(Player player, int unitCount) {
-        if(player != unit || unitCount > this.unitCount || unitCount < 0) {
+    /**
+     * Removes units from a given region
+     * Note that at the same time only a single player can have units in a region
+     * according to the rules so there is no need to define which player's units to remove
+     *
+     * @param unitCount
+     */
+    public void removeUnits(int unitCount) {
+        if (unitCount > this.unitCount || unitCount < 0) {
             throw new IllegalArgumentException();
         }
 

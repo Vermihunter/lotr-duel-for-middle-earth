@@ -6,7 +6,7 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.chapter_cards.ChapterCard;
 
-public abstract class ChapterCardMove implements IAction {
+public abstract class ChapterCardMove implements IMove {
     protected final ChapterCard chaptercard;
 
     public ChapterCardMove(ChapterCard chaptercard) {
@@ -15,4 +15,8 @@ public abstract class ChapterCardMove implements IAction {
 
     @Override
     public abstract ActionResult action(GameContext ctx, GameState state);
+
+    protected void onSuccessfulMove(GameState state) {
+        state.getCurrentRoundInformation().getChapterCards().moveSuccessful(chaptercard);
+    }
 }

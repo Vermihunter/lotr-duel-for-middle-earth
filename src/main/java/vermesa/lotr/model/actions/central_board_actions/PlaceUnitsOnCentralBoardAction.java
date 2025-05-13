@@ -5,22 +5,20 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
+import vermesa.lotr.model.moves.IMove;
+import vermesa.lotr.model.player.Player;
 
 import java.util.List;
 
-public class PlaceUnitsOnCentralBoardAction implements IAction {
-    //private final
-    private final List<Region> possibleUnitDestinations;
-    private final int unitsToPlace;
-
-    public PlaceUnitsOnCentralBoardAction(List<Region> possibleUnitDestinations, int unitsToPlace) {
-        this.possibleUnitDestinations = possibleUnitDestinations;
-        this.unitsToPlace = unitsToPlace;
-    }
+public record PlaceUnitsOnCentralBoardAction(List<PlaceUnitOnCentralBoardContext> unitPlacings) implements IMove {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
+        Player playerOnMove = state.getPlayerOnMove();
+        for (PlaceUnitOnCentralBoardContext unitPlacing : unitPlacings) {
+            unitPlacing.region().addUnits(playerOnMove, unitPlacing.unitsToPlace());
+        }
 
-        return null;
+        return ActionResult.OK;
     }
 }

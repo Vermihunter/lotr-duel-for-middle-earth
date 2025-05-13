@@ -1,5 +1,6 @@
 package vermesa.lotr.serialization.json.actions;
 
+import vermesa.lotr.model.actions.race_effect_actions.RevealAllianceTokensAndChooseSomeAction;
 import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
@@ -13,7 +14,6 @@ public class RevealAllianceTokensAndChooseSomeActionConfig extends ActionConfig 
 
     @Override
     public IAction constructAction(HashMap<String, Region> regionMapper) {
-        // TODO
-        return null;
+        return new RevealAllianceTokensAndChooseSomeAction(RacesToRevealFrom, TokensToReveal, TokensToChoose);
     }
 }

@@ -8,10 +8,12 @@ import java.util.HashMap;
 
 public class RevealAllianceTokensAndChooseSomeActionConfig extends ActionConfig {
     public int TokensToReveal;
+    public int TokensToChoose;
     public Race[] RacesToRevealFrom;
 
     @Override
     public IAction constructAction(HashMap<String, Region> regionMapper) {
+        // TODO
         return null;
     }
 }

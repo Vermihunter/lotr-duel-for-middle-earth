@@ -10,10 +10,6 @@ import vermesa.lotr.model.skills.SkillSet;
 
 import java.util.List;
 
-public record LandmarkTile(Region region, SkillSet requiredSkillset, List<IAction> actions) implements IMove {
+public record LandmarkTile(Region region, SkillSet requiredSkillset, List<IAction> actions) {
 
-    @Override
-    public ActionResult action(GameContext ctx, GameState state) {
-        return null;
-    }
 }

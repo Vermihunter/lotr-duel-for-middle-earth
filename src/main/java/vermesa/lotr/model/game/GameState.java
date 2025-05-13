@@ -1,6 +1,7 @@
 package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
@@ -14,10 +15,12 @@ public class GameState {
     private int currentRoundNumber;
     private int totalCoins;
     private List<IMove> followUpMoves;
+    private List<LandmarkTile> currentlyUsableLandmarkTiles;
+    private int landmarkTileGlobalIndex;
     private final GameContext gameContext;
     private CurrentGameState currentGameState;
 
-    public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins, GameContext gameContext) {
+    public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins, GameContext gameContext, List<LandmarkTile> currentlyUsableLandmarkTiles) {
         this.playerOnMove = playerOnMove;
         this.nextPlayerOnMove = nextPlayerOnMove;
         this.gameContext = gameContext;
@@ -25,6 +28,16 @@ public class GameState {
         this.currentRoundNumber = 1;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
         this.currentGameState = checkGameState();
+        this.currentlyUsableLandmarkTiles = currentlyUsableLandmarkTiles;
+        this.landmarkTileGlobalIndex = this.currentlyUsableLandmarkTiles.size();
+    }
+
+    public boolean removeLandmarkTile(LandmarkTile landmarkTile) {
+        return currentlyUsableLandmarkTiles.remove(landmarkTile);
+    }
+
+    public List<LandmarkTile> getCurrentlyUsableLandmarkTiles() {
+        return currentlyUsableLandmarkTiles;
     }
 
     public CurrentGameState getCurrentGameState() {

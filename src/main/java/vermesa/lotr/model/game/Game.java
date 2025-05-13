@@ -2,12 +2,10 @@ package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.actions.race_effect_actions.RaceEffectAttributes;
 import vermesa.lotr.model.chapter_cards.ChainingSymbols;
-import vermesa.lotr.model.moves.IMove;
-import vermesa.lotr.model.moves.MoveResult;
+import vermesa.lotr.model.moves.*;
 import vermesa.lotr.model.skills.SkillSet;
-import vermesa.lotr.model.moves.ChapterCardDiscardMove;
-import vermesa.lotr.model.moves.ChapterCardPlayMove;
 import vermesa.lotr.model.player.Player;
 
 import java.util.ArrayList;
@@ -117,6 +115,36 @@ public class Game {
     }
 
     private void addLandmarkTileMoves(ArrayList<IMove> moves) {
+        Player playerOnMove = state.getPlayerOnMove();
+        int alreadyPlacedTowers = (int) context.getCentralBoard().regions().stream()
+                .filter(region -> region.getFortress() == playerOnMove)
+                .count();
+
+        int generalLandmarkTileCost = alreadyPlacedTowers * context.getLandmarkTileContext().coinPerAlreadyPlacedFortressPawn();
+        boolean hasFreeToPlayLandmarkTilesAttribute = playerOnMove.getPlayerState().hasAttribute(RaceEffectAttributes.IGNORE_LANDMARK_TILE_COST);
+
+        // Player does not have the play landmark tiles for free effect unlocked nor
+        // does have enough coins to play a landmark tile
+        if (!hasFreeToPlayLandmarkTilesAttribute && playerOnMove.getCoins() < generalLandmarkTileCost) {
+            return;
+        }
+
+        for (var landmarkTile : state.getCurrentlyUsableLandmarkTiles()) {
+            // Add landmark tile move with 0 cost if the player has achieved the given effect
+            if (hasFreeToPlayLandmarkTilesAttribute) {
+                moves.add(new LandmarkTileMove(landmarkTile, 0));
+                continue;
+            }
+
+            SkillSet requiredSkillset = landmarkTile.requiredSkillset();
+            int missingSkills = playerOnMove.getSkills().missingSkills(requiredSkillset);
+
+            // Add landmark tile move if the player has enough coins to play it
+            int landmarkTileCost = generalLandmarkTileCost + missingSkills;
+            if (landmarkTileCost <= playerOnMove.getCoins()) {
+                moves.add(new LandmarkTileMove(landmarkTile, landmarkTileCost));
+            }
+        }
 
     }
 

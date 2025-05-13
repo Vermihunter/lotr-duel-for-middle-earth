@@ -27,11 +27,18 @@ public class GameContext {
     private CentralBoard centralBoard;
     private LandmarkTileContext landmarkTileContext;
 
-
     /**
      * Can only be constructed by the Builder class
      */
     private GameContext() {
+    }
+
+    public ArrayList<LandmarkTile> getLandmarkTiles() {
+        return landmarkTiles;
+    }
+
+    public LandmarkTileContext getLandmarkTileContext() {
+        return landmarkTileContext;
     }
 
     public CentralBoard getCentralBoard() {

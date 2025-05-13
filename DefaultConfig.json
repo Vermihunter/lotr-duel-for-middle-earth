@@ -14,7 +14,8 @@
   "StartingPlayer": "Sauron",
   "TotalCoinCount": 30,
   "LandmarkTileContext": {
-    "CoinPerAlreadyPlacedFortressPawn": 1
+    "CoinPerAlreadyPlacedFortressPawn": 1,
+    "LandmarkTilesAtTime": 3
   },
   "LandmarkTilesToUse": [
     {
@@ -129,6 +130,7 @@
         {
           "Type": "RevealAllianceTokensAndChooseSome",
           "TokensToReveal": 2,
+          "TokensToChoose": 1,
           "RacesToRevealFrom": [
             "ELVES",
             "HUMANS",

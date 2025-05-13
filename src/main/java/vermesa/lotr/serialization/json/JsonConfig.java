@@ -19,10 +19,10 @@ import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.model.central_board.Region;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static javax.swing.text.html.HTML.Attribute.N;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonConfig implements IGameConfig {
@@ -39,14 +39,16 @@ public class JsonConfig implements IGameConfig {
 
     private HashMap<String, Region> regionsByName;
 
-    public Game createGame() {
+    public Game createGame(Random rand) {
         regionsByName = new HashMap<>();
 
         var regions = constructRegions();
         var landmarkTiles = constructLandmarkTiles();
+        Collections.shuffle(landmarkTiles, rand);
+
         var roundConfigs = constructRoundConfigs();
         var questOfTheRingTrack = constructQuestOfTheRingTrack();
-        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContext.CoinPerAlreadyPlacedFortressPawn);
+        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContext.CoinPerAlreadyPlacedFortressPawn, LandmarkTileContext.LandmarkTilesAtTime);
         
         SauronPlayer sauronPlayer = new SauronPlayer(
                 InitialConfig.SauronPlayer.Coins,
@@ -69,7 +71,6 @@ public class JsonConfig implements IGameConfig {
                 .build();
 
         var state = constructGameState(sauronPlayer, fellowshipPlayer, context);
-
 
         return new Game(context, state);
     }
@@ -145,7 +146,12 @@ public class JsonConfig implements IGameConfig {
             throw new IllegalArgumentException("Invalid starting player: " + StartingPlayer);
         }
 
-        return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);
+        int landmarkTilesToConfigure = context.getLandmarkTileContext().landmarkTilesAtTime();
+        var startingLandmarkTiles = context.getLandmarkTiles().stream()
+                .limit(landmarkTilesToConfigure)
+                .toList();
+
+        return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context, startingLandmarkTiles);
     }
 
 

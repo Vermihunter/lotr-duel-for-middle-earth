@@ -1860,8 +1860,11 @@
           }
         },
         {
-          "Type": "GainAttributeRaceEffect",
-          "Attribute": "PLACE_ANYWHERE_FOR_RED_CARD"
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_RED_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
         },
         {
           "Type": "GainAttributeRaceEffect",
@@ -1881,8 +1884,11 @@
           }
         },
         {
-          "Type": "GainAttributeRaceEffect",
-          "Attribute": "PLACE_EXTRA_UNIT_FOR_RED_CARD"
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_RED_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
         },
         {
           "Type": "EventBasedRaceEffect",

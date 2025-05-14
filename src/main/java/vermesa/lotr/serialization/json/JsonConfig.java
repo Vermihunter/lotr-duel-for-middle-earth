@@ -17,6 +17,8 @@ import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingBonusAction;
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
+import vermesa.lotr.model.race_effects.AllianceToken;
+import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.model.central_board.Region;
 
@@ -67,15 +69,27 @@ public class JsonConfig implements IGameConfig {
             .addLandmarkTiles(landmarkTiles)
                 .withPlayers(fellowshipPlayer, sauronPlayer)
                 .withRoundConfigs(roundConfigs)
-                .withQuestOfTheRingTrack(questOfTheRingTrack);
-          //  .build();
-
+                .withQuestOfTheRingTrack(questOfTheRingTrack)
+                .withAllianceTokens(allianceTokens);
 
         var context = contextBuilder.build();
         var state = constructGameState(sauronPlayer, fellowshipPlayer, context);
 
 
         return new Game(context, state);
+    }
+
+    private HashMap<Race, ArrayList<AllianceToken>> constructAllianceTokens() {
+        HashMap<Race, ArrayList<AllianceToken>> combined = new HashMap<>();
+        for (RaceConfig rc : Races) {
+            ArrayList<AllianceToken> allianceTokens = rc.AllianceTokens.stream()
+                    .map(actionConfig -> new AllianceToken(actionConfig.constructAction(regionsByName)))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+            combined.put(rc.Name, allianceTokens);
+        }
+
+        return combined;
     }
 
     private QuestOfTheRingTrack constructQuestOfTheRingTrack() {

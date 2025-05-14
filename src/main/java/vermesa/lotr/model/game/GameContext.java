@@ -11,6 +11,8 @@ import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
+import vermesa.lotr.model.race_effects.AllianceToken;
+import vermesa.lotr.model.race_effects.Race;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,7 @@ public class GameContext {
     private QuestOfTheRingTrack questOfTheRingTrack;
     private CentralBoard centralBoard;
     private LandmarkTileContext landmarkTileContext;
+    private HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
     /**
      * Can only be constructed by the Builder class
@@ -103,6 +106,10 @@ public class GameContext {
             return this;
         }
 
+        public Builder withAllianceTokens(HashMap<Race, ArrayList<AllianceToken>> allianceTokens) {
+            this.allianceTokens = allianceTokens;
+            return this;
+        }
 
         public GameContext build() {
             GameContext gameContext = new GameContext();
@@ -111,6 +118,8 @@ public class GameContext {
             gameContext.sauronPlayer = this.sauronPlayer;
             gameContext.centralBoard = new CentralBoard(regions);
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
+            gameContext.allianceTokens = this.allianceTokens;
+            allianceTokens.values().forEach(Collections::shuffle);
             gameContext.landmarkTileContext = this.landmarkTileContext;
 
             gameContext.roundInformations = roundConfigs.stream()

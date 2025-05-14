@@ -1,4 +1,7 @@
 package vermesa.lotr.model.race_effects;
 
-public record AllianceToken(Race race, int ID) {
+import vermesa.lotr.model.actions.IAction;
+
+public record AllianceToken(IAction action) {
+
 }

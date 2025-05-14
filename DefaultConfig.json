@@ -13,7 +13,7 @@
   },
   "StartingPlayer": "Sauron",
   "TotalCoinCount": 30,
-  "LandmarkTileContext": {
+  "LandmarkTileContextConfig": {
     "CoinPerAlreadyPlacedFortressPawn": 1,
     "LandmarkTilesAtTime": 3
   },
@@ -131,12 +131,12 @@
           "Type": "RevealAllianceTokensAndChooseSome",
           "TokensToReveal": 2,
           "RacesToRevealFrom": [
-            "ELVES",
-            "HUMANS",
-            "DWARVES",
-            "WIZARDS",
-            "HOBBITS",
-            "ENTS"
+            "Elves",
+            "Humans",
+            "Dwarves",
+            "Wizards",
+            "Hobbits",
+            "Ents"
           ]
         }
       ]
@@ -217,7 +217,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ELVES"
+          "RaceToSupport": "Elves"
         }
       ],
       "GainedChainingSymbol": "HARP",
@@ -237,7 +237,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": "ANVIL",
@@ -257,7 +257,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HOBBITS"
+          "RaceToSupport": "Hobbits"
         }
       ],
       "GainedChainingSymbol": "POT",
@@ -277,7 +277,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HUMANS"
+          "RaceToSupport": "Humans"
         }
       ],
       "GainedChainingSymbol": "HORSESHOE",
@@ -748,11 +748,11 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ELVES"
+          "RaceToSupport": "Elves"
         }
       ],
       "GainedChainingSymbol": null,
-      "PlayForFreeChainingSymbol": "HARP",
+      "PlayForFreeChainingSymbol": "HARP",  
       "CoinsToPlay": 0
     },
     {
@@ -768,7 +768,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HOBBITS"
+          "RaceToSupport": "Hobbits"
         }
       ],
       "GainedChainingSymbol": "ACORN",
@@ -788,7 +788,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": null,
@@ -808,7 +808,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HUMANS"
+          "RaceToSupport": "Humans"
         }
       ],
       "GainedChainingSymbol": "SCROLL",
@@ -1282,7 +1282,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "WIZARDS"
+          "RaceToSupport": "Wizards"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1302,7 +1302,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "WIZARDS"
+          "RaceToSupport": "Wizards"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1322,7 +1322,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ENTS"
+          "RaceToSupport": "Ents"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1342,7 +1342,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1852,31 +1852,237 @@
       "Name": "Elves",
       "AllianceTokens": [
         {
-          "TakeTurnAfterCardRaceEffect": {
-            "CardColor": "Yellow"
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_YELLOW_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
           }
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_ANYWHERE_FOR_RED_CARD"
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "BENEFIT_FROM_ANY_SKILL"
         }
       ]
     },
     {
       "Name": "Humans",
-      "AllianceTokens": []
+      "AllianceTokens": [
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_YELLOW_USED",
+          "Effect": {
+            "Type": "MoveOnTheRingQuestTrack",
+            "MoveCount": 1
+          }
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_EXTRA_UNIT_FOR_RED_CARD"
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_DISCARDED",
+          "Effect": {
+            "Type": "GainExtraCoinsForDiscardedChapterCard",
+            "ExtraCoinsPerRound": [
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      ]
     },
     {
       "Name": "Dwarves",
-      "AllianceTokens": []
+      "AllianceTokens": [
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "IGNORE_LANDMARK_TILE_COST"
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "LANDMARK_TILE_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_GREEN_USED",
+          "Effect": {
+            "Type": "MoveUnitsOnCentralBoard",
+            "Strategy": [
+              "NEIGHBORING",
+              "NEIGHBORING"
+            ]
+          }
+        }
+      ]
     },
     {
-      "Name": "Mages",
-      "AllianceTokens": []
+      "Name": "Wizards",
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "MoveOnTheRingQuestTrack",
+            "MoveCount": 2
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "PlaceUnitsOnCentralBoard",
+            "UnitsToPlace": 2,
+            "Strategy": "EVERY_UNIT_FREELY",
+            "PossibleRegionsToPlace": [
+              "Mordor",
+              "Gondor",
+              "Rhovanion",
+              "Enedwaith",
+              "Arnor",
+              "Lindon",
+              "Rohan"
+            ]
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "PlayDiscardedChapterCard",
+            "CardsToPlay": 1
+          }
+        }
+      ]
     },
     {
       "Name": "Hobbits",
-      "AllianceTokens": []
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "AddSupportOfARace",
+            "RaceToSupport": "Eagles"
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_BLUE_USED",
+          "Effect": {
+            "Type": "PlaceUnitsOnCentralBoard",
+            "UnitsToPlace": 1,
+            "Strategy": "ALL_TO_SAME_REGION",
+            "PossibleRegionsToPlace": [
+              "Mordor",
+              "Gondor",
+              "Rhovanion",
+              "Enedwaith",
+              "Arnor",
+              "Lindon",
+              "Rohan"
+            ]
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAINING_SYMBOL_USED",
+          "Effect": {
+            "Type": "GetCoinsFromReserve",
+            "CoinsToGet": 3
+          }
+        }
+      ]
     },
     {
       "Name": "Ents",
-      "AllianceTokens": []
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "RemoveEnemyFortress"
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "MultiChoice",
+            "ActionsToTake": 3,
+            "PossibleActions": [
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": [
+                      "NEIGHBORING"
+                    ]
+                  }
+                ]
+              },
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": [
+                      "NEIGHBORING"
+                    ]
+                  }
+                ]
+              },
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": [
+                      "NEIGHBORING"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "Rounds": [

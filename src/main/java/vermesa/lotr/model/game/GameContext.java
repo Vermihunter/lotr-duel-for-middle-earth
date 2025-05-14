@@ -16,6 +16,7 @@ import vermesa.lotr.model.race_effects.Race;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -72,6 +73,7 @@ public class GameContext {
         SauronPlayer sauronPlayer;
         QuestOfTheRingTrack questOfTheRingTrack;
         LandmarkTileContext landmarkTileContext;
+        HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
         Random rand = new Random(123456);
 
@@ -114,12 +116,14 @@ public class GameContext {
         public GameContext build() {
             GameContext gameContext = new GameContext();
             gameContext.landmarkTiles = this.landmarkTiles;
+            Collections.shuffle(gameContext.landmarkTiles, rand);
+
             gameContext.fellowshipPlayer = this.fellowshipPlayer;
             gameContext.sauronPlayer = this.sauronPlayer;
             gameContext.centralBoard = new CentralBoard(regions);
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
             gameContext.allianceTokens = this.allianceTokens;
-            allianceTokens.values().forEach(Collections::shuffle);
+            allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
             gameContext.landmarkTileContext = this.landmarkTileContext;
 
             gameContext.roundInformations = roundConfigs.stream()

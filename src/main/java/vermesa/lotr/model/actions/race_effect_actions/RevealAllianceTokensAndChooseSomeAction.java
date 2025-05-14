@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public record RevealAllianceTokensAndChooseSomeAction(Race[] racesToRevealFrom, int tokensToReveal,
-                                                      int tokensToChoose) implements IAction {
+                                                      int tokensToChoose) implements IMove {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

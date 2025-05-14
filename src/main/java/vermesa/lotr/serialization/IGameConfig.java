@@ -2,6 +2,8 @@ package vermesa.lotr.serialization;
 
 import vermesa.lotr.model.game.Game;
 
+import java.util.Random;
+
 public interface IGameConfig {
-    public Game createGame();
+    Game createGame(Random rand);
 }

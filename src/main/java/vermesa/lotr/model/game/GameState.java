@@ -1,9 +1,11 @@
 package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,24 +16,29 @@ public class GameState {
     private int currentRoundNumber;
     private int totalCoins;
     private List<IMove> followUpMoves;
-    private final GameContext gameContext;
+    private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
+    private int landmarkTileGlobalIndex;
+    private GameContext gameContext;
     private CurrentGameState currentGameState;
-
-    /*
-    public GameState(Player playerOnMove, Player nextPlayerOnMove, int totalCoins, GameContext gameContext) {
-        this.playerOnMove = playerOnMove;
-        this.nextPlayerOnMove = nextPlayerOnMove;
-        this.gameContext = gameContext;
-        this.totalCoins = totalCoins;
-        this.currentRoundNumber = 1;
-        this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
-        this.currentGameState = checkGameState();
-    }
-    */
 
     private GameState(GameContext gameContext) {
         this.gameContext = gameContext;
     }
+    
+
+    private GameState(GameContext gameContext) {
+        this.gameContext = gameContext;
+    }
+
+    public boolean removeLandmarkTile(LandmarkTile landmarkTile) {
+        return currentlyUsableLandmarkTiles.remove(landmarkTile);
+    }
+
+    public List<LandmarkTile> getCurrentlyUsableLandmarkTiles() {
+        return currentlyUsableLandmarkTiles;
+    }
+
+
 
     public CurrentGameState getCurrentGameState() {
         return currentGameState;
@@ -211,6 +218,7 @@ public class GameState {
         private List<IMove> followUpMoves;
         private GameContext gameContext;
         private CurrentGameState currentGameState;
+        private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
 
         private GameStateBuilder() {
         }
@@ -259,6 +267,11 @@ public class GameState {
             return this;
         }
 
+        public GameStateBuilder withStartingLandmarkTiles(ArrayList<LandmarkTile> currentlyUsableLandmarkTiles) {
+            this.currentlyUsableLandmarkTiles = currentlyUsableLandmarkTiles;
+            return this;
+        }
+
         public GameState build() {
             GameState gameState = new GameState(gameContext);
             gameState.setFollowUpMoves(followUpMoves);
@@ -268,6 +281,8 @@ public class GameState {
             gameState.totalCoins = this.totalCoins;
             gameState.currentGameState = this.currentGameState;
             gameState.playerOnMove = this.playerOnMove;
+            gameState.currentlyUsableLandmarkTiles = this.currentlyUsableLandmarkTiles;
+
             return gameState;
         }
     }

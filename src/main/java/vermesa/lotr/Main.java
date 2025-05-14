@@ -21,7 +21,8 @@ public class Main {
         // Read JSON from file
         JsonConfig config = objectMapper.readValue(new File("DefaultConfig.json"), JsonConfig.class);
         //System.out.println(config);
-        var game = config.createGame();
+        Random rand = new Random(1);
+        var game = config.createGame(rand);
 
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
@@ -31,7 +32,6 @@ public class Main {
         //Scanner sc = new Scanner(System.in);
         //  int moveInd = sc.nextInt();
 
-        Random rand = new Random(1);
         //while(game.getState().getCurrentRoundNumber() == 1) {
         while (game.getState().getCurrentGameState() == CurrentGameState.HAS_NOT_ENDED) {
             var moves = game.getPossibleMoves();

@@ -6,6 +6,7 @@ import vermesa.lotr.model.chapter_cards.ChapterCardContext;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardConfig;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
+import vermesa.lotr.model.landmark_effects.LandmarkTileContext;
 import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.model.central_board.Region;
@@ -27,6 +28,7 @@ public class GameContext {
     private SauronPlayer sauronPlayer;
     private QuestOfTheRingTrack questOfTheRingTrack;
     private CentralBoard centralBoard;
+    private LandmarkTileContext landmarkTileContext;
     private HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
     /**
@@ -37,6 +39,10 @@ public class GameContext {
 
     public ArrayList<LandmarkTile> getLandmarkTiles() {
         return landmarkTiles;
+    }
+
+    public LandmarkTileContext getLandmarkTileContext() {
+        return landmarkTileContext;
     }
 
     public CentralBoard getCentralBoard() {
@@ -66,6 +72,7 @@ public class GameContext {
         FellowshipPlayer fellowshipPlayer;
         SauronPlayer sauronPlayer;
         QuestOfTheRingTrack questOfTheRingTrack;
+        LandmarkTileContext landmarkTileContext;
         HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
         Random rand = new Random(123456);
@@ -96,6 +103,11 @@ public class GameContext {
             return this;
         }
 
+        public Builder withLandmarkTileContext(LandmarkTileContext landmarkTileContext) {
+            this.landmarkTileContext = landmarkTileContext;
+            return this;
+        }
+
         public Builder withAllianceTokens(HashMap<Race, ArrayList<AllianceToken>> allianceTokens) {
             this.allianceTokens = allianceTokens;
             return this;
@@ -104,13 +116,18 @@ public class GameContext {
         public GameContext build() {
             GameContext gameContext = new GameContext();
             gameContext.landmarkTiles = this.landmarkTiles;
+            Collections.shuffle(gameContext.landmarkTiles, rand);
+
             gameContext.fellowshipPlayer = this.fellowshipPlayer;
             gameContext.sauronPlayer = this.sauronPlayer;
             gameContext.centralBoard = new CentralBoard(regions);
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
             gameContext.allianceTokens = this.allianceTokens;
-            allianceTokens.values().forEach(Collections::shuffle);
 
+            allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
+            gameContext.landmarkTileContext = this.landmarkTileContext;
+
+            allianceTokens.values().forEach(Collections::shuffle);
             gameContext.roundInformations = roundConfigs.stream()
                     .map(this::createRoundInformation)
                     .collect(Collectors.toCollection(ArrayList::new));

@@ -11,6 +11,7 @@ import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
+import vermesa.lotr.model.landmark_effects.LandmarkTileContext;
 import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
@@ -21,9 +22,7 @@ import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.model.central_board.Region;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -38,18 +37,25 @@ public class JsonConfig implements IGameConfig {
     public ArrayList<RegionConfig> Regions;
     public QuestOfTheRingConfig QuestOfTheRingTrackConfig;
     public ArrayList<RaceConfig> Races;
+    public LandmarkTileContextConfig LandmarkTileContextConfig;
 
     private HashMap<String, Region> regionsByName;
 
-    public Game createGame() {
+    public Game createGame(Random rand) {
         regionsByName = new HashMap<>();
 
         var regions = constructRegions();
         var landmarkTiles = constructLandmarkTiles();
+        Collections.shuffle(landmarkTiles, rand);
+
         var roundConfigs = constructRoundConfigs();
         var questOfTheRingTrack = constructQuestOfTheRingTrack();
+        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContextConfig.CoinPerAlreadyPlacedFortressPawn, LandmarkTileContextConfig.LandmarkTilesAtTime);
         var allianceTokens = constructAllianceTokens();
-        
+        allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
+
+        var allianceTokens = constructAllianceTokens();
+
         SauronPlayer sauronPlayer = new SauronPlayer(
                 InitialConfig.SauronPlayer.Coins,
                 InitialConfig.SauronPlayer.Units,
@@ -67,6 +73,8 @@ public class JsonConfig implements IGameConfig {
                 .withPlayers(fellowshipPlayer, sauronPlayer)
                 .withRoundConfigs(roundConfigs)
                 .withQuestOfTheRingTrack(questOfTheRingTrack)
+                .withAllianceTokens(allianceTokens)
+                .withLandmarkTileContext(landmarkTileContext);
                 .withAllianceTokens(allianceTokens);
 
         var context = contextBuilder.build();
@@ -160,6 +168,12 @@ public class JsonConfig implements IGameConfig {
             throw new IllegalArgumentException("Invalid starting player: " + StartingPlayer);
         }
 
+        int landmarkTilesToUse = context.getLandmarkTileContext().landmarkTilesAtTime();
+        ArrayList<LandmarkTile> startingLandmarkTiles = context.getLandmarkTiles().stream()
+                .limit(landmarkTilesToUse)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
         var startingRoundInformation = context.getRoundInformations().getFirst();
         return GameState.GameStateBuilder.aGameState()
                 .withPlayerOnMove(startingPlayer)
@@ -170,6 +184,7 @@ public class JsonConfig implements IGameConfig {
                 .withCurrentRoundNumber(1)
                 .withFollowUpMoves(null)
                 .withTotalCoins(TotalCoinCount)
+                .withStartingLandmarkTiles(startingLandmarkTiles)
                 .build();
 
         // return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);

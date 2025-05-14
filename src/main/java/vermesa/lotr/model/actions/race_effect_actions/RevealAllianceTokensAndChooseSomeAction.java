@@ -10,9 +10,12 @@ import vermesa.lotr.model.actions.ActionResult;
 public record RevealAllianceTokensAndChooseSomeAction(Race[] racesToRevealFrom, int tokensToRevealPerRace,
                                                       int totalTokensToChoose) implements IMove {
 
-
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        return null;
+        List<IMove> followUpMoves = Arrays.stream(racesToRevealFrom)
+                .map(race -> (IMove) new ChooseAlianceTokensAction(race, tokensToReveal, tokensToChoose))
+                .toList();
+
+        return new ActionResult(followUpMoves, false);
     }
 }

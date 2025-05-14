@@ -55,33 +55,9 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
      */
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        boolean shiftRounds = true;
-        List<IMove> followUpActions = List.of();
+        // Perform common implementation of multi-stage move
+        ActionResult result = performMultiStageMove(ctx, state, chaptercard.context().actions());
         Player playerOnMove = state.getPlayerOnMove();
-
-        // Executing sub-actions
-        for (var action : chaptercard.context().actions()) {
-            if (action == null) {
-                throw new IllegalArgumentException("");
-            }
-
-            var subResult = action.action(ctx, state);
-
-            if (subResult == null) {
-                throw new IllegalArgumentException("");
-            }
-
-            if (!subResult.shiftNextPlayer()) {
-                shiftRounds = false;
-            }
-
-            if (!subResult.followUpActions().isEmpty()) {
-                if (!followUpActions.isEmpty()) {
-                    throw new IllegalArgumentException("There were already defined follow up actions - conflict");
-                }
-                followUpActions = subResult.followUpActions();
-            }
-        }
 
         // Adding chaining symbols if Chapter card contains any
         ChainingSymbols chapterCardChainingSymbols = chaptercard.context().gainedChainingSymbol();
@@ -104,7 +80,10 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
         // Common things on successful Chapter card moves
         onSuccessfulMove(state);
 
-        return new ActionResult(followUpActions, shiftRounds);
+        // Pay the price for playing the card
+        extractCoins(ctx, state, coinsToPlay);
+
+        return result;
     }
 
     /**

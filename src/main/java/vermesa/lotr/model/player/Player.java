@@ -25,6 +25,7 @@ public class Player {
         this.playerState = new PlayerState();
     }
 
+
     public PlayerState getPlayerState() {
         return playerState;
     }

@@ -127,12 +127,12 @@
           "Type": "RevealAllianceTokensAndChooseSome",
           "TokensToReveal": 2,
           "RacesToRevealFrom": [
-            "ELVES",
-            "HUMANS",
-            "DWARVES",
-            "WIZARDS",
-            "HOBBITS",
-            "ENTS"
+            "Elves",
+            "Humans",
+            "Dwarves",
+            "Wizards",
+            "Hobbits",
+            "Ents"
           ]
         }
       ]
@@ -213,7 +213,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ELVES"
+          "RaceToSupport": "Elves"
         }
       ],
       "GainedChainingSymbol": "HARP",
@@ -233,7 +233,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": "ANVIL",
@@ -253,7 +253,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HOBBITS"
+          "RaceToSupport": "Hobbits"
         }
       ],
       "GainedChainingSymbol": "POT",
@@ -273,7 +273,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HUMANS"
+          "RaceToSupport": "Humans"
         }
       ],
       "GainedChainingSymbol": "HORSESHOE",
@@ -744,11 +744,11 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ELVES"
+          "RaceToSupport": "Elves"
         }
       ],
       "GainedChainingSymbol": null,
-      "PlayForFreeChainingSymbol": "HARP",
+      "PlayForFreeChainingSymbol": "HARP",  
       "CoinsToPlay": 0
     },
     {
@@ -764,7 +764,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HOBBITS"
+          "RaceToSupport": "Hobbits"
         }
       ],
       "GainedChainingSymbol": "ACORN",
@@ -784,7 +784,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": null,
@@ -804,7 +804,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "HUMANS"
+          "RaceToSupport": "Humans"
         }
       ],
       "GainedChainingSymbol": "SCROLL",
@@ -1278,7 +1278,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "WIZARDS"
+          "RaceToSupport": "Wizards"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1298,7 +1298,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "WIZARDS"
+          "RaceToSupport": "Wizards"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1318,7 +1318,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "ENTS"
+          "RaceToSupport": "Ents"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1338,7 +1338,7 @@
       "Effects": [
         {
           "Type": "AddSupportOfARace",
-          "RaceToSupport": "DWARVES"
+          "RaceToSupport": "Dwarves"
         }
       ],
       "GainedChainingSymbol": null,
@@ -1855,11 +1855,8 @@
           }
         },
         {
-          "Type": "EventBasedRaceEffect",
-          "Trigger": "CHAPTER_CARD_RED_USED",
-          "Effect": {
-            "Type": "TakeAnotherTurn"
-          }
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_ANYWHERE_FOR_RED_CARD"
         },
         {
           "Type": "GainAttributeRaceEffect",
@@ -1879,11 +1876,8 @@
           }
         },
         {
-          "Type": "EventBasedRaceEffect",
-          "Trigger": "CHAPTER_CARD_RED_USED",
-          "Effect": {
-            "Type": "TakeAnotherTurn"
-          }
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_EXTRA_UNIT_FOR_RED_CARD"
         },
         {
           "Type": "EventBasedRaceEffect",
@@ -1969,7 +1963,7 @@
           "Type": "OneTimeImmediateRaceEffect",
           "Effect": {
             "Type": "AddSupportOfARace",
-            "RaceToSupport": "EAGLES"
+            "RaceToSupport": "Eagles"
           }
         },
         {

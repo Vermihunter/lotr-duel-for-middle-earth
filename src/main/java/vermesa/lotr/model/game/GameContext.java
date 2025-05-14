@@ -25,11 +25,14 @@ public class GameContext {
     private QuestOfTheRingTrack questOfTheRingTrack;
     private CentralBoard centralBoard;
 
-
     /**
      * Can only be constructed by the Builder class
      */
     private GameContext() {
+    }
+
+    public ArrayList<LandmarkTile> getLandmarkTiles() {
+        return landmarkTiles;
     }
 
     public CentralBoard getCentralBoard() {

@@ -6,6 +6,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.RegionType;
 import vermesa.lotr.model.chapter_cards.ChapterCardConfigBuilder;
 import vermesa.lotr.model.chapter_cards.ChapterCardContext;
+import vermesa.lotr.model.game.CurrentGameState;
 import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
@@ -143,7 +144,19 @@ public class JsonConfig implements IGameConfig {
             throw new IllegalArgumentException("Invalid starting player: " + StartingPlayer);
         }
 
-        return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);
+        var startingRoundInformation = context.getRoundInformations().getFirst();
+        return GameState.GameStateBuilder.aGameState()
+                .withPlayerOnMove(startingPlayer)
+                .withNextPlayerOnMove(otherPlayer)
+                .withCurrentGameState(CurrentGameState.HAS_NOT_ENDED)
+                .withGameContext(context)
+                .withCurrentRoundInformation(startingRoundInformation)
+                .withCurrentRoundNumber(1)
+                .withFollowUpMoves(null)
+                .withTotalCoins(TotalCoinCount)
+                .build();
+
+        // return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);
     }
 
 

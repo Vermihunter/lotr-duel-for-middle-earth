@@ -39,6 +39,11 @@ public class GameState {
     public List<LandmarkTile> getCurrentlyUsableLandmarkTiles() {
         return currentlyUsableLandmarkTiles;
     }
+    */
+
+    private GameState(GameContext gameContext) {
+        this.gameContext = gameContext;
+    }
 
     public CurrentGameState getCurrentGameState() {
         return currentGameState;
@@ -207,5 +212,75 @@ public class GameState {
     public void startNewRound() {
         currentRoundNumber++;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
+    }
+
+    public static final class GameStateBuilder {
+        private Player playerOnMove;
+        private Player nextPlayerOnMove;
+        private RoundInformation currentRoundInformation;
+        private int currentRoundNumber;
+        private int totalCoins;
+        private List<IMove> followUpMoves;
+        private GameContext gameContext;
+        private CurrentGameState currentGameState;
+
+        private GameStateBuilder() {
+        }
+
+        public static GameStateBuilder aGameState() {
+            return new GameStateBuilder();
+        }
+
+        public GameStateBuilder withPlayerOnMove(Player playerOnMove) {
+            this.playerOnMove = playerOnMove;
+            return this;
+        }
+
+        public GameStateBuilder withNextPlayerOnMove(Player nextPlayerOnMove) {
+            this.nextPlayerOnMove = nextPlayerOnMove;
+            return this;
+        }
+
+        public GameStateBuilder withCurrentRoundInformation(RoundInformation currentRoundInformation) {
+            this.currentRoundInformation = currentRoundInformation;
+            return this;
+        }
+
+        public GameStateBuilder withCurrentRoundNumber(int currentRoundNumber) {
+            this.currentRoundNumber = currentRoundNumber;
+            return this;
+        }
+
+        public GameStateBuilder withTotalCoins(int totalCoins) {
+            this.totalCoins = totalCoins;
+            return this;
+        }
+
+        public GameStateBuilder withFollowUpMoves(List<IMove> followUpMoves) {
+            this.followUpMoves = followUpMoves;
+            return this;
+        }
+
+        public GameStateBuilder withGameContext(GameContext gameContext) {
+            this.gameContext = gameContext;
+            return this;
+        }
+
+        public GameStateBuilder withCurrentGameState(CurrentGameState currentGameState) {
+            this.currentGameState = currentGameState;
+            return this;
+        }
+
+        public GameState build() {
+            GameState gameState = new GameState(gameContext);
+            gameState.setFollowUpMoves(followUpMoves);
+            gameState.currentRoundInformation = this.currentRoundInformation;
+            gameState.nextPlayerOnMove = this.nextPlayerOnMove;
+            gameState.currentRoundNumber = this.currentRoundNumber;
+            gameState.totalCoins = this.totalCoins;
+            gameState.currentGameState = this.currentGameState;
+            gameState.playerOnMove = this.playerOnMove;
+            return gameState;
+        }
     }
 }

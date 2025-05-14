@@ -24,6 +24,11 @@ public class GameState {
     private GameState(GameContext gameContext) {
         this.gameContext = gameContext;
     }
+    
+
+    private GameState(GameContext gameContext) {
+        this.gameContext = gameContext;
+    }
 
     public boolean removeLandmarkTile(LandmarkTile landmarkTile) {
         return currentlyUsableLandmarkTiles.remove(landmarkTile);
@@ -214,7 +219,6 @@ public class GameState {
         private GameContext gameContext;
         private CurrentGameState currentGameState;
         private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
-        ;
 
         private GameStateBuilder() {
         }
@@ -278,6 +282,7 @@ public class GameState {
             gameState.currentGameState = this.currentGameState;
             gameState.playerOnMove = this.playerOnMove;
             gameState.currentlyUsableLandmarkTiles = this.currentlyUsableLandmarkTiles;
+
             return gameState;
         }
     }

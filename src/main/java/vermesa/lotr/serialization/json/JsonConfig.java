@@ -54,6 +54,8 @@ public class JsonConfig implements IGameConfig {
         var allianceTokens = constructAllianceTokens();
         allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
 
+        var allianceTokens = constructAllianceTokens();
+
         SauronPlayer sauronPlayer = new SauronPlayer(
                 InitialConfig.SauronPlayer.Coins,
                 InitialConfig.SauronPlayer.Units,
@@ -73,6 +75,7 @@ public class JsonConfig implements IGameConfig {
                 .withQuestOfTheRingTrack(questOfTheRingTrack)
                 .withAllianceTokens(allianceTokens)
                 .withLandmarkTileContext(landmarkTileContext);
+                .withAllianceTokens(allianceTokens);
 
         var context = contextBuilder.build();
         var state = constructGameState(sauronPlayer, fellowshipPlayer, context);
@@ -169,6 +172,7 @@ public class JsonConfig implements IGameConfig {
         ArrayList<LandmarkTile> startingLandmarkTiles = context.getLandmarkTiles().stream()
                 .limit(landmarkTilesToUse)
                 .collect(Collectors.toCollection(ArrayList::new));
+
 
         var startingRoundInformation = context.getRoundInformations().getFirst();
         return GameState.GameStateBuilder.aGameState()

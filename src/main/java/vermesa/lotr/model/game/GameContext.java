@@ -123,9 +123,11 @@ public class GameContext {
             gameContext.centralBoard = new CentralBoard(regions);
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
             gameContext.allianceTokens = this.allianceTokens;
+
             allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
             gameContext.landmarkTileContext = this.landmarkTileContext;
 
+            allianceTokens.values().forEach(Collections::shuffle);
             gameContext.roundInformations = roundConfigs.stream()
                     .map(this::createRoundInformation)
                     .collect(Collectors.toCollection(ArrayList::new));

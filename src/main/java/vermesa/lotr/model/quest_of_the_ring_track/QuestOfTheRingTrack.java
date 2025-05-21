@@ -23,20 +23,33 @@ public class QuestOfTheRingTrack {
      */
     private final List<QuestOfTheRingBonusAction> bonusActions;
 
+
     /**
      * Index of the fellowship player on the track
      */
     private int fellowshipPlayerIndex;
 
     /**
+     * Number of moves that the fellowship player has made
+     */
+    private int fellowshipPlayerMovesMade;
+
+    /**
      * Index of the sauron player of the track
      */
     private int sauronPlayerIndex;
 
+    /**
+     * Number of moves that the sauron player has made
+     */
+    private int sauronPlayerMovesMade;
+
     public QuestOfTheRingTrack(int width, int startingFellowshipPlayerIndex, int startingSauronPlayerIndex, List<QuestOfTheRingBonusAction> bonusActions) {
         this.width = width;
         this.fellowshipPlayerIndex = startingFellowshipPlayerIndex;
+        this.fellowshipPlayerMovesMade = 0;
         this.sauronPlayerIndex = startingSauronPlayerIndex;
+        this.sauronPlayerMovesMade = 0;
         this.bonusActions = bonusActions;
     }
 
@@ -48,8 +61,16 @@ public class QuestOfTheRingTrack {
         return fellowshipPlayerIndex;
     }
 
+    public int getFellowshipPlayerMovesMade() {
+        return fellowshipPlayerMovesMade;
+    }
+
     public int getSauronPlayerIndex() {
         return sauronPlayerIndex;
+    }
+
+    public int getSauronPlayerMovesMade() {
+        return sauronPlayerMovesMade;
     }
 
     public int getWidth() {
@@ -60,6 +81,13 @@ public class QuestOfTheRingTrack {
      * Moves a concrete player on the quest of the ring track
      * - Moves the player forward
      * - Applies earned bonuses
+     * <p>
+     * Note that to the applyBonuses function we pass the number of moves made by the player
+     * and not their index since there are the same bonuses available for both players that are
+     * indexed relatively to the left end to the board and that way we have to normalize the
+     * moves made by the fellowship player since that player does not start at the beginning of
+     * the track.
+     *</p>
      *
      * @param player      The player that moves on the board
      * @param moveCount   The number of steps made on the board
@@ -69,13 +97,23 @@ public class QuestOfTheRingTrack {
     public void movePlayer(Player player, int moveCount, GameContext gameContext, GameState gameState) {
 
         switch (player) {
-            case SauronPlayer ignored ->
-                    sauronPlayerIndex = movePlayer(sauronPlayerIndex, moveCount, gameContext, gameState);
-            case FellowshipPlayer ignored ->
-                    fellowshipPlayerIndex = movePlayer(fellowshipPlayerIndex, moveCount, gameContext, gameState);
-            default -> throw new IllegalStateException("Unexpected value: " + player);
+            case SauronPlayer ignored -> {
+                applyBonuses(fellowshipPlayerMovesMade, moveCount, gameContext, gameState);
+
+                sauronPlayerIndex += moveCount;
+                sauronPlayerMovesMade += moveCount;
+            }
+            case FellowshipPlayer ignored -> {
+                applyBonuses(fellowshipPlayerMovesMade, moveCount, gameContext, gameState);
+
+                sauronPlayerIndex += moveCount;
+                fellowshipPlayerIndex += moveCount;
+                fellowshipPlayerMovesMade += moveCount;
+            }
+            default -> {
+                throw new IllegalStateException("Unexpected value: " + player);
+            }
         }
-        ;
     }
 
     /**
@@ -87,7 +125,7 @@ public class QuestOfTheRingTrack {
      * @param gameState   State of the game (used for the bonus actions)
      * @return The new position of the player
      */
-    private int movePlayer(int ind, int moveCount, GameContext gameContext, GameState gameState) {
+    private int applyBonuses(int ind, int moveCount, GameContext gameContext, GameState gameState) {
         int newPlayerPosition = ind + moveCount;
 
         bonusActions.stream()
@@ -101,6 +139,10 @@ public class QuestOfTheRingTrack {
 
     /**
      * Applies given set of bonuses
+     * Note that the bonus actions do not accept a player to apply the bonuses on because
+     * the actions retrieve the player who is on move and the bonuses are applied to that player.
+     * Since the move has not finished yet, the player on move has not shifted yet and this is
+     * the wanted behavior.
      *
      * @param bonusActions Bonus actions
      * @param gameContext  Context of the game (used for the bonus actions)

@@ -26,8 +26,8 @@ public abstract class Player {
     }
 
     public abstract boolean isFellowshipPlayer();
-
     public abstract boolean isSauronPlayer();
+    public abstract String getName();
 
     public PlayerState getPlayerState() {
         return playerState;

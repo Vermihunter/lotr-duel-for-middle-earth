@@ -5,8 +5,10 @@ import vermesa.lotr.model.game.Game;
 public class FullMapStateSerializer {
     public static String serialize(Game game) {
         StringBuilder builder = new StringBuilder();
-        builder.append(QuestOfTheRingTrackSerializer.seralize(game.getContext().getQuestOfTheRingTrack()));
         builder.append(CoinsSerializer.serialize("Coins in reserve", game.getState().getTotalCoins()));
+        builder.append(CentralBoardSerializer.serialize(game.getContext().getCentralBoard()));
+
+        builder.append(QuestOfTheRingTrackSerializer.seralize(game.getContext().getQuestOfTheRingTrack()));
 
 
         // This is correct

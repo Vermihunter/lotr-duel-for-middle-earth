@@ -8,11 +8,19 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+/**
+ * (dbl)	U+250C, —, U+2554
+ * Light top-right corner	┐	—	 (dbl)	U+2510, —, U+2557
+ * Light bottom-left	└	—	 (dbl)	U+2514, —, U+255A
+ * Light bottom-right	┘	—	 (db
+ */
 public class ChapterCardSetSerializer {
-    private static String cardSeparator = "----";
-    private static String faceDownCard = "|XX|";
+    private static String upperCardSeparator = "╔══╗";
+    private static String lowerCardSeparator = "╚══╝";
+    private static String faceDownCard = "║XX║";
     private static String emptySpace = "    ";
-    private static String secondRowStart = "|";
+    private static String secondRowStart = "║";
 
     public static String serialize(RoundChapterCardSet s) {
         var allCards = s.getAllChapterCards();
@@ -59,8 +67,8 @@ public class ChapterCardSetSerializer {
                     continue;
                 }
 
-                firstRow[i] = cardSeparator;
-                thirdRow[i] = cardSeparator;
+                firstRow[i] = upperCardSeparator;
+                thirdRow[i] = lowerCardSeparator;
 
                 // If a card is face down, cannot show its ID
                 if (!cardWrapper.isFaceUp()) {
@@ -70,7 +78,7 @@ public class ChapterCardSetSerializer {
                 else {
                     String strID = String.format("%02d", currID + 1);
 
-                    secondRow[i] = secondRowStart + strID + "|";
+                    secondRow[i] = secondRowStart + strID + "║";
                 }
             }
 

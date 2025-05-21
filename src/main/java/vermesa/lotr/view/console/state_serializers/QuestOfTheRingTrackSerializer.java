@@ -4,6 +4,7 @@ import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
 
 public class QuestOfTheRingTrackSerializer {
 
+
     public static String seralize(QuestOfTheRingTrack questOfTheRingTrack) {
         int width = questOfTheRingTrack.getWidth();
         int fellowshipPlayerIndex = questOfTheRingTrack.getFellowshipPlayerIndex();
@@ -18,24 +19,29 @@ public class QuestOfTheRingTrackSerializer {
         StringBuilder stringBuilder = new StringBuilder();
 
         // Title
-        stringBuilder.append("-".repeat(trackWidth));
-        stringBuilder.append("\n|");
+        stringBuilder.append("╔");
+        stringBuilder.append("═".repeat(trackWidth - 2));
+        stringBuilder.append("╗");
+        stringBuilder.append("\n║");
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
         stringBuilder.append("Quest Of Ring Track");
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
-        stringBuilder.append("|");
+        stringBuilder.append("║");
         stringBuilder.append("\n");
-        stringBuilder.append("-".repeat(trackWidth));
+
+        stringBuilder.append("╠");
+        stringBuilder.append("═".repeat(trackWidth - 2));
+        stringBuilder.append("╣");
         stringBuilder.append("\n");
 
         // Ring track
-        stringBuilder.append("|");
+        stringBuilder.append("║");
         for (int i = 0; i < width - 1; i++) {
             // Players
             if (i == fellowshipPlayerIndex) {
-                stringBuilder.append("F|");
+                stringBuilder.append("F║");
             } else if (i == sauronPlayerIndex) {
-                stringBuilder.append("S|");
+                stringBuilder.append("S║");
             }
             // Bonuses
             else {
@@ -47,7 +53,7 @@ public class QuestOfTheRingTrackSerializer {
                     if ((sauronPlayerMovesMade + fellowshipPlayerMovesMade + pos == i && sauronPlayerIndex < pos) // Sauron bonuses
                             || (fellowshipPlayerIndex - fellowshipPlayerMovesMade + pos == i && fellowshipPlayerMovesMade < pos) // Fellowship bonuses
                     ) {
-                        stringBuilder.append("B|");
+                        stringBuilder.append("B║");
                         bonusFound = true;
                         break;
                     }
@@ -55,17 +61,19 @@ public class QuestOfTheRingTrackSerializer {
 
                 // No player, no bonus -> empty space
                 if (!bonusFound) {
-                    stringBuilder.append(" |");
+                    stringBuilder.append(" ║");
                 }
             }
         }
 
         // Mount Doom
-        stringBuilder.append("M|");
+        stringBuilder.append("M║");
         stringBuilder.append("\n");
 
         // Lower separator
-        stringBuilder.append("-".repeat(trackWidth));
+        stringBuilder.append("╚");
+        stringBuilder.append("═".repeat(trackWidth - 2));
+        stringBuilder.append("╝");
         stringBuilder.append("\n");
         return stringBuilder.toString();
     }

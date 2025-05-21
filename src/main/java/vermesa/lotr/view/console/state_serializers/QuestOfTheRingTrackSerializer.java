@@ -30,7 +30,8 @@ public class QuestOfTheRingTrackSerializer {
         stringBuilder.append("\n");
 
         stringBuilder.append("╠");
-        stringBuilder.append("═".repeat(trackWidth - 2));
+        stringBuilder.append("═╦".repeat((trackWidth - 2) / 2));
+        stringBuilder.append("═");
         stringBuilder.append("╣");
         stringBuilder.append("\n");
 
@@ -71,7 +72,8 @@ public class QuestOfTheRingTrackSerializer {
 
         // Lower separator
         stringBuilder.append("╚");
-        stringBuilder.append("═".repeat(trackWidth - 2));
+        stringBuilder.append("═╩".repeat((trackWidth - 2) / 2));
+        stringBuilder.append("═");
         stringBuilder.append("╝");
         stringBuilder.append("\n");
         return stringBuilder.toString();

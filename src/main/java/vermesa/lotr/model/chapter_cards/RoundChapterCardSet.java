@@ -16,6 +16,9 @@ public class RoundChapterCardSet {
         this.playableChapterCards = playableChapterCards;
     }
 
+    public HashMap<Integer, ChapterCardWrapper> getAllChapterCards() {
+        return allChapterCards;
+    }
 
     public List<ChapterCard> getPlayableChapterCards() {
         return playableChapterCards;
@@ -29,6 +32,7 @@ public class RoundChapterCardSet {
             int id = chapterCardConfig.id();
             boolean isFaceUp = chapterCardConfig.isFaceUp();
             var dependsOn = chapterCardConfig.dependsOn();
+            int row = chapterCardConfig.row();
 
             // Get the chapter card with ID that is being configured
             var chaptercardOptional = chapterCards.stream()
@@ -42,7 +46,7 @@ public class RoundChapterCardSet {
 
             // Create wrapper
             ChapterCard chapterCard = chaptercardOptional.get();
-            ChapterCardWrapper wrapper = new ChapterCardWrapper(chapterCard, isFaceUp, dependsOn);
+            ChapterCardWrapper wrapper = new ChapterCardWrapper(chapterCard, isFaceUp, dependsOn, row);
             var prev = _allChapterCards.put(id, wrapper);
 
             // Add cards that have no dependencies to the initial list of playable cards
@@ -67,6 +71,8 @@ public class RoundChapterCardSet {
      */
     public void moveSuccessful(ChapterCard chapterCard) {
         int id = chapterCard.id();
+        allChapterCards.get(id).alreadyPlayed = true;
+
         // Decrease the remaining dependency count on all chapter card that is dependent
         // on the successfully played on
         allChapterCards.values().stream()
@@ -87,17 +93,33 @@ public class RoundChapterCardSet {
     }
 
 
-    private static class ChapterCardWrapper {
+    public static class ChapterCardWrapper {
         private final ChapterCard chapterCard;
         private final ArrayList<Integer> dependsOn;
+        private final int row;
         private boolean _isFaceUp;
         private int remainingDependencies;
+        private boolean alreadyPlayed;
 
-        private ChapterCardWrapper(ChapterCard chapterCard, boolean isFaceUp, ArrayList<Integer> dependsOn) {
+        private ChapterCardWrapper(ChapterCard chapterCard, boolean isFaceUp, ArrayList<Integer> dependsOn, int row) {
             this.chapterCard = chapterCard;
             this._isFaceUp = isFaceUp;
             this.dependsOn = dependsOn;
             this.remainingDependencies = dependsOn.size();
+            this.row = row;
+            this.alreadyPlayed = false;
+        }
+
+        public ChapterCard getChapterCard() {
+            return chapterCard;
+        }
+
+        public boolean isAlreadyPlayed() {
+            return alreadyPlayed;
+        }
+
+        public int getRow() {
+            return row;
         }
 
         public void reveal() {

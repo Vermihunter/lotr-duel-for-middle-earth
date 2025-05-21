@@ -45,7 +45,6 @@ public class QuestOfTheRingTrackSerializer {
             }
             // Bonuses
             else {
-
                 boolean bonusFound = false;
                 for (var bonusAction : bonusActions) {
                     int pos = bonusAction.pos();

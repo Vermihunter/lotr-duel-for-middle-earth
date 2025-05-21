@@ -16,4 +16,9 @@ public class FellowshipPlayer extends Player {
     public boolean isSauronPlayer() {
         return false;
     }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
 }

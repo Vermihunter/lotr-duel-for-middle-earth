@@ -16,4 +16,9 @@ public class SauronPlayer extends Player {
     public boolean isSauronPlayer() {
         return true;
     }
+    
+    @Override
+    public String getName() {
+        return NAME;
+    }
 }

@@ -44,7 +44,7 @@ public class ListAvailableMovesHandler extends CommandHandler {
                 }
 
 
-                context.out.println(">> \t(" + index + ") - " + moveSerialized);
+                context.out.print(">> \t(" + index + ") - " + moveSerialized);
                 ++index;
             }
 

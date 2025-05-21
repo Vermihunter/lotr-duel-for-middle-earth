@@ -19,6 +19,7 @@ import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingBonusAction;
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
 import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
+import vermesa.lotr.model.utils.StringToPlayer;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.model.central_board.Region;
 
@@ -44,16 +45,6 @@ public class JsonConfig implements IGameConfig {
     public Game createGame(Random rand) {
         regionsByName = new HashMap<>();
 
-        var regions = constructRegions();
-        var landmarkTiles = constructLandmarkTiles();
-        Collections.shuffle(landmarkTiles, rand);
-
-        var roundConfigs = constructRoundConfigs();
-        var questOfTheRingTrack = constructQuestOfTheRingTrack();
-        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContextConfig.CoinPerAlreadyPlacedFortressPawn, LandmarkTileContextConfig.LandmarkTilesAtTime);
-        var allianceTokens = constructAllianceTokens();
-        allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
-
         SauronPlayer sauronPlayer = new SauronPlayer(
                 InitialConfig.SauronPlayer.Coins,
                 InitialConfig.SauronPlayer.Units,
@@ -63,6 +54,18 @@ public class JsonConfig implements IGameConfig {
                 InitialConfig.FellowshipPlayer.Coins,
                 InitialConfig.FellowshipPlayer.Units,
                 InitialConfig.FellowshipPlayer.Towers);
+
+        var regions = constructRegions(sauronPlayer, fellowshipPlayer);
+        var landmarkTiles = constructLandmarkTiles();
+        Collections.shuffle(landmarkTiles, rand);
+
+        var roundConfigs = constructRoundConfigs();
+        var questOfTheRingTrack = constructQuestOfTheRingTrack();
+        var landmarkTileContext = new LandmarkTileContext(LandmarkTileContextConfig.CoinPerAlreadyPlacedFortressPawn, LandmarkTileContextConfig.LandmarkTilesAtTime);
+        var allianceTokens = constructAllianceTokens();
+        allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
+
+
 
 
         var contextBuilder = new GameContext.Builder()
@@ -208,11 +211,19 @@ public class JsonConfig implements IGameConfig {
     }
 
 
-    private ArrayList<Region> constructRegions() {
+    private ArrayList<Region> constructRegions(SauronPlayer sauronPlayer, FellowshipPlayer fellowshipPlayer) {
         ArrayList<Region> regions = new ArrayList<>();
 
         for(RegionConfig config : Regions) {
             Region newRegion = new Region(RegionType.valueOf(config.Name), config.Fortress);
+            if (config.StartingState.Fortress != null) {
+                newRegion.placeFortress(StringToPlayer.fromString(config.Fortress, fellowshipPlayer, sauronPlayer));
+            }
+
+            if (config.StartingState.Units.Player != null) {
+                newRegion.addUnits(StringToPlayer.fromString(config.StartingState.Units.Player, fellowshipPlayer, sauronPlayer), config.StartingState.Units.Count);
+            }
+
             regions.add(newRegion);
 
             regionsByName.put(config.Name, newRegion);

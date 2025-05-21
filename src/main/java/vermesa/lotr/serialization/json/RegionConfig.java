@@ -6,4 +6,5 @@ public class RegionConfig {
     public String Name;
     public String Fortress;
     public List<String> ConnectedWith;
+    public StartingStateConfig StartingState;
 }

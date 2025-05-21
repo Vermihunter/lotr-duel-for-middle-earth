@@ -16,6 +16,8 @@ public class QuestOfTheRingTrackSerializer {
         int trackWidth = (width * 2) + 1;
 
         StringBuilder stringBuilder = new StringBuilder();
+
+        // Title
         stringBuilder.append("-".repeat(trackWidth));
         stringBuilder.append("\n|");
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
@@ -23,18 +25,20 @@ public class QuestOfTheRingTrackSerializer {
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
         stringBuilder.append("|");
         stringBuilder.append("\n");
-
         stringBuilder.append("-".repeat(trackWidth));
         stringBuilder.append("\n");
 
+        // Ring track
         stringBuilder.append("|");
-
         for (int i = 0; i < width - 1; i++) {
+            // Players
             if (i == fellowshipPlayerIndex) {
                 stringBuilder.append("F|");
             } else if (i == sauronPlayerIndex) {
                 stringBuilder.append("S|");
-            } else {
+            }
+            // Bonuses
+            else {
 
                 boolean bonusFound = false;
                 for (var bonusAction : bonusActions) {
@@ -49,30 +53,20 @@ public class QuestOfTheRingTrackSerializer {
                     }
                 }
 
+                // No player, no bonus -> empty space
                 if (!bonusFound) {
                     stringBuilder.append(" |");
                 }
-
-                /*
-                int finalI = i;
-                var res = bonusActions.stream()
-                        .filter(a -> a.pos() == finalI || a.pos() + width / 2 == finalI);
-                if (res.findAny().isPresent()) {
-                    stringBuilder.append("B|");
-                } else {
-                    stringBuilder.append(" |");
-                }
-                */
             }
         }
 
+        // Mount Doom
         stringBuilder.append("M|");
-
-        // stringBuilder.append(" |".repeat(trackWidth));
         stringBuilder.append("\n");
-        //stringBuilder.append("|");
 
+        // Lower separator
         stringBuilder.append("-".repeat(trackWidth));
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 }

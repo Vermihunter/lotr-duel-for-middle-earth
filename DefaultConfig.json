@@ -124,8 +124,8 @@
         "Ruse": 0,
         "Strength": 3,
         "Courage": 0,
-        "Knowledge": 2,
-        "Leadership": 1
+        "Knowledge": 1,
+        "Leadership": 2
       },
       "Effects": [
         {
@@ -172,37 +172,113 @@
     {
       "Name": "Mordor",
       "Fortress": "BaradDur",
-      "ConnectedWith": ["Rohan", "Gondor"]
+      "ConnectedWith": [
+        "Rohan",
+        "Gondor"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 2,
+          "Player": "Sauron"
+        }
+      }
     },
     {
       "Name": "Rohan",
       "Fortress": "HelmsDeep",
-      "ConnectedWith": ["Mordor", "Gondor", "Rhovanion", "Enedwaith"]
+      "ConnectedWith": [
+        "Mordor",
+        "Gondor",
+        "Rhovanion",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
     },
     {
       "Name": "Gondor",
       "Fortress": "MinasTirith",
-      "ConnectedWith": ["Mordor", "Rohan", "Enedwaith"]
+      "ConnectedWith": [
+        "Mordor",
+        "Rohan",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
     },
     {
       "Name": "Enedwaith",
       "Fortress": "Isengard",
-      "ConnectedWith": ["Rohan", "Gondor", "Arnor", "Rhovanion"]
+      "ConnectedWith": [
+        "Rohan",
+        "Gondor",
+        "Arnor",
+        "Rhovanion"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
     },
     {
       "Name": "Rhovanion",
       "Fortress": "Erebor",
-      "ConnectedWith": ["Rohan", "Arnor", "Enedwaith"]
+      "ConnectedWith": [
+        "Rohan",
+        "Arnor",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
     },
     {
       "Name": "Arnor",
       "Fortress": "Bree",
-      "ConnectedWith": ["Lindon", "Rhovanion", "Enedwaith"]
+      "ConnectedWith": [
+        "Lindon",
+        "Rhovanion",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 2,
+          "Player": "Fellowship"
+        }
+      }
     },
     {
       "Name": "Lindon",
       "Fortress": "GreyHavens",
-      "ConnectedWith": ["Arnor"]
+      "ConnectedWith": [
+        "Arnor"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
     }
   ],
   "ChapterCardsToUse": [

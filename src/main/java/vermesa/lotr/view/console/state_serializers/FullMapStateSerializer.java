@@ -10,7 +10,7 @@ public class FullMapStateSerializer {
 
 
         // This is correct
-        //builder.append(ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards()));
+        builder.append(ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards()));
         // This is testing
         //var secondRoundChapterSet = game.getContext().getRoundInformations().get(2).getChapterCards();
         //builder.append(ChapterCardSetSerializer.serialize(secondRoundChapterSet));

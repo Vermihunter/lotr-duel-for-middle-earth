@@ -80,6 +80,21 @@ public class ChapterCardSetSerializer {
             add(spacesLeft, columns, sb, emptySpace, thirdRow);
         }
 
+        int index = 1;
+        for (var chapterCard : allCards.entrySet()) {
+            if (chapterCard.getValue().isAlreadyPlayed()) {
+                continue;
+            }
+
+            if (chapterCard.getValue().isFaceUp()) {
+                sb.append('(');
+                sb.append(index++);
+                sb.append(')');
+                sb.append(' ');
+                sb.append(ChapterCardSerializer.serialize(chapterCard.getValue().getChapterCard(), 7));
+            }
+        }
+
         return sb.toString();
     }
 

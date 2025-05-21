@@ -6,4 +6,14 @@ public class SauronPlayer extends Player {
     public SauronPlayer(int startingCoins, int units, int towers) {
         super(startingCoins, units, towers);
     }
+
+    @Override
+    public boolean isFellowshipPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isSauronPlayer() {
+        return true;
+    }
 }

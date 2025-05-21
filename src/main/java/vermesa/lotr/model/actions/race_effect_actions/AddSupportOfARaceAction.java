@@ -10,6 +10,7 @@ import vermesa.lotr.model.actions.IAction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
@@ -30,7 +31,7 @@ public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
         if (supportValues[raceToSupport.ordinal()] == 2) {
             ArrayList<IMove> followUpMoves = new ArrayList<>();
             followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(new Race[]{raceToSupport}, 2, 1));
-            result = new ActionResult(followUpMoves, false);
+            result = new ActionResult(List.of(followUpMoves), false);
         }
         // Note that both the actions that fire the alliance token revealing cannot happen at the same time
         // because one is about collecting two of the same (meaning that it does not add a new race to support)
@@ -43,7 +44,7 @@ public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
 
                 previouslySupportingRaces.add(raceToSupport);
                 followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(previouslySupportingRaces.toArray(new Race[3]), 1, 1));
-                result = new ActionResult(followUpMoves, false);
+                result = new ActionResult(List.of(followUpMoves), false);
             }
 
         }

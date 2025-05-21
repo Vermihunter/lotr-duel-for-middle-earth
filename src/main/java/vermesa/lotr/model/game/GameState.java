@@ -15,16 +15,11 @@ public class GameState {
     private RoundInformation currentRoundInformation;
     private int currentRoundNumber;
     private int totalCoins;
-    private List<IMove> followUpMoves;
+    private List<List<IMove>> followUpMoves;
     private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
     private int landmarkTileGlobalIndex;
     private GameContext gameContext;
     private CurrentGameState currentGameState;
-
-    private GameState(GameContext gameContext) {
-        this.gameContext = gameContext;
-    }
-    
 
     private GameState(GameContext gameContext) {
         this.gameContext = gameContext;
@@ -44,11 +39,11 @@ public class GameState {
         return currentGameState;
     }
 
-    public List<IMove> getFollowUpMoves() {
+    public List<List<IMove>> getFollowUpMoves() {
         return followUpMoves;
     }
 
-    public void setFollowUpMoves(List<IMove> followUpMoves) {
+    public void setFollowUpMoves(List<List<IMove>> followUpMoves) {
         this.followUpMoves = followUpMoves;
     }
 
@@ -215,7 +210,7 @@ public class GameState {
         private RoundInformation currentRoundInformation;
         private int currentRoundNumber;
         private int totalCoins;
-        private List<IMove> followUpMoves;
+        private List<List<IMove>> followUpMoves;
         private GameContext gameContext;
         private CurrentGameState currentGameState;
         private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
@@ -252,7 +247,7 @@ public class GameState {
             return this;
         }
 
-        public GameStateBuilder withFollowUpMoves(List<IMove> followUpMoves) {
+        public GameStateBuilder withFollowUpMoves(List<List<IMove>> followUpMoves) {
             this.followUpMoves = followUpMoves;
             return this;
         }

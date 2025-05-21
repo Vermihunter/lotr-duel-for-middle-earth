@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import vermesa.lotr.model.player.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Region {
@@ -23,6 +24,10 @@ public class Region {
         fortress = null;
         unit = null;
         unitCount = 0;
+    }
+
+    public List<Region> getConnectedRegions() {
+        return connectedRegions;
     }
 
     public void addConnectedRegion(Region region) {

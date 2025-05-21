@@ -24,12 +24,18 @@ public class Game {
         return state;
     }
 
+    public final GameContext getContext() {
+        return context;
+    }
+
     /**
      * Returns the moves that the player who is on move has as opportunities
+     * - The return value is in groups since there are actions that consist of sub-actions and
+     * each sub-action may need a reaction move to it
      *
-     * @return All valid moves that could be sent view Game.makeMove()
+     * @return Returns a list of Move groups from which the player has to choose one from every group
      */
-    public List<IMove> getPossibleMoves() {
+    public List<List<IMove>> getPossibleMoves() {
         // If there are moves that must be used, return them
         var possibleFollowUpMoves = state.getFollowUpMoves();
         if (possibleFollowUpMoves != null) {
@@ -37,15 +43,17 @@ public class Game {
         }
 
         // Otherwise construct moves for the current player
-        ArrayList<IMove> possibleMoves = new ArrayList<>();
-        addChapterCardMoves(possibleMoves);
-        addLandmarkTileMoves(possibleMoves);
+        ArrayList<IMove> singleMoveGroup = new ArrayList<>();
+        ;
 
-        return possibleMoves;
+        addChapterCardMoves(singleMoveGroup);
+        addLandmarkTileMoves(singleMoveGroup);
+
+        return List.of(singleMoveGroup);
     }
 
-    public MoveResult makeMove(IAction move) {
-        ActionResult moveRes = move.action(context, state);
+    public MoveResult makeMove(List<IAction> moves) {
+        ActionResult moveRes = IMove.performMultiStageMove(context, state, moves); //  move.action(context, state);
 
         if (moveRes == null) {
             throw new IllegalArgumentException();
@@ -75,7 +83,7 @@ public class Game {
             if (context.getRoundInformations().size() > state.getCurrentRoundNumber()) {
                 state.startNewRound();
             } else {
-                if (state.getCurrentGameState() == CurrentGameState.HAS_NOT_ENDED) {
+                if (state.getFollowUpMoves() == null && state.getCurrentGameState() == CurrentGameState.HAS_NOT_ENDED) {
                     throw new IllegalStateException("Game has ended without a winner");
                 }
             }
@@ -86,6 +94,8 @@ public class Game {
     }
 
     private void addChapterCardMoves(ArrayList<IMove> moves) {
+
+
         var playableChapterCards = state.getCurrentRoundInformation().getChapterCards().getPlayableChapterCards();
         Player playerOnMove = state.getPlayerOnMove();
         var playerChainingSymbols = playerOnMove.getPlayerState().getChainingSymbols();
@@ -112,9 +122,11 @@ public class Game {
             }
 
         }
+
     }
 
     private void addLandmarkTileMoves(ArrayList<IMove> moves) {
+
         Player playerOnMove = state.getPlayerOnMove();
         int alreadyPlacedTowers = (int) context.getCentralBoard().regions().stream()
                 .filter(region -> region.getFortress() == playerOnMove)
@@ -145,7 +157,6 @@ public class Game {
                 moves.add(new LandmarkTileMove(landmarkTile, landmarkTileCost));
             }
         }
-
     }
 
 }

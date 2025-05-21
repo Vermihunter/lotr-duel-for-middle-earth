@@ -24,18 +24,18 @@ public record ChooseWhereToPlaceUnitsOnCentralBoardAction_EveryUnitFreely(List<R
         for (int i = 0; i < possibleRegions.size(); i++) {
             int finalI = i;
             actions.add(new PlaceUnitsOnCentralBoardAction(new ArrayList<>() {{
-                add(new PlaceUnitOnCentralBoardContext(possibleRegions.get(finalI), 2));
+                add(new UnitsInRegion(possibleRegions.get(finalI), 2));
             }}));
 
             for (int j = i + 1; j < possibleRegions.size(); j++) {
                 int finalJ = j;
                 actions.add(new PlaceUnitsOnCentralBoardAction(new ArrayList<>() {{
-                    add(new PlaceUnitOnCentralBoardContext(possibleRegions.get(finalI), 1));
-                    add(new PlaceUnitOnCentralBoardContext(possibleRegions.get(finalJ), 1));
+                    add(new UnitsInRegion(possibleRegions.get(finalI), 1));
+                    add(new UnitsInRegion(possibleRegions.get(finalJ), 1));
                 }}));
             }
         }
 
-        return new ActionResult(actions, false);
+        return new ActionResult(List.of(actions), false);
     }
 }

@@ -40,6 +40,10 @@ public class QuestOfTheRingTrack {
         this.bonusActions = bonusActions;
     }
 
+    public List<QuestOfTheRingBonusAction> getBonusActions() {
+        return bonusActions;
+    }
+
     public int getFellowshipPlayerIndex() {
         return fellowshipPlayerIndex;
     }

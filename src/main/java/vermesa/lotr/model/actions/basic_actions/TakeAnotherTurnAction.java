@@ -6,9 +6,10 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
 public class TakeAnotherTurnAction implements IAction {
+    private static final ActionResult CONSTANT_RESULT = new ActionResult(null, false);
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-        return new ActionResult(null, false);
+        return CONSTANT_RESULT;
     }
 }

@@ -73,6 +73,6 @@ public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) imp
                 .map(alloc -> (IMove) new TakeEnemyUnitFromCentralBoardAction(alloc))
                 .toList();
 
-        return new ActionResult(actions, false);
+        return new ActionResult(List.of(actions), false);
     }
 }

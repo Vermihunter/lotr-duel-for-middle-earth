@@ -2,10 +2,13 @@ package vermesa.lotr.model.moves;
 
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.actions.basic_actions.MultiChoiceAction;
+import vermesa.lotr.model.actions.basic_actions.TakeAllActions;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IMove extends IAction {
@@ -13,9 +16,9 @@ public interface IMove extends IAction {
         return 0;
     }
 
-    default ActionResult performMultiStageMove(GameContext ctx, GameState state, List<IAction> actions) {
+    static ActionResult performMultiStageMove(GameContext ctx, GameState state, List<? extends IAction> actions) {
         boolean shiftRounds = true;
-        List<IMove> followUpActions = List.of();
+        ArrayList<List<IMove>> followUpActions = new ArrayList<>();
 
         // Executing sub-actions
         for (var action : actions) {
@@ -34,14 +37,29 @@ public interface IMove extends IAction {
             }
 
             if (!subResult.followUpActions().isEmpty()) {
-                if (!followUpActions.isEmpty()) {
-                    throw new IllegalArgumentException("There were already defined follow up actions - conflict");
-                }
-                followUpActions = subResult.followUpActions();
+                followUpActions.addAll(subResult.followUpActions());
             }
         }
 
+        // For each sub-result create a list of continuation
+        /*var allFollowUpGroups = followUpActions.stream()
+                .map(followUpGroup -> new MultiChoiceAction(followUpGroup, 1))
+                .toList();*/
+
+        if (shiftRounds && !followUpActions.isEmpty()) {
+            throw new IllegalArgumentException("");
+        }
+
         return new ActionResult(followUpActions, shiftRounds);
+        /*
+        if(allFollowUpGroups.isEmpty()) {
+            return new ActionResult(List.of(), shiftRounds);
+        }
+
+       // var answerAllSubActionsMove = new TakeAllActions(allFollowUpGroups);
+        return new ActionResult(List.of(answerAllSubActionsMove), shiftRounds);
+
+         */
     }
 
     default void extractCoins(GameContext ctx, GameState state, int coinsToExtract) {

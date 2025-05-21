@@ -7,6 +7,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateDiscardEnemyGreyCardActionsAction implements IAction {
@@ -18,6 +19,13 @@ public class CreateDiscardEnemyGreyCardActionsAction implements IAction {
                 .map(greyCardSkillSet -> (IMove) new DiscardEnemyGreyCardAction(greyCardSkillSet))
                 .toList();
 
-        return new ActionResult(followUpActions, false);
+
+        ArrayList<List<IMove>> followUpActionGroup = new ArrayList<>();
+        if (!followUpActions.isEmpty()) {
+            followUpActionGroup.add(followUpActions);
+        }
+
+        // Note that if the enemy has no Grey cards, there is nothing to discard and player shift is wanted
+        return new ActionResult(followUpActionGroup, followUpActions.isEmpty());
     }
 }

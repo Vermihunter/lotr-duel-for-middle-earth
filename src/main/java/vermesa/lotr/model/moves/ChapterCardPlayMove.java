@@ -56,7 +56,7 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         // Perform common implementation of multi-stage move
-        ActionResult result = performMultiStageMove(ctx, state, chaptercard.context().actions());
+        ActionResult result = IMove.performMultiStageMove(ctx, state, chaptercard.context().actions());
         Player playerOnMove = state.getPlayerOnMove();
 
         // Adding chaining symbols if Chapter card contains any

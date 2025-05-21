@@ -17,7 +17,7 @@ public record LandmarkTileMove(LandmarkTile landmarkTile, int cost) implements I
         }
 
         // Perform the common implementation of multistage moves
-        ActionResult result = performMultiStageMove(ctx, state, landmarkTile.actions());
+        ActionResult result = IMove.performMultiStageMove(ctx, state, landmarkTile.actions());
 
         // Place the fortress to the given region
         Player playerOnMove = state.getPlayerOnMove();

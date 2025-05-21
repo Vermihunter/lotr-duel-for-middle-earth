@@ -4,5 +4,5 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 
 public interface IAction {
-    public ActionResult action(GameContext ctx, GameState state);
+    ActionResult action(GameContext ctx, GameState state);
 }

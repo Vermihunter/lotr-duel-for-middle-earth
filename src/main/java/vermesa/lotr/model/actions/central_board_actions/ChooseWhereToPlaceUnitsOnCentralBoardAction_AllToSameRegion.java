@@ -14,7 +14,6 @@ import java.util.List;
 
 public record ChooseWhereToPlaceUnitsOnCentralBoardAction_AllToSameRegion(List<Region> possibleRegions,
                                                                           int unitsToPlace) implements IAction {
-
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player playerOnMove = state.getPlayerOnMove();
@@ -31,12 +30,12 @@ public record ChooseWhereToPlaceUnitsOnCentralBoardAction_AllToSameRegion(List<R
                 .map(region -> regionToAction(region, unitsToPlace + extraUnitsToPlace))
                 .toList();
 
-        return new ActionResult(possibleFollowUps, false);
+        return new ActionResult(List.of(possibleFollowUps), false);
     }
 
     private IMove regionToAction(Region region, int unitCount) {
         return new PlaceUnitsOnCentralBoardAction(new ArrayList<>() {{
-            add(new PlaceUnitOnCentralBoardContext(region, unitCount));
+            add(new UnitsInRegion(region, unitCount));
         }});
     }
 }

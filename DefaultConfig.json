@@ -65,7 +65,8 @@
       "Effects": [
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": ["NEIGHBORING"]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 1
         },
         {
           "Type": "GetCoinsFromReserve",
@@ -161,7 +162,8 @@
         },
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": ["NEIGHBORING", "NEIGHBORING"]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
         }
       ]
     }
@@ -1656,10 +1658,8 @@
         },
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": [
-            "NEIGHBORING",
-            "NEIGHBORING"
-          ]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
         }
       ],
       "GainedChainingSymbol": null,
@@ -1687,9 +1687,8 @@
         },
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": [
-            "NEIGHBORING"
-          ]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 1
         }
       ],
       "GainedChainingSymbol": null,
@@ -1761,10 +1760,8 @@
         },
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": [
-            "NEIGHBORING",
-            "NEIGHBORING"
-          ]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
         }
       ],
       "GainedChainingSymbol": null,
@@ -1784,11 +1781,8 @@
       "Effects": [
         {
           "Type": "MoveUnitsOnCentralBoard",
-          "Strategy": [
-            "NEIGHBORING",
-            "NEIGHBORING",
-            "NEIGHBORING"
-          ]
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 3
         }
       ],
       "GainedChainingSymbol": null,
@@ -1916,10 +1910,8 @@
           "Trigger": "CHAPTER_CARD_GREEN_USED",
           "Effect": {
             "Type": "MoveUnitsOnCentralBoard",
-            "Strategy": [
-              "NEIGHBORING",
-              "NEIGHBORING"
-            ]
+            "Strategy": "NEIGHBORING",
+            "UnitsToMove": 2
           }
         }
       ]
@@ -2033,9 +2025,8 @@
                   },
                   {
                     "Type": "MoveUnitsOnCentralBoard",
-                    "Strategy": [
-                      "NEIGHBORING"
-                    ]
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
                   }
                 ]
               },
@@ -2053,9 +2044,8 @@
                   },
                   {
                     "Type": "MoveUnitsOnCentralBoard",
-                    "Strategy": [
-                      "NEIGHBORING"
-                    ]
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
                   }
                 ]
               },
@@ -2073,9 +2063,8 @@
                   },
                   {
                     "Type": "MoveUnitsOnCentralBoard",
-                    "Strategy": [
-                      "NEIGHBORING"
-                    ]
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
                   }
                 ]
               }

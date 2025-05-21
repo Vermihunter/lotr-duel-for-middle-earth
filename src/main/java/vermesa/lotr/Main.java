@@ -9,8 +9,8 @@ import vermesa.lotr.model.game.CurrentGameState;
 import vermesa.lotr.serialization.json.JsonConfig;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -34,12 +34,21 @@ public class Main {
 
         //while(game.getState().getCurrentRoundNumber() == 1) {
         while (game.getState().getCurrentGameState() == CurrentGameState.HAS_NOT_ENDED) {
-            var moves = game.getPossibleMoves();
-            int moveInd = rand.nextInt(moves.size());
-            IAction move = moves.get(moveInd);
+            var moveOptions = game.getPossibleMoves();
+            ArrayList<IAction> actions = new ArrayList<>();
+            for (var moveOptionGroup : moveOptions) {
+
+
+                int moveInd = rand.nextInt(moveOptionGroup.size());
+                var moveOption = moveOptionGroup.get(moveInd);
+
+                actions.add(moveOption);
+            }
+
+
             // System.out.println(move);
-            System.out.println(objectMapper.writeValueAsString(move) + ",");
-            game.makeMove(move);
+            System.out.println(objectMapper.writeValueAsString(actions) + ",");
+            game.makeMove(actions);
         }
 
 

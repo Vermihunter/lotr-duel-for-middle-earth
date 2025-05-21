@@ -7,7 +7,7 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.chapter_cards.ChapterCard;
 
 public abstract class ChapterCardMove implements IMove {
-    protected final ChapterCard chaptercard;
+    public final ChapterCard chaptercard;
 
     public ChapterCardMove(ChapterCard chaptercard) {
         this.chaptercard = chaptercard;

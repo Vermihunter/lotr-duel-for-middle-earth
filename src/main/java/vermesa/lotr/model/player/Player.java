@@ -6,7 +6,7 @@ import vermesa.lotr.model.skills.ExtendedSkillSet;
 
 import java.util.HashSet;
 
-public class Player {
+public abstract class Player {
     private final ExtendedSkillSet skillSet;
     private final PlayerState playerState;
 
@@ -25,6 +25,9 @@ public class Player {
         this.playerState = new PlayerState();
     }
 
+    public abstract boolean isFellowshipPlayer();
+
+    public abstract boolean isSauronPlayer();
 
     public PlayerState getPlayerState() {
         return playerState;

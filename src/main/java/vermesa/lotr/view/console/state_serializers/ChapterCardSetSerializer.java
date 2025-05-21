@@ -88,7 +88,6 @@ public class ChapterCardSetSerializer {
             add(spacesLeft, columns, sb, emptySpace, thirdRow);
         }
 
-        int index = 1;
         for (var chapterCard : allCards.entrySet()) {
             if (chapterCard.getValue().isAlreadyPlayed()) {
                 continue;
@@ -96,7 +95,7 @@ public class ChapterCardSetSerializer {
 
             if (chapterCard.getValue().isFaceUp()) {
                 sb.append('(');
-                sb.append(index++);
+                sb.append(String.format("%02d", chapterCard.getKey() + 1));
                 sb.append(')');
                 sb.append(' ');
                 sb.append(ChapterCardSerializer.serialize(chapterCard.getValue().getChapterCard(), 7));

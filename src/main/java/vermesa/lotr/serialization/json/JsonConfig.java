@@ -126,7 +126,7 @@ public class JsonConfig implements IGameConfig {
 
     private vermesa.lotr.model.game.RoundConfig constructRoundConfig(RoundConfig roundConfig) {
         var chapterCardConfigs = roundConfig.ChapterCardConfig.stream()
-                .map(c -> new ChapterCardConfigBuilder(c.ID, c.DependsOn, c.IsFaceUp))
+                .map(c -> new ChapterCardConfigBuilder(c.ID, c.Row, c.DependsOn, c.IsFaceUp))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         var thisRoundChapterCards = ChapterCardsToUse.stream()

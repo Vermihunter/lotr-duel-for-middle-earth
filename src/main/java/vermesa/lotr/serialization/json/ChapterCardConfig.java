@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ChapterCardConfig {
     public int Round;
-    public int ID;
     public ChapterCardColors Color;
     public SkillsetConfig RequiredSkills;
     public List<ActionConfig> Effects;

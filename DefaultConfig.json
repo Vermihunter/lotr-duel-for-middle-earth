@@ -2082,102 +2082,122 @@
         {
           "ID": 0,
           "DependsOn": [2, 3],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 1,
           "DependsOn": [3, 4],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 2,
           "DependsOn": [5, 6],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 3,
           "DependsOn": [6, 7],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 4,
           "DependsOn": [7, 8],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 5,
           "DependsOn": [9, 10],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 6,
           "DependsOn": [10, 11],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 7,
           "DependsOn": [11, 12],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 8,
           "DependsOn": [12, 13],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 9,
           "DependsOn": [14, 15],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 10,
           "DependsOn": [15, 16],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 11,
           "DependsOn": [16, 17],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 12,
           "DependsOn": [17, 18],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 13,
           "DependsOn": [17, 18],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 14,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 15,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 16,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 17,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 18,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 19,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         }
       ]
     },
@@ -2188,102 +2208,122 @@
         {
           "ID": 0,
           "DependsOn": [6],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 1,
           "DependsOn": [6, 7],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 2,
           "DependsOn": [7, 8],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 3,
           "DependsOn": [8, 9],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 4,
           "DependsOn": [9, 10],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 5,
           "DependsOn": [10],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 6,
           "DependsOn": [11],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 7,
           "DependsOn": [11, 12],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 8,
           "DependsOn": [12, 13],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 9,
           "DependsOn": [13, 14],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 10,
           "DependsOn": [14],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 11,
           "DependsOn": [15],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 12,
           "DependsOn": [15, 16],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 13,
           "DependsOn": [16, 17],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 14,
           "DependsOn": [17],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 15,
           "DependsOn": [18],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 16,
           "DependsOn": [18, 19],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 17,
           "DependsOn": [19],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 18,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 19,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         }
       ]
     },
@@ -2294,102 +2334,122 @@
         {
           "ID": 0,
           "DependsOn": [2, 3],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 1,
           "DependsOn": [3, 4],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 1
         },
         {
           "ID": 2,
           "DependsOn": [5, 6],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 3,
           "DependsOn": [6, 7],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 4,
           "DependsOn": [7, 8],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 2
         },
         {
           "ID": 5,
           "DependsOn": [9],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 6,
           "DependsOn": [9],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 7,
           "DependsOn": [10],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 8,
           "DependsOn": [10],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 3
         },
         {
           "ID": 9,
           "DependsOn": [11, 12],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 10,
           "DependsOn": [13, 14],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 4
         },
         {
           "ID": 11,
           "DependsOn": [15],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 12,
           "DependsOn": [15, 16],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 13,
           "DependsOn": [16, 17],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 14,
           "DependsOn": [17],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 5
         },
         {
           "ID": 15,
           "DependsOn": [18],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 6
         },
         {
           "ID": 16,
           "DependsOn": [18, 19],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 6
         },
         {
           "ID": 17,
           "DependsOn": [19],
-          "IsFaceUp": false
+          "IsFaceUp": false,
+          "Row": 6
         },
         {
           "ID": 18,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 7
         },
         {
           "ID": 19,
           "DependsOn": [],
-          "IsFaceUp": true
+          "IsFaceUp": true,
+          "Row": 7
         }
       ]
     }

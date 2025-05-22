@@ -1,7 +1,6 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
-import vermesa.lotr.view.console.move_serializers.SkillSetSerializer;
 
 public class ChapterCardSerializer {
 

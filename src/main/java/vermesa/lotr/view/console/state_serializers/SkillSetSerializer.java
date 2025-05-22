@@ -1,4 +1,4 @@
-package vermesa.lotr.view.console.move_serializers;
+package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.skills.Skill;
 import vermesa.lotr.model.skills.SkillSet;
@@ -22,7 +22,6 @@ public class SkillSetSerializer {
         if (sb.isEmpty()) return "";
 
         sb.delete(sb.length() - 2, sb.length());
-        //sb.deleteCharAt(sb.length());
         return sb.toString();
     }
 }

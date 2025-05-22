@@ -20,7 +20,6 @@ public abstract class Player {
      */
     private final PlayerState playerState;
 
-    // Number of cards per race
     /**
      * Holds the number of supporters for each race
      * The length of this array should be equal to the number of races presented here: {@link Race}

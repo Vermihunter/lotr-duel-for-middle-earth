@@ -53,6 +53,19 @@ public class ConsoleGrid {
     }
 
     /**
+     * Place compB to the left of compA by offset columns (relative to compA's left edge).
+     */
+    public void placeLeft(ConsoleComponent compA, ConsoleComponent compB, int colOffset) {
+        int newX = compA.getX() - compB.getWidth() - colOffset;
+        if (newX < 0) {
+            // clamp to leftmost
+            newX = 0;
+        }
+        int newY = compA.getY();
+        addAbsolute(compB, newX, newY);
+    }
+
+    /**
      * Render all components into the buffer and return the composed string.
      */
     public String render() {

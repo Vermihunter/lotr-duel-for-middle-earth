@@ -11,7 +11,11 @@ import java.util.List;
  * Abstract AI player holding the common implementations of all players
  */
 public abstract class AbstractAIPlayer implements IAIPlayer {
-    protected Player me;
+    protected final Player me;
+
+    protected AbstractAIPlayer(Player me) {
+        this.me = me;
+    }
 
     /**
      * Implements the templater design pattern

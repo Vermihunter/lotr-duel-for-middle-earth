@@ -1,6 +1,7 @@
 package vermesa.lotr.view.console.commands.handlers;
 
 import vermesa.lotr.ai_players.IAIPlayer;
+import vermesa.lotr.ai_players.IAIPlayerConfig;
 import vermesa.lotr.config.CommandResourceBundleKeys;
 import vermesa.lotr.controllers.HumanPlayerController;
 import vermesa.lotr.controllers.OpponentAIController;
@@ -35,14 +36,18 @@ public class StartGameConfigurationHandler extends CommandHandler {
 
         // Start game configuration
         context.out.println(">> Game configuration has been started.");
-        context.controllerLock = new Object();
         Random rand = new Random(111);
 
         // Create game
         var game = context.gameConfig.createGame(rand);
         // Get user choices
-        IAIPlayer aiPlayer = chooseAIPlayer(rand);
+        IAIPlayerConfig aiPlayerConfig = chooseAIPlayer(rand);
         Player humanPlayerType = choosePlayerType(game);
+        Player opponentPlayerType = (humanPlayerType == game.getContext().getFellowshipPlayer())
+                ? game.getContext().getSauronPlayer()
+                : game.getContext().getFellowshipPlayer();
+
+        IAIPlayer aiPlayer = aiPlayerConfig.constructAIPlayer(opponentPlayerType);
 
         boolean isHumanPlayerOnMove = game.getState().getPlayerOnMove() == humanPlayerType;
 
@@ -53,11 +58,12 @@ public class StartGameConfigurationHandler extends CommandHandler {
         if (isHumanPlayerOnMove) {
             ListAvailableMovesHandler.addAsSubHandler(resourceBundle, game, console, context);
             PrintGameStateHandler.addAsSubHandler(resourceBundle, game, console, context);
-        } else {
-            synchronized (context.controllerLock) {
-                context.controllerLock.notifyAll();
-            }
         }
+
+        synchronized (context.controllerLock) {
+            context.controllerLock.notifyAll();
+        }
+
 
         return new CommandResult(CommandResultType.CONTINUE, null);
     }
@@ -112,7 +118,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
         }
     }
 
-    private IAIPlayer chooseAIPlayer(Random rand) {
+    private IAIPlayerConfig chooseAIPlayer(Random rand) {
         context.out.println(">> Please choose an AI player to play against.");
         context.out.println(">> The available AI players are:");
 

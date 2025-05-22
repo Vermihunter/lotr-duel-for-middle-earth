@@ -10,6 +10,7 @@ import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
 public class ListAvailableMovesHandler extends CommandHandler {
@@ -51,24 +52,30 @@ public class ListAvailableMovesHandler extends CommandHandler {
             while (true) {
                 context.out.print(">> Move number to choose: ");
                 int moveInd;
-                try {
+                if (context.scanner.hasNextInt()) {
                     moveInd = context.scanner.nextInt();
-                } catch (Exception e) {
-                    context.out.println(">>> Invalid move number - try again");
-                    continue;
+                    if (moveInd > moveGroup.size() || moveInd < 0) {
+                        context.out.println(">>> Invalid move number - try again");
+                        continue;
+                    }
+
+                    chosenMoves.add(moveGroup.get(moveInd - 1));
+                    break;
+                } else {
+                    context.scanner.nextLine();      // <— skip the rest of the bad line
+                    context.out.println(
+                            ">>> Invalid move number – try again"
+                    );
                 }
 
-                if (moveInd > moveGroup.size() || moveInd < 0) {
-                    context.out.println(">>> Invalid move number - try again");
-                    continue;
-                }
 
-                chosenMoves.add(moveGroup.get(moveInd - 1));
-                break;
             }
         }
 
         game.makeMove(chosenMoves);
+        synchronized (context.controllerLock) {
+            context.controllerLock.notify();
+        }
 
         return new CommandResult(CommandResultType.CONTINUE, null);
     }

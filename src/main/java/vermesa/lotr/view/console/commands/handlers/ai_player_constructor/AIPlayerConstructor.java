@@ -2,6 +2,7 @@ package vermesa.lotr.view.console.commands.handlers.ai_player_constructor;
 
 import org.reflections.Reflections;
 import vermesa.lotr.ai_players.IAIPlayer;
+import vermesa.lotr.ai_players.IAIPlayerConfig;
 
 import java.util.*;
 
@@ -27,7 +28,7 @@ public class AIPlayerConstructor {
 
     }
 
-    public static IAIPlayer constructPlayer(String[] args, Random rand) {
+    public static IAIPlayerConfig constructPlayer(String[] args, Random rand) {
         // Bad call → no arguments passed
         if (args.length == 0) {
             return null;
@@ -42,7 +43,7 @@ public class AIPlayerConstructor {
         }
 
         // Other error handling is passed to the concrete AI player type constructor
-        return playerConstructor.constructPlayer(Arrays.copyOfRange(args, 1, args.length), rand);
+        return playerConstructor.constructPlayerConfig(Arrays.copyOfRange(args, 1, args.length), rand);
     }
 
     public static Set<String> getPlayerNames() {

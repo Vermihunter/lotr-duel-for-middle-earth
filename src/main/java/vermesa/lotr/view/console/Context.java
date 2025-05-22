@@ -17,7 +17,7 @@ public class Context {
     public final Scanner scanner;
     public final IGameConfig gameConfig;
     public final BlockingQueue<GameEvent> eventQueue;
-    public Object controllerLock;
+    public final Object controllerLock = new Object();
 
 
     public Context(ResourceBundle resourceBundle, HandlersRegistry registry, PrintStream out, PrintStream err, Scanner scanner, IGameConfig gameConfig, BlockingQueue<GameEvent> eventQueue) {

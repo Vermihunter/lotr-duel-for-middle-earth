@@ -31,8 +31,7 @@ public class CommandResourceBundleKeys {
     private static final String LIST_AVAILABLE_MOVES_COMMAND_NAME = "list_moves";
     public static final String LIST_AVAILABLE_MOVES_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + LIST_AVAILABLE_MOVES_COMMAND_NAME;
     public static final String LIST_AVAILABLE_MOVES_NAME = NAME_PREFIX + "." + LIST_AVAILABLE_MOVES_COMMAND_NAME;
-
-
+    
     // Show game state command configuration
     private static final String DISPLAY_GAME_STATE_COMMAND_NAME = "state";
     public static final String DISPLAY_GAME_STATE_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + DISPLAY_GAME_STATE_COMMAND_NAME;

@@ -6,7 +6,7 @@ import vermesa.lotr.model.actions.race_effect_actions.RaceEffectCallbackEventTyp
 import vermesa.lotr.model.chapter_cards.ChainingSymbols;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
-import vermesa.lotr.model.chapter_cards.ChapterCard;
+import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.player.Player;
 
 import java.io.Serializable;
@@ -22,17 +22,17 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
     private final boolean addedThroughChaining;
     private final int coinsToPlay;
 
-    private ChapterCardPlayMove(ChapterCard chapterCard, boolean addedThroughChaining, int coinsToPlay) {
+    private ChapterCardPlayMove(ChapterCardWrapper chapterCard, boolean addedThroughChaining, int coinsToPlay) {
         super(chapterCard);
         this.addedThroughChaining = addedThroughChaining;
         this.coinsToPlay = coinsToPlay;
     }
 
-    public static ChapterCardPlayMove withSkills(ChapterCard chapterCard, int coinsToPlay) {
+    public static ChapterCardPlayMove withSkills(ChapterCardWrapper chapterCard, int coinsToPlay) {
         return new ChapterCardPlayMove(chapterCard, false, coinsToPlay);
     }
 
-    public static ChapterCardPlayMove throughChainingSymbols(ChapterCard chapterCard) {
+    public static ChapterCardPlayMove throughChainingSymbols(ChapterCardWrapper chapterCard) {
         return new ChapterCardPlayMove(chapterCard, true, 0);
     }
 
@@ -56,11 +56,11 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         // Perform common implementation of multi-stage move
-        ActionResult result = IMove.performMultiStageMove(ctx, state, chaptercard.context().actions());
+        ActionResult result = IMove.performMultiStageMove(ctx, state, chaptercard.getChapterCard().context().actions());
         Player playerOnMove = state.getPlayerOnMove();
 
         // Adding chaining symbols if Chapter card contains any
-        ChainingSymbols chapterCardChainingSymbols = chaptercard.context().gainedChainingSymbol();
+        ChainingSymbols chapterCardChainingSymbols = chaptercard.getChapterCard().context().gainedChainingSymbol();
         if (chapterCardChainingSymbols != null) {
             playerOnMove.getPlayerState().addChainingSymbol(chapterCardChainingSymbols);
         }
@@ -93,7 +93,7 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
      * @return Callback event type that is passed to the signaller
      */
     RaceEffectCallbackEventType toRaceEffectCallbackEventType() {
-        return switch (chaptercard.context().color()) {
+        return switch (chaptercard.getChapterCard().context().color()) {
             case BLUE -> RaceEffectCallbackEventType.CHAPTER_CARD_BLUE_USED;
             case GREEN -> RaceEffectCallbackEventType.CHAPTER_CARD_GREEN_USED;
             case YELLOW -> RaceEffectCallbackEventType.CHAPTER_CARD_YELLOW_USED;

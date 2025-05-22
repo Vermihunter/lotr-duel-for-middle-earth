@@ -1,6 +1,7 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
+import vermesa.lotr.view.console.utils.AnsiColors;
 
 public class QuestOfTheRingTrackSerializer {
 
@@ -24,7 +25,7 @@ public class QuestOfTheRingTrackSerializer {
         stringBuilder.append("╗");
         stringBuilder.append("\n║");
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
-        stringBuilder.append("Quest Of Ring Track");
+        stringBuilder.append(AnsiColors.colorize("Quest Of Ring Track", AnsiColors.RED));
         stringBuilder.append(" ".repeat((trackWidth - 20) / 2));
         stringBuilder.append("║");
         stringBuilder.append("\n");
@@ -40,9 +41,13 @@ public class QuestOfTheRingTrackSerializer {
         for (int i = 0; i < width - 1; i++) {
             // Players
             if (i == fellowshipPlayerIndex) {
-                stringBuilder.append("F║");
+                stringBuilder.append(AnsiColors.colorize("F", AnsiColors.GREEN));
+                stringBuilder.append("║");
+                //stringBuilder.append("F║");
             } else if (i == sauronPlayerIndex) {
-                stringBuilder.append("S║");
+                stringBuilder.append(AnsiColors.colorize("S", AnsiColors.RED));
+                stringBuilder.append("║");
+                //stringBuilder.append("S║");
             }
             // Bonuses
             else {
@@ -53,7 +58,9 @@ public class QuestOfTheRingTrackSerializer {
                     if ((sauronPlayerMovesMade + fellowshipPlayerMovesMade + pos == i && sauronPlayerIndex < pos) // Sauron bonuses
                             || (fellowshipPlayerIndex - fellowshipPlayerMovesMade + pos == i && fellowshipPlayerMovesMade < pos) // Fellowship bonuses
                     ) {
-                        stringBuilder.append("B║");
+                        stringBuilder.append(AnsiColors.colorize("B", AnsiColors.BLUE));
+                        stringBuilder.append("║");
+                        //stringBuilder.append("B║");
                         bonusFound = true;
                         break;
                     }

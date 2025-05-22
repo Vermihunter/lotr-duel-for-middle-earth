@@ -2,16 +2,17 @@ package vermesa.lotr.model.moves;
 
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.race_effect_actions.RaceEffectCallbackEventType;
+import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
-import vermesa.lotr.model.chapter_cards.ChapterCard;
+import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.player.Player;
 
 import java.io.Serializable;
 
 public class ChapterCardDiscardMove extends ChapterCardMove implements Serializable {
 
-    public ChapterCardDiscardMove(ChapterCard chapterCard) {
+    public ChapterCardDiscardMove(ChapterCardWrapper chapterCard) {
         super(chapterCard);
     }
 

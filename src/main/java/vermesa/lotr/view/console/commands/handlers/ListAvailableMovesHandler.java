@@ -58,7 +58,7 @@ public class ListAvailableMovesHandler extends CommandHandler {
                     continue;
                 }
 
-                if (moveInd > possibleMoves.size() || moveInd < 0) {
+                if (moveInd > moveGroup.size() || moveInd < 0) {
                     context.out.println(">>> Invalid move number - try again");
                     continue;
                 }

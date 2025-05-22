@@ -11,12 +11,12 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.toMap;
 
 public class CentralBoardSerializer {
-    private static final int width = 64;
-    private static final int regionWidth = 16;
+    private static final int width = 72;
+    private static final int regionWidth = 18;
     static final String upperSeparator = "╔" + "═".repeat(regionWidth - 2) + "╗";
     static final String middleRow = "╠" + "═".repeat(regionWidth - 2) + "╣";
     static final String lowerRow = "╚" + "═".repeat(regionWidth - 2) + "╝";
-    private static final int spaces = 8;
+    private static final int spaces = 9;
     static final String emptySeparator = " ".repeat(spaces);
     static final String middleRowSeparator = "←" + "-".repeat(spaces - 2) + "→";
 
@@ -74,43 +74,7 @@ public class CentralBoardSerializer {
 
     }
 
-    /**
-     * Helper to keep code clean - for static content
-     *
-     * @param stringBuilder StringBuilder
-     * @param regions       Regions
-     * @param s             String to print
-     * @param separator     Length should be `spaces`
-     */
-    private static void printForRegions(StringBuilder stringBuilder, Region[] regions, String s, String separator) {
-        for (Region region : regions) {
-            if (region == null) {
-                stringBuilder.append(" ".repeat(regionWidth + spaces));
-                continue;
-            }
 
-            stringBuilder.append(s);
-            stringBuilder.append(separator);
-        }
-
-        stringBuilder.delete(stringBuilder.length() - spaces, stringBuilder.length());
-        stringBuilder.append("\n");
-    }
-
-    private static void printForRegionsWithGenerator(StringBuilder stringBuilder, Region[] regions, Function<Region, String> generator, String separator) {
-        for (Region region : regions) {
-            if (region == null) {
-                stringBuilder.append(" ".repeat(regionWidth + spaces));
-                continue;
-            }
-
-            stringBuilder.append(generator.apply(region));
-            stringBuilder.append(separator);
-        }
-
-        stringBuilder.delete(stringBuilder.length() - spaces, stringBuilder.length());
-        stringBuilder.append("\n");
-    }
 
     /**
      * Used as a generator for a row to print the title of a Region
@@ -136,9 +100,9 @@ public class CentralBoardSerializer {
      * @param regions       Regions to generate for - the ones that are in the same row
      */
     private static void addRegionTitles(StringBuilder stringBuilder, Region[] regions) {
-        printForRegions(stringBuilder, regions, upperSeparator, emptySeparator);
-        printForRegionsWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionTitleRow, emptySeparator);
-        printForRegions(stringBuilder, regions, middleRow, middleRowSeparator);
+        StateSerializer.add(stringBuilder, regions, upperSeparator, emptySeparator, regionWidth);
+        StateSerializer.addWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionTitleRow, emptySeparator, regionWidth);
+        StateSerializer.add(stringBuilder, regions, middleRow, middleRowSeparator, regionWidth);
     }
 
 
@@ -186,9 +150,10 @@ public class CentralBoardSerializer {
      * @param regions       Regions to generate for i.e. the ones that are in the same row
      */
     private static void addAttributes(StringBuilder stringBuilder, Region[] regions) {
-        printForRegionsWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionUnitsRow, emptySeparator);
-        printForRegionsWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionFortressRow, emptySeparator);
-        printForRegions(stringBuilder, regions, lowerRow, emptySeparator);
+
+        StateSerializer.addWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionUnitsRow, emptySeparator, regionWidth);
+        StateSerializer.addWithGenerator(stringBuilder, regions, CentralBoardSerializer::getRegionFortressRow, emptySeparator, regionWidth);
+        StateSerializer.add(stringBuilder, regions, lowerRow, emptySeparator, regionWidth);
     }
 
     /**
@@ -202,9 +167,9 @@ public class CentralBoardSerializer {
         addAttributes(stringBuilder, regions);
 
         if (addDependencies) {
-            stringBuilder.append("                                ↑             ↗         ↑        \n");
-            stringBuilder.append("                                |          ／           |        \n");
-            stringBuilder.append("                                ↓        ↙              ↓        \n");
+            stringBuilder.append("                                     ↑             ↗           ↑\n");
+            stringBuilder.append("                                     |          ／             |\n");
+            stringBuilder.append("                                     ↓        ↙                ↓\n");
         }
 
     }

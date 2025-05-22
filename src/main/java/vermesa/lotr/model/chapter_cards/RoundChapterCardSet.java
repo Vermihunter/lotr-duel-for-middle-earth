@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class RoundChapterCardSet {
     private final HashMap<Integer, ChapterCardWrapper> allChapterCards;
-    private final ArrayList<ChapterCard> playableChapterCards;
+    private final ArrayList<ChapterCardWrapper> playableChapterCards;
 
-    private RoundChapterCardSet(HashMap<Integer, ChapterCardWrapper> allChapterCards, ArrayList<ChapterCard> playableChapterCards) {
+    private RoundChapterCardSet(HashMap<Integer, ChapterCardWrapper> allChapterCards, ArrayList<ChapterCardWrapper> playableChapterCards) {
         this.allChapterCards = allChapterCards;
         this.playableChapterCards = playableChapterCards;
     }
@@ -20,13 +20,9 @@ public class RoundChapterCardSet {
         return allChapterCards;
     }
 
-    public List<ChapterCard> getPlayableChapterCards() {
-        return playableChapterCards;
-    }
-
     public static RoundChapterCardSet from(List<ChapterCard> chapterCards, RoundChapterCardConfig config) {
         HashMap<Integer, ChapterCardWrapper> _allChapterCards = new HashMap<>();
-        ArrayList<ChapterCard> playableChapterCards = new ArrayList<>();
+        ArrayList<ChapterCardWrapper> playableChapterCards = new ArrayList<>();
 
         for (var chapterCardConfig : config.configs()) {
             int id = chapterCardConfig.id();
@@ -51,7 +47,7 @@ public class RoundChapterCardSet {
 
             // Add cards that have no dependencies to the initial list of playable cards
             if (dependsOn.isEmpty()) {
-                playableChapterCards.add(chapterCard);
+                playableChapterCards.add(wrapper);
             }
 
             // IDs should be unique
@@ -63,14 +59,18 @@ public class RoundChapterCardSet {
         return new RoundChapterCardSet(_allChapterCards, playableChapterCards);
     }
 
+    public List<ChapterCardWrapper> getPlayableChapterCards() {
+        return playableChapterCards;
+    }
+
     /**
      * Called from Game after a chapter card move was successful to update state
      * of other chapter cards.
      *
-     * @param chapterCard The chapter card that was played successfully
+     * @param chapterCardWrapper The chapter card that was played successfully
      */
-    public void moveSuccessful(ChapterCard chapterCard) {
-        int id = chapterCard.id();
+    public void moveSuccessful(ChapterCardWrapper chapterCardWrapper) {
+        int id = chapterCardWrapper.getChapterCard().id();
         allChapterCards.get(id).alreadyPlayed = true;
 
         // Decrease the remaining dependency count on all chapter card that is dependent
@@ -80,7 +80,7 @@ public class RoundChapterCardSet {
                 .forEach(this::decreaseDependencies);
 
         // Remove the card from playable ones
-        playableChapterCards.remove(chapterCard);
+        playableChapterCards.remove(chapterCardWrapper);
     }
 
     private void decreaseDependencies(ChapterCardWrapper chapterCard) {
@@ -88,7 +88,7 @@ public class RoundChapterCardSet {
 
         if (chapterCard.remainingDependencies == 0) {
             chapterCard.reveal();
-            playableChapterCards.add(chapterCard.chapterCard);
+            playableChapterCards.add(chapterCard);
         }
     }
 
@@ -108,6 +108,10 @@ public class RoundChapterCardSet {
             this.remainingDependencies = dependsOn.size();
             this.row = row;
             this.alreadyPlayed = false;
+        }
+
+        public int getRemainingDependencies() {
+            return remainingDependencies;
         }
 
         public ChapterCard getChapterCard() {

@@ -12,7 +12,7 @@ public class ChapterCardSerializer {
 
         // ID
         builder.append("→ ID: ")
-                .append(chapterCard.getChapterCard().id());
+                .append(chapterCard.getChapterCard().id() + 1);
 
         // Color
         builder.append(" - Color: ")

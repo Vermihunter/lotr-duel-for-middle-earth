@@ -6,6 +6,8 @@ import vermesa.lotr.view.console.commands.exceptions.BadCommandArgumentsExceptio
 import vermesa.lotr.view.console.commands.exceptions.CommandNotFoundException;
 import vermesa.lotr.view.console.commands.handlers.CommandHandler;
 import vermesa.lotr.view.console.commands.CommandResult;
+import vermesa.lotr.view.console.utils.BoxPrinter;
+import vermesa.lotr.view.console.utils.BoxPrinter.Section;
 
 public class ConsoleView {
     private final CommandHandler baseCommandHandler;
@@ -29,14 +31,31 @@ public class ConsoleView {
 
         try {
             result = baseCommandHandler.handleCommand(command, this);
-        } catch (CommandNotFoundException e) {
-            printHelp();
-            result = new CommandResult(CommandResultType.ERROR, e.getMessage());
-        } catch (BadCommandArgumentsException e) {
-            result = new CommandResult(CommandResultType.ERROR, e.getMessage());
+        } catch (Exception e) {
+            result = new CommandResult(CommandResultType.ERROR, e.getMessage(), true);
         }
 
         return result;
+    }
+
+    public void printWelcome() {
+        int boxWidth = 80;
+
+        Section titleSection = new Section(
+                "The Lord of the Rings: Duel for Middle-earth"
+        );
+
+        Section welcomeSection = new Section(
+                "One box to rule them all... sharpen your wits!",
+                "May your fellowship be unbreakable and your RNG merciful!",
+                "Tread carefully, for every orc has a pointy spear—and a bad attitude!",
+                "Let the battle for Middle-earth BEGIN!"
+        );
+
+        BoxPrinter.printSections(
+                new Section[]{titleSection, welcomeSection},
+                boxWidth, context
+        );
     }
 
     public void printHelp() {

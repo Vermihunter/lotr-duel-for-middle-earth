@@ -2235,7 +2235,10 @@
         },
         {
           "ID": 13,
-          "DependsOn": [17, 18],
+          "DependsOn": [
+            18,
+            19
+          ],
           "IsFaceUp": false,
           "Row": 4
         },

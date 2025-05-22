@@ -6,7 +6,6 @@ import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.ConsoleView;
 
 public class ListAvailableCommandsHandler extends CommandHandler {
-    private static final CommandResult CONSTANT_RESULT = new CommandResult(CommandResultType.CONTINUE, null);
 
     public ListAvailableCommandsHandler(Context context, String name, String description) {
         super(context, name, description);
@@ -23,6 +22,6 @@ public class ListAvailableCommandsHandler extends CommandHandler {
         });
 
 
-        return CONSTANT_RESULT;
+        return CommandResult.OK;
     }
 }

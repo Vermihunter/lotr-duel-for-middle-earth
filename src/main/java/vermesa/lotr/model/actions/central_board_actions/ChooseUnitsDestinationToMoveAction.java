@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-
+/**
+ * @param fromRegions
+ * @param unitsToMove
+ * @param moveStrategy
+ */
 public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions, int unitsToMove,
                                                  CentralBoardUnitMoveStrategy moveStrategy) implements IMove {
     @Override
@@ -30,7 +34,6 @@ public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions, int u
             for (int i = 0; i < destinationOptionsForRegion.size(); i++) {
                 movements.add(new CentralBoardUnitMovement(
                         fromRegions.get(i), destinationOptionsForRegion.get(i), 1));
-
             }
 
             followUpMoves.add(new MoveUnitsOnCentralBoardAction(movements));

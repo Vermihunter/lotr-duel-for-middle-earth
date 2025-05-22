@@ -79,15 +79,11 @@ public class Game {
             throw new IllegalArgumentException("Cannot shift player while must use follow up actions");
         }
 
-        if (!shiftPlayers && followUpActionsEmpty) {
-            throw new IllegalArgumentException("If players are not shifted, there must be follow up actions");
-        }
-
         // Act according to the result of actions
         if (shiftPlayers) {
             state.shiftPlayers();
             state.resetFollowUpMoves();
-        } else {
+        } else if (!followUpActionsEmpty) {
             state.setFollowUpMoves(moveRes.followUpActions());
         }
 

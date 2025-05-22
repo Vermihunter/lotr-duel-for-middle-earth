@@ -12,6 +12,6 @@ public class PlayChapterCardMoveSerializer implements IActionSerializer {
     public String serialize(IAction _move) {
         var move = (ChapterCardPlayMove) _move;
 
-        return "Play chapter card " + ChapterCardSerializer.serialize(move.chaptercard, 11);
+        return "Play chapter card " + ChapterCardSerializer.serialize(move.chapterCard, 11);
     }
 }

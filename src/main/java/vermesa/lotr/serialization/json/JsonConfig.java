@@ -186,6 +186,7 @@ public class JsonConfig implements IGameConfig {
                 .withFollowUpMoves(null)
                 .withTotalCoins(TotalCoinCount)
                 .withStartingLandmarkTiles(startingLandmarkTiles)
+                .withAllianceTokens(context.getAllianceTokens())
                 .build();
 
         // return new GameState(startingPlayer, otherPlayer, TotalCoinCount, context);

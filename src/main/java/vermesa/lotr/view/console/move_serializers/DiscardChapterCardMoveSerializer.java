@@ -13,6 +13,6 @@ public class DiscardChapterCardMoveSerializer implements IActionSerializer {
     public String serialize(IAction _move) {
         var move = (ChapterCardDiscardMove) _move;
 
-        return "Discard chapter card " + ChapterCardSerializer.serialize(move.chaptercard, 11);
+        return "Discard chapter card " + ChapterCardSerializer.serialize(move.chapterCard, 11);
     }
 }

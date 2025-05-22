@@ -53,26 +53,24 @@ public class QuestOfTheRingTrack {
         this.bonusActions = bonusActions;
     }
 
+    /**
+     * Getters
+     */
     public List<QuestOfTheRingBonusAction> getBonusActions() {
         return bonusActions;
     }
-
     public int getFellowshipPlayerIndex() {
         return fellowshipPlayerIndex;
     }
-
     public int getFellowshipPlayerMovesMade() {
         return fellowshipPlayerMovesMade;
     }
-
     public int getSauronPlayerIndex() {
         return sauronPlayerIndex;
     }
-
     public int getSauronPlayerMovesMade() {
         return sauronPlayerMovesMade;
     }
-
     public int getWidth() {
         return width;
     }

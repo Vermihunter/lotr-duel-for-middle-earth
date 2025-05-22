@@ -56,10 +56,13 @@ public class StartGameConfigurationHandler extends CommandHandler {
         Thread controllerThread = getControllerThread(aiPlayer, humanPlayerType, game);
         controllerThread.start();
 
+        // Add this back you want to add adding+removing the list_moves command when the enemy player is moving
+        /*
         if (isHumanPlayerOnMove) {
-            ListAvailableMovesHandler.addAsSubHandler(resourceBundle, game, console, context);
         }
+        */
 
+        ListAvailableMovesHandler.addAsSubHandler(resourceBundle, game, console, context);
         PrintGameStateHandler.addAsSubHandler(resourceBundle, game, console, context);
 
         synchronized (context.controllerLock) {

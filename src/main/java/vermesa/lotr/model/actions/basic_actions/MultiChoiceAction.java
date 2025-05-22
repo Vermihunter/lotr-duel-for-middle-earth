@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 
 /**
- * @param possibleActions
- * @param actionsToTake
+ * Represents a move that makes the user to choose {@link #actionsToTake} moves from a list of moves
+ * @param possibleActions The list of actions where {@link #actionsToTake} to be chosen
+ * @param actionsToTake The number of actions to choose from {@link #possibleActions}
  */
 public record MultiChoiceAction(List<? extends IAction> possibleActions, int actionsToTake) implements IMove {
-
 
     public static <T> List<ArrayList<T>> combinations(List<T> list, int k) {
         List<ArrayList<T>> result = new ArrayList<>();

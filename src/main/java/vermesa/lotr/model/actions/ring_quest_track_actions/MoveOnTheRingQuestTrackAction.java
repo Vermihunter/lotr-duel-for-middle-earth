@@ -6,6 +6,11 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
 
+/**
+ * Moves the player on the Quest of the ring track
+ *
+ * @param moveCount The number of moves to make
+ */
 public record MoveOnTheRingQuestTrackAction(int moveCount) implements IAction {
 
     @Override

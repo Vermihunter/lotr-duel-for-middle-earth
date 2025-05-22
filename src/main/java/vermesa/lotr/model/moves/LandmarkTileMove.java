@@ -6,6 +6,17 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.player.Player;
 
+/**
+ * Represents a Landmark tile move that
+ * <ul>
+ *     <li>Performs the actions defined in {@link LandmarkTile#actions()}</li>
+ *     <li>Places a fortress to {@link LandmarkTile#region()}</li>
+ *     <li>Extracts coins that costs to play this card for the player</li>
+ * </ul>
+ *
+ * @param landmarkTile The landmark tile that is being used
+ * @param cost         The coins it costs to play this card
+ */
 public record LandmarkTileMove(LandmarkTile landmarkTile, int cost) implements IMove {
 
     @Override

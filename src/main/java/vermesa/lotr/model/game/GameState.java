@@ -1,11 +1,17 @@
 package vermesa.lotr.model.game;
 
+import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
+import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.race_effects.AllianceToken;
+import vermesa.lotr.model.race_effects.Race;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,19 +50,51 @@ public class GameState {
      * List of landmark tiles that are available to be used
      */
     private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
+
     /**
      * Global index of the landmark tiles since new ones are revealed only after the
      * old ones were used at the beginning of each round
      */
     private int landmarkTileGlobalIndex;
+
     /**
      * Represents the state in which the game is currently in i.e. whether it
      * has ended or not and if so with what result
      */
     private CurrentGameState currentGameState;
 
+    /**
+     * When a chapter card is discarded by {@link vermesa.lotr.model.moves.ChapterCardDiscardMove}, it is placed
+     * in this array so it could be played later on in the {@link vermesa.lotr.model.actions.chapter_card_actions.PlayDiscardedChapterCardAction}
+     */
+    private List<ChapterCardWrapper> discardedChapterCards;
+
+    /**
+     * Currently available alliance tokens - the AllianceToken on index 0 is used as the "top-most" alliance token,
+     * alliance token with index 1 is under 0 and so on
+     */
+    private HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
+
     private GameState(GameContext gameContext) {
         this.gameContext = gameContext;
+    }
+
+    /**
+     * Adds a chapter card to the discard
+     *
+     * @param chapterCardWrapper Chapter card that is being added
+     */
+    public void addChapterCardToDiscard(ChapterCardWrapper chapterCardWrapper) {
+        discardedChapterCards.add(chapterCardWrapper);
+    }
+
+    /**
+     * Returns all the chapter cards that have been discarded during the game
+     *
+     * @return The discarded chapter cards
+     */
+    public List<ChapterCardWrapper> getDiscardedChapterCards() {
+        return discardedChapterCards;
     }
 
     /**
@@ -87,7 +125,7 @@ public class GameState {
 
     /**
      *
-     * @return Follow up moves
+     * @return Follow-up moves
      */
     public List<List<IMove>> getFollowUpMoves() {
         return followUpMoves;
@@ -309,11 +347,38 @@ public class GameState {
 
     /**
      * Starts a new round and shifts the information
-     * TODO: landmark tiles
+     * Also adds new landmark tiles if the old ones were used up to {@link vermesa.lotr.model.landmark_effects.LandmarkTileContext#landmarkTilesAtTime()}
      */
     public void startNewRound() {
         currentRoundNumber++;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
+
+
+        // Add missing landmark tiles
+        var landmarkTiles = gameContext.getLandmarkTiles();
+        int landmarkTilesAtTheSameTime = gameContext.getLandmarkTileContext().landmarkTilesAtTime();
+        int landmarkTilesToPlace = landmarkTilesAtTheSameTime - currentlyUsableLandmarkTiles.size();
+        for (int i = 0; i < landmarkTilesToPlace; i++) {
+            currentlyUsableLandmarkTiles.add(landmarkTiles.get(landmarkTileGlobalIndex));
+            landmarkTileGlobalIndex++;
+        }
+    }
+
+    /**
+     * Removes an alliance token from the currently available alliance tokens
+     *
+     * @param allianceToken Alliance token that is being removed
+     */
+    public void removeAllianceTokens(AllianceToken allianceToken) {
+        for (var raceAllianceTokens : allianceTokens.values()) {
+            if (raceAllianceTokens.remove(allianceToken)) {
+                return;
+            }
+        }
+    }
+
+    public HashMap<Race, ArrayList<AllianceToken>> getAllianceTokens() {
+        return allianceTokens;
     }
 
     /**
@@ -330,6 +395,7 @@ public class GameState {
         private GameContext gameContext;
         private CurrentGameState currentGameState;
         private ArrayList<LandmarkTile> currentlyUsableLandmarkTiles;
+        private HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
         private GameStateBuilder() {
         }
@@ -383,6 +449,11 @@ public class GameState {
             return this;
         }
 
+        public GameStateBuilder withAllianceTokens(HashMap<Race, ArrayList<AllianceToken>> allianceTokens) {
+            this.allianceTokens = allianceTokens;
+            return this;
+        }
+
         public GameState build() {
             GameState gameState = new GameState(gameContext);
             gameState.setFollowUpMoves(followUpMoves);
@@ -393,6 +464,8 @@ public class GameState {
             gameState.currentGameState = this.currentGameState;
             gameState.playerOnMove = this.playerOnMove;
             gameState.currentlyUsableLandmarkTiles = this.currentlyUsableLandmarkTiles;
+            gameState.allianceTokens = this.allianceTokens;
+            gameState.landmarkTileGlobalIndex = gameContext.getLandmarkTileContext().landmarkTilesAtTime();
 
             return gameState;
         }

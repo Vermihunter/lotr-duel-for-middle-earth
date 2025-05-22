@@ -4,6 +4,7 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.moves.IMove;
 
 import java.util.List;
 
@@ -17,15 +18,8 @@ import java.util.List;
  */
 public record QuestOfTheRingBonusAction(int pos, List<IAction> action) implements IAction {
 
-    /**
-     * TODO: implement
-     * @param ctx Context of the game
-     * @param state State of the game
-     * @return
-     */
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
-
-        return null;
+        return IMove.performMultiStageMove(ctx, state, action);
     }
 }

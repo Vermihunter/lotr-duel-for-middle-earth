@@ -1,17 +1,15 @@
 package vermesa.lotr.model.moves;
 
 import vermesa.lotr.model.actions.ActionResult;
-import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.actions.race_effect_actions.RaceEffectCallbackEventType;
 import vermesa.lotr.model.chapter_cards.ChainingSymbols;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.player.PlayerState;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Since the actual actions that are executed in a Chapter card move are configured
@@ -28,17 +26,38 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
         this.coinsToPlay = coinsToPlay;
     }
 
+    /**
+     * Factory method to create a ChapterCardPlayMove if the player has enough skills+coins
+     * to pay for playing this card
+     *
+     * @param chapterCard The chapter card that will be played
+     * @param coinsToPlay The number of coins that costs playing this card
+     * @return The ChapterCardPlayMove object wrapping the chapter card
+     */
     public static ChapterCardPlayMove withSkills(ChapterCardWrapper chapterCard, int coinsToPlay) {
         return new ChapterCardPlayMove(chapterCard, false, coinsToPlay);
     }
 
+    /**
+     * Factory method to create a ChapterCardPlayMove through chaining symbols i.e. for free
+     * A move is constructed this way if the player has the chaining symbol {@link vermesa.lotr.model.chapter_cards.ChapterCardContext#playForFreeChainingSymbol()}
+     * between {@link PlayerState#getChainingSymbols()}
+     *
+     * @param chapterCard The chapter card that will be played
+     * @return The ChapterCardPlayMove object wrapping the chapter card
+     */
     public static ChapterCardPlayMove throughChainingSymbols(ChapterCardWrapper chapterCard) {
         return new ChapterCardPlayMove(chapterCard, true, 0);
     }
 
-    @Override
-    public String toString() {
-        return "ChapterCardPlayMove: " + chaptercard.toString();
+    /**
+     * Factory method to create a ChapterCardPlayMove for playing it from the discarded chapter cards
+     *
+     * @param chapterCard The chapter card that will be played
+     * @return The ChapterCardPlayMove object wrapping the chapter card
+     */
+    public static ChapterCardPlayMove fromDiscard(ChapterCardWrapper chapterCard) {
+        return new ChapterCardPlayMove(chapterCard, false, 0);
     }
 
     /**
@@ -56,11 +75,11 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         // Perform common implementation of multi-stage move
-        ActionResult result = IMove.performMultiStageMove(ctx, state, chaptercard.getChapterCard().context().actions());
+        ActionResult result = IMove.performMultiStageMove(ctx, state, chapterCard.getChapterCard().context().actions());
         Player playerOnMove = state.getPlayerOnMove();
 
         // Adding chaining symbols if Chapter card contains any
-        ChainingSymbols chapterCardChainingSymbols = chaptercard.getChapterCard().context().gainedChainingSymbol();
+        ChainingSymbols chapterCardChainingSymbols = chapterCard.getChapterCard().context().gainedChainingSymbol();
         if (chapterCardChainingSymbols != null) {
             playerOnMove.getPlayerState().addChainingSymbol(chapterCardChainingSymbols);
         }
@@ -93,7 +112,7 @@ public class ChapterCardPlayMove extends ChapterCardMove implements Serializable
      * @return Callback event type that is passed to the signaller
      */
     RaceEffectCallbackEventType toRaceEffectCallbackEventType() {
-        return switch (chaptercard.getChapterCard().context().color()) {
+        return switch (chapterCard.getChapterCard().context().color()) {
             case BLUE -> RaceEffectCallbackEventType.CHAPTER_CARD_BLUE_USED;
             case GREEN -> RaceEffectCallbackEventType.CHAPTER_CARD_GREEN_USED;
             case YELLOW -> RaceEffectCallbackEventType.CHAPTER_CARD_YELLOW_USED;

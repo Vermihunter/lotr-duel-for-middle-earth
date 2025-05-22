@@ -142,9 +142,32 @@ public abstract class Player {
     }
 
     /**
+     * Places back units from a region e.g. as a result of {@link vermesa.lotr.model.actions.central_board_actions.TakeEnemyUnitFromCentralBoardAction}
+     *
+     * @param units
+     */
+    public void placeBackUnits(int units) {
+        this.units += units;
+    }
+
+    /**
      * @return Number of currently available fortresses to place to a region
      */
     public int getFortresses() {
         return fortresses;
+    }
+
+    /**
+     * Removes a fortress from the player to place in to a region on the central board
+     */
+    public void removeFortress() {
+        fortresses--;
+    }
+
+    /**
+     * Places back a fortress to a player from a region e.g. as a result of {@link vermesa.lotr.model.actions.central_board_actions.RemoveEnemyFortressAction}
+     */
+    public void placeBackFortress() {
+        fortresses++;
     }
 }

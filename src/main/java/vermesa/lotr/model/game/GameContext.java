@@ -97,6 +97,10 @@ public class GameContext {
         return roundInformations;
     }
 
+    public HashMap<Race, ArrayList<AllianceToken>> getAllianceTokens() {
+        return allianceTokens;
+    }
+
     /**
      * Builder for the {@link GameContext} class to make sure the different
      * components are constructed according to the rules and without side effects

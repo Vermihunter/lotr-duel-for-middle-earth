@@ -8,6 +8,11 @@ import vermesa.lotr.model.player.Player;
 
 import java.util.List;
 
+/**
+ * Places units in given regions on the central board
+ *
+ * @param unitPlacings List of placings
+ */
 public record PlaceUnitsOnCentralBoardAction(List<UnitsInRegion> unitPlacings) implements IMove {
 
     @Override
@@ -16,6 +21,7 @@ public record PlaceUnitsOnCentralBoardAction(List<UnitsInRegion> unitPlacings) i
 
         unitPlacings.forEach(unitPlacing -> {
             unitPlacing.region().addUnits(playerOnMove, unitPlacing.units());
+            playerOnMove.removeUnits(unitPlacing.units());
         });
 
         return ActionResult.OK;

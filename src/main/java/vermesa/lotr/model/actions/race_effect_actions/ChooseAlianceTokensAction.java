@@ -6,6 +6,11 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.race_effects.Race;
 
+/**
+ * @param raceToChooseFrom
+ * @param tokensToReveal
+ * @param tokensToChoose
+ */
 public record ChooseAlianceTokensAction(Race raceToChooseFrom, int tokensToReveal,
                                         int tokensToChoose) implements IMove {
     @Override

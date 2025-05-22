@@ -9,6 +9,11 @@ import vermesa.lotr.model.player.Player;
 
 import java.util.List;
 
+/**
+ * Moves a list of units from one region to another
+ *
+ * @param movements The movements to be made
+ */
 public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movements) implements IMove {
 
     @Override
@@ -18,7 +23,6 @@ public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movem
         for (CentralBoardUnitMovement movement : movements) {
             movement.from().removeUnits(movement.unitsToMove());
             movement.to().addUnits(playerOnMove, movement.unitsToMove());
-
         }
 
         return ActionResult.OK;

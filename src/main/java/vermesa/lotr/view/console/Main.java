@@ -5,8 +5,10 @@ import vermesa.lotr.config.CommandResourceBundleKeys;
 import vermesa.lotr.serialization.json.JsonConfig;
 import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.commands.handlers.*;
+import vermesa.lotr.view.console.game_events.EnemyMoveMadeGameEvent;
 import vermesa.lotr.view.console.game_events.GameEvent;
 import vermesa.lotr.view.console.game_events.QuitGameEvent;
+import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +39,12 @@ public class Main {
         BlockingQueue<GameEvent> eventQueue = new LinkedBlockingQueue<>();
         HandlersRegistry registry = new HandlersRegistry();
         Scanner scanner = new Scanner(System.in);
+
         Context ctx = new Context(resourceBundle, registry, System.out, System.err, scanner, config, eventQueue);
 
         ConsoleView view = constructStartingView(ctx);
-
+        view.printWelcome();
+        view.printHelp();
 
         runInputThread(eventQueue, ctx, view);
 
@@ -50,6 +54,26 @@ public class Main {
 
                 if (event instanceof QuitGameEvent) {
                     break;
+                }
+
+                if (event instanceof EnemyMoveMadeGameEvent) {
+
+                    var moves = ((EnemyMoveMadeGameEvent) event).move();
+
+                    for (var move : moves) {
+                        var moveSerializer = ActionSerializerRegistry.getAll().get(move.getClass());
+                        String moveSerialized = (moveSerializer == null)
+                                ? move.toString()
+                                : moveSerializer.serialize(move);
+
+                        ctx.out.println("\b>> Enemy player has made move: " + moveSerialized);
+                        view.printHelp();
+                        ctx.out.print("> ");
+                    }
+
+                    synchronized (ctx.controllerLock) {
+                        ctx.controllerLock.notify();
+                    }
                 }
 
             } catch (InterruptedException ignored) {
@@ -73,6 +97,9 @@ public class Main {
 
                 if (commandResult.message() != null) {
                     ctx.out.println(">>> " + commandResult.message());
+                }
+                if (commandResult.printHelp()) {
+                    view.printHelp();
                 }
             }
         });

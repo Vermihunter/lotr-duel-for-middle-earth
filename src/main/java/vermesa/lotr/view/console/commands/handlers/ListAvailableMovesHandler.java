@@ -3,6 +3,7 @@ package vermesa.lotr.view.console.commands.handlers;
 import vermesa.lotr.config.CommandResourceBundleKeys;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.game.Game;
+import vermesa.lotr.model.player.Player;
 import vermesa.lotr.view.console.ConsoleView;
 import vermesa.lotr.view.console.Context;
 import vermesa.lotr.view.console.commands.CommandResult;
@@ -10,10 +11,11 @@ import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
 public class ListAvailableMovesHandler extends CommandHandler {
+    private static final CommandResult CONSTANT_RESULT = new CommandResult(CommandResultType.CONTINUE, null, false);
+
     private final Game game;
 
     public ListAvailableMovesHandler(Context context, String name, String description, Game game) {
@@ -27,8 +29,21 @@ public class ListAvailableMovesHandler extends CommandHandler {
         console.getBaseCommandHandler().registerSubCommand(commandName, new ListAvailableMovesHandler(context, commandName, commandDescription, game));
     }
 
+    public static void removeFromParentHandler(ResourceBundle resourceBundle, ConsoleView console) {
+        var commandName = resourceBundle.getString(CommandResourceBundleKeys.LIST_AVAILABLE_MOVES_NAME);
+        console.getBaseCommandHandler().unregisterSubCommand(commandName);
+    }
+
     @Override
     public CommandResult handleCommand(String[] commandParts, ConsoleView console) {
+        Player playerOnMove = game.getState().getPlayerOnMove();
+        Player humanPlayer = context.controller.getHumanPlayer();
+        if (playerOnMove != humanPlayer) {
+            context.out.println(">>> Its the other player's turn to move!");
+            return new CommandResult(CommandResultType.CONTINUE, null, true);
+        }
+
+
         var possibleMoves = game.getPossibleMoves();
         var chosenMoves = new ArrayList<IAction>();
 
@@ -67,17 +82,20 @@ public class ListAvailableMovesHandler extends CommandHandler {
                             ">>> Invalid move number – try again"
                     );
                 }
-
-
             }
         }
 
         game.makeMove(chosenMoves);
+
+        if (game.getState().getPlayerOnMove() != context.controller.getHumanPlayer()) {
+            context.out.println(">>> Enemy player is making a move...");
+        }
+
         synchronized (context.controllerLock) {
             context.controllerLock.notify();
         }
 
-        return new CommandResult(CommandResultType.CONTINUE, null);
+        return CONSTANT_RESULT;
     }
 
 }

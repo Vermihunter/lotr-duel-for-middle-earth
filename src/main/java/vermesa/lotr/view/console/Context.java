@@ -1,5 +1,7 @@
 package vermesa.lotr.view.console;
 
+import vermesa.lotr.controllers.HumanPlayerController;
+import vermesa.lotr.controllers.LotrController;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.view.console.commands.handlers.HandlersRegistry;
 import vermesa.lotr.view.console.game_events.GameEvent;
@@ -18,7 +20,7 @@ public class Context {
     public final IGameConfig gameConfig;
     public final BlockingQueue<GameEvent> eventQueue;
     public final Object controllerLock = new Object();
-
+    public HumanPlayerController controller;
 
     public Context(ResourceBundle resourceBundle, HandlersRegistry registry, PrintStream out, PrintStream err, Scanner scanner, IGameConfig gameConfig, BlockingQueue<GameEvent> eventQueue) {
         this.resourceBundle = resourceBundle;

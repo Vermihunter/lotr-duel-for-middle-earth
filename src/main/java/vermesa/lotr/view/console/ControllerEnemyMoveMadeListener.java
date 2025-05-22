@@ -2,6 +2,7 @@ package vermesa.lotr.view.console;
 
 import vermesa.lotr.controllers.IEnemyMoveMadeListener;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.view.console.game_events.EnemyMoveMadeGameEvent;
 import vermesa.lotr.view.console.game_events.GameEvent;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public class ControllerEnemyMoveMadeListener implements IEnemyMoveMadeListener {
 
     @Override
     public void listen(List<IAction> enemyMovesMade) {
-
+        eventQueue.add(new EnemyMoveMadeGameEvent(enemyMovesMade));
     }
 }

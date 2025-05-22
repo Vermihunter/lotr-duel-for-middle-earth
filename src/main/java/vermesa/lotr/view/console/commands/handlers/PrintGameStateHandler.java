@@ -27,7 +27,7 @@ public class PrintGameStateHandler extends CommandHandler {
     public CommandResult handleCommand(String[] commandParts, ConsoleView console) {
         context.out.println(FullMapStateSerializer.serialize(game));
 
-        return new CommandResult(CommandResultType.CONTINUE, null);
+        return CommandResult.OK;
     }
 
 

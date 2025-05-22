@@ -9,13 +9,13 @@ import vermesa.lotr.view.console.state_serializers.ChapterCardSetSerializer.Seri
 import java.util.Arrays;
 
 public class FullMapStateSerializer {
-    private static final int rows = 80;
+    // private static final int rows = 85;
     private static final int columns = 120;
 
     public static String serialize(Game game) {
         var chapterCardsSerialized = ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards());
 
-        ConsoleGrid grid = new ConsoleGrid(rows, columns);
+
         var reserve = getCoinReserveComponent(game);
         var landmarks = getLandmarkComponent(game);
         var centralBoard = getCentralBoardComponent(game);
@@ -25,13 +25,23 @@ public class FullMapStateSerializer {
         var fellowshipPlayerState = getPlayerStateComponent(game.getContext().getFellowshipPlayer());
         var sauronPlayerState = getPlayerStateComponent(game.getContext().getSauronPlayer());
 
-        grid.addAbsolute(reserve, 0, 0);
-        grid.placeBelow(reserve, landmarks, 1);
-        grid.placeBelow(landmarks, centralBoard, 1);
-        grid.placeBelow(centralBoard, questOfTheRingTrack, 1);
+        var components = new ConsoleComponent[]{
+                reserve, landmarks, centralBoard, questOfTheRingTrack, chapterCards,
+                chapterCardsDescriptions, fellowshipPlayerState, sauronPlayerState
+        };
 
-        grid.placeBelow(questOfTheRingTrack, chapterCards, 1);
-        grid.placeBelow(chapterCards, chapterCardsDescriptions, 1);
+        int rows = reserve.getLines().length + landmarks.getLines().length + centralBoard.getLines().length
+                + questOfTheRingTrack.getLines().length + chapterCards.getLines().length
+                + chapterCardsDescriptions.getLines().length;
+
+        ConsoleGrid grid = new ConsoleGrid(rows, columns);
+        grid.addAbsolute(reserve, 0, 0);
+        grid.placeBelow(reserve, landmarks, 0);
+        grid.placeBelow(landmarks, centralBoard, 0);
+        grid.placeBelow(centralBoard, questOfTheRingTrack, 0);
+
+        grid.placeBelow(questOfTheRingTrack, chapterCards, 0);
+        grid.placeBelow(chapterCards, chapterCardsDescriptions, 0);
 
         grid.placeLeft(centralBoard, fellowshipPlayerState, 1);
         grid.addAbsolute(sauronPlayerState, 23 + 1 + 72 + 1, centralBoard.getY());

@@ -33,6 +33,10 @@ public class HumanPlayerController implements LotrController {
         this.lock = lock;
     }
 
+    public Player getHumanPlayer() {
+        return humanPlayer;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -50,36 +54,27 @@ public class HumanPlayerController implements LotrController {
     }
 
     private void playMove() {
-        System.out.println("HumanPlayerController::playMove");
+        //System.out.println("HumanPlayerController::playMove");
         synchronized (lock) {
 
             while (true) {
                 try {
-                    System.out.println("HumanPlayerController::playMove → locking");
                     lock.wait();
-                    System.out.println("HumanPlayerController::playMove → unlocked");
                 } catch (InterruptedException e) {
                     return;
                 }
 
                 Player playerOnMove = game.getState().getPlayerOnMove();
                 if (playerOnMove == humanPlayer) {
-                    System.out.println("HumanPlayerController::playMove → human player on move");
                     continue;
                 }
 
-                System.out.println("HumanPlayerController::playMove → AI player on move");
                 var start = System.currentTimeMillis();
                 var movesMade = opponentController.makeMove(game);
                 var end = System.currentTimeMillis();
 
                 var moveMadeDuration = end - start;
                 var millisToWait = userExperienceWait.toMillis();
-
-                System.out.println("HumanPlayerController::playMove → AI player on move made:");
-                for (var move : movesMade) {
-                    System.out.println("\t -" + move);
-                }
 
                 if (millisToWait > moveMadeDuration) {
                     try {

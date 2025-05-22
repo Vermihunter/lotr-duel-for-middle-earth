@@ -35,6 +35,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
         console.getBaseCommandHandler().unregisterSubCommand(resourceBundle.getString(CommandResourceBundleKeys.START_NAME));
 
         // Start game configuration
+        context.out.println(">> ");
         context.out.println(">> Game configuration has been started.");
         Random rand = new Random(111);
 
@@ -57,15 +58,15 @@ public class StartGameConfigurationHandler extends CommandHandler {
 
         if (isHumanPlayerOnMove) {
             ListAvailableMovesHandler.addAsSubHandler(resourceBundle, game, console, context);
-            PrintGameStateHandler.addAsSubHandler(resourceBundle, game, console, context);
         }
+
+        PrintGameStateHandler.addAsSubHandler(resourceBundle, game, console, context);
 
         synchronized (context.controllerLock) {
             context.controllerLock.notifyAll();
         }
 
-
-        return new CommandResult(CommandResultType.CONTINUE, null);
+        return CommandResult.OK;
     }
 
     private Thread getControllerThread(IAIPlayer aiPlayer, Player humanPlayerType, Game game) {
@@ -76,9 +77,10 @@ public class StartGameConfigurationHandler extends CommandHandler {
                 humanPlayerType, // Sauron/Fellowship player for human player
                 game, // Game that will be played
                 listener, // Event listener for enemy move making
-                Duration.ofMillis(300), // Minimum time to wait for opponent move
+                Duration.ofMillis(2000), // Minimum time to wait for opponent move
                 context.controllerLock
         );
+        context.controller = controller;
 
         Thread controllerThread = new Thread(controller::start);
         controllerThread.setDaemon(true);
@@ -91,6 +93,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
      * @return Sauron or Fellowship
      */
     private Player choosePlayerType(Game game) {
+        context.out.println(">> ");
         context.out.println(">> Please enter a player type to play with.");
         context.out.println(">> The available player types are:");
         context.out.println(">> \t(1) Sauron");
@@ -100,6 +103,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
             context.out.print(">> Player type to play with: ");
             String input = context.scanner.nextLine();
             String[] elements = input.split("\\s+");
+            context.out.println(">> ");
 
             if (elements.length > 1) {
                 continue;
@@ -114,7 +118,8 @@ public class StartGameConfigurationHandler extends CommandHandler {
                 return game.getContext().getFellowshipPlayer();
             }
 
-            context.out.println(">> Wrong player type! Please choose a valid player type to play with.");
+
+            context.out.println(">>> Wrong player type! Please choose a valid player type to play with.");
         }
     }
 

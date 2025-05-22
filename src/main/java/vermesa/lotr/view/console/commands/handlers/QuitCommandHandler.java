@@ -7,7 +7,7 @@ import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.ConsoleView;
 
 public class QuitCommandHandler extends CommandHandler {
-    private static final CommandResult quitCommandResult = new CommandResult(CommandResultType.QUIT, null);
+    private static final CommandResult quitCommandResult = new CommandResult(CommandResultType.QUIT, null, false);
 
     public QuitCommandHandler(Context context, String name, String description) {
         super(context, name, description);

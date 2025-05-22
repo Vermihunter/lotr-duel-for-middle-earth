@@ -1,0 +1,59 @@
+<!-- src/main/java/overview.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Project API Overview</title>
+</head>
+<body>
+<h1>The Lord of the Rings: Duel for Middle-earth</h1>
+<p>This project is an implementation of the Board game The Lord of the Rings: Duel for Middle-earth.</p>
+<h2>Features</h2>
+<ul>
+    <li>A model implementation of the game</li>
+    <li>A console interface to play the game</li>
+</ul>
+<h2>Quickstart</h2>
+
+<ol>
+    <li><strong>Prerequisites</strong>
+        <ul>
+            <li>Java 22 SDK installed</li>
+            <li>Maven 3.8+ installed</li>
+        </ul>
+    </li>
+    <li><strong>Build the project</strong>
+        <pre><code>
+mvn clean install
+    </code></pre>
+    </li>
+    <li><strong>Run the console app</strong>
+        <p>Use Maven’s exec plugin (already configured in the POM):</p>
+        <pre><code>
+mvn exec:java@play
+    </code></pre>
+    </li>
+    <li><strong>Sample gameplay</strong>
+        <pre><code>
+After running the program, you will be able to manipulate the state with console commands.
+To list the possible commands, use the `list` command. To quit the application, use the `quit`
+command.
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                 The Lord of the Rings: Duel for Middle-earth                 ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                One box to rule them all... sharpen your wits!                ║
+║          May your fellowship be unbreakable and your RNG merciful!           ║
+║    Tread carefully, for every orc has a pointy spear—and a bad attitude!     ║
+║                    Let the battle for Middle-earth BEGIN!                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+>> Available commands:
+>>	start		- Starts a game configuration process
+>>	quit		- Quits the application
+>>	list		- Lists the available commands at the current state
+    </code></pre>
+    </li>
+</ol>
+
+<p>Author: Ákos Vermes<br/>Email: vermihunter@gmail.com<br/>Version: 1.0</p>
+</body>
+</html>

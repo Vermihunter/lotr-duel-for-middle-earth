@@ -13,3 +13,11 @@ To play the game, execute the following command:
 ```shell
 mvn exec:java@play
 ```
+
+## Documentation
+
+To generate the `javadoc` documentation, execute the following command:
+
+```shell
+mvn javadoc:javadoc
+```

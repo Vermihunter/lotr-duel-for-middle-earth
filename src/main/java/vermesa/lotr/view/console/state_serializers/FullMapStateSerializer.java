@@ -1,6 +1,7 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.game.Game;
+import vermesa.lotr.model.player.Player;
 import vermesa.lotr.view.console.grid.ConsoleComponent;
 import vermesa.lotr.view.console.grid.ConsoleGrid;
 import vermesa.lotr.view.console.state_serializers.ChapterCardSetSerializer.SerializedChapterCardSet;
@@ -21,16 +22,28 @@ public class FullMapStateSerializer {
         var questOfTheRingTrack = getQuestOfTheRingTrackComponent(game);
         var chapterCards = getChapterCardsComponent(chapterCardsSerialized);
         var chapterCardsDescriptions = getChapterCardsDescriptionComponent(chapterCardsSerialized);
+        var fellowshipPlayerState = getPlayerStateComponent(game.getContext().getFellowshipPlayer());
+        var sauronPlayerState = getPlayerStateComponent(game.getContext().getSauronPlayer());
 
         grid.addAbsolute(reserve, 0, 0);
         grid.placeBelow(reserve, landmarks, 1);
         grid.placeBelow(landmarks, centralBoard, 1);
         grid.placeBelow(centralBoard, questOfTheRingTrack, 1);
+
         grid.placeBelow(questOfTheRingTrack, chapterCards, 1);
         grid.placeBelow(chapterCards, chapterCardsDescriptions, 1);
 
+        grid.placeLeft(centralBoard, fellowshipPlayerState, 1);
+        grid.addAbsolute(sauronPlayerState, 23 + 1 + 72 + 1, centralBoard.getY());
 
         return grid.render();
+    }
+
+    private static ConsoleComponent getPlayerStateComponent(Player player) {
+        String playerStateSerialized = PlayerStateSerializer.serialize(player);
+        String[] lines = playerStateSerialized.split("\n");
+
+        return new ConsoleComponent(lines, lines[0].length(), 0);
     }
 
     private static ConsoleComponent getChapterCardsDescriptionComponent(SerializedChapterCardSet chapterCardsSerialized) {

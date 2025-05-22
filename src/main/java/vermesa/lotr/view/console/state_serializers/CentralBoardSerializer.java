@@ -168,7 +168,7 @@ public class CentralBoardSerializer {
 
         if (addDependencies) {
             stringBuilder.append("                                     ↑             ↗           ↑\n");
-            stringBuilder.append("                                     |          ／             |\n");
+            stringBuilder.append("                                     |          ╱              |\n");
             stringBuilder.append("                                     ↓        ↙                ↓\n");
         }
 

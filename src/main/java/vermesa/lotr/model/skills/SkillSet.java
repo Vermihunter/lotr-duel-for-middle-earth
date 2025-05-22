@@ -1,13 +1,10 @@
 package vermesa.lotr.model.skills;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class SkillSet {
     private final int[] skillCounts;
-
-    /*public SkillSet() {
-        skillCounts = new int[Skill.values().length];
-    }*/
 
     public SkillSet(int[] skillCounts) {
         this.skillCounts = skillCounts;
@@ -25,6 +22,19 @@ public class SkillSet {
         return IntStream.range(0, skillCounts.length)
                 .map(i -> Math.max(this.skillCounts[i] - other.skillCounts[i], 0))
                 .sum();
+    }
+
+    public static SkillSet combine(List<? extends SkillSet> skillsets) {
+        var resultSkillCounts = new int[skillsets.size()];
+
+        for (var skillset : skillsets) {
+            var skillCounts = skillset.skillCounts;
+            for (int i = 0; i < skillCounts.length; i++) {
+                resultSkillCounts[i] += skillCounts[i];
+            }
+        }
+
+        return new SkillSet(resultSkillCounts);
     }
 
     public int[] getSkillCounts() {

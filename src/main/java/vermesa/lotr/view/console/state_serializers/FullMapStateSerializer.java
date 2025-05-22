@@ -1,24 +1,87 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.game.Game;
+import vermesa.lotr.view.console.grid.ConsoleComponent;
+import vermesa.lotr.view.console.grid.ConsoleGrid;
+import vermesa.lotr.view.console.state_serializers.ChapterCardSetSerializer.SerializedChapterCardSet;
+
+import java.util.Arrays;
 
 public class FullMapStateSerializer {
+    private static final int rows = 80;
+    private static final int columns = 120;
+
     public static String serialize(Game game) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(CoinsSerializer.serialize("Coins in reserve", game.getState().getTotalCoins()));
+        var chapterCardsSerialized = ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards());
 
-        builder.append(LandmarkTileSerializer.serialize(game.getState().getCurrentlyUsableLandmarkTiles()));
-        builder.append(CentralBoardSerializer.serialize(game.getContext().getCentralBoard()));
+        ConsoleGrid grid = new ConsoleGrid(rows, columns);
+        var reserve = getCoinReserveComponent(game);
+        var landmarks = getLandmarkComponent(game);
+        var centralBoard = getCentralBoardComponent(game);
+        var questOfTheRingTrack = getQuestOfTheRingTrackComponent(game);
+        var chapterCards = getChapterCardsComponent(chapterCardsSerialized);
+        var chapterCardsDescriptions = getChapterCardsDescriptionComponent(chapterCardsSerialized);
 
-        builder.append(QuestOfTheRingTrackSerializer.seralize(game.getContext().getQuestOfTheRingTrack()));
+        grid.addAbsolute(reserve, 0, 0);
+        grid.placeBelow(reserve, landmarks, 1);
+        grid.placeBelow(landmarks, centralBoard, 1);
+        grid.placeBelow(centralBoard, questOfTheRingTrack, 1);
+        grid.placeBelow(questOfTheRingTrack, chapterCards, 1);
+        grid.placeBelow(chapterCards, chapterCardsDescriptions, 1);
 
 
-        // This is correct
-        builder.append(ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards()));
-        // This is testing
-        //var secondRoundChapterSet = game.getContext().getRoundInformations().get(2).getChapterCards();
-        //builder.append(ChapterCardSetSerializer.serialize(secondRoundChapterSet));
+        return grid.render();
+    }
 
-        return builder.toString();
+    private static ConsoleComponent getChapterCardsDescriptionComponent(SerializedChapterCardSet chapterCardsSerialized) {
+        String[] lines = chapterCardsSerialized.cardDescriptions.split("\n");
+
+        int width = Arrays.stream(lines)
+                .mapToInt(String::length)        // map each to its length
+                .max()                           // find the max
+                .orElse(0);                      // default 0 if empty
+
+        return new ConsoleComponent(lines, width, 30);
+    }
+
+    private static ConsoleComponent getChapterCardsComponent(SerializedChapterCardSet chapterCardsSerialized) {
+        String[] lines = chapterCardsSerialized.titleAndCards.split("\n");
+
+        int width = lines[0].length();
+        return new ConsoleComponent(lines, width, (columns - width) / 2);
+    }
+
+    private static ConsoleComponent getQuestOfTheRingTrackComponent(Game game) {
+        String questOfTheRingTrackSerialized = QuestOfTheRingTrackSerializer.seralize(game.getContext().getQuestOfTheRingTrack());
+        String[] lines = questOfTheRingTrackSerialized.split("\n");
+        int width = lines[0].length();
+
+        return new ConsoleComponent(lines, width, (columns - width) / 2);
+    }
+
+    private static ConsoleComponent getCentralBoardComponent(Game game) {
+        String centralBoardSerialized = CentralBoardSerializer.serialize(game.getContext().getCentralBoard());
+        String[] lines = centralBoardSerialized.split("\n");
+        int width = lines[0].length();
+
+        return new ConsoleComponent(lines, width, (columns - width) / 2);
+    }
+
+    private static ConsoleComponent getLandmarkComponent(Game game) {
+        String landmarksSerialized = LandmarkTileSerializer.serialize(game.getState().getCurrentlyUsableLandmarkTiles());
+        String[] lines = landmarksSerialized.split("\n");
+        int width = lines[0].length();
+
+        return new ConsoleComponent(lines, width, (columns - width) / 2);
+    }
+
+    private static ConsoleComponent getCoinReserveComponent(Game game) {
+        String reserveSerialized = CoinsSerializer.serialize("Coins in reserve", game.getState().getTotalCoins());
+        String[] lines = reserveSerialized.split("\n");
+        int width = lines[0].length();
+
+        return new ConsoleComponent(lines, width, (columns - width) / 2);
+
     }
 }
+

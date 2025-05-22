@@ -10,12 +10,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-/**
- * (dbl)	U+250C, —, U+2554
- * Light top-right corner	┐	—	 (dbl)	U+2510, —, U+2557
- * Light bottom-left	└	—	 (dbl)	U+2514, —, U+255A
- * Light bottom-right	┘	—	 (db
- */
 public class ChapterCardSetSerializer {
     private static final String upperCardSeparator = "╔══╗";
     private static final String lowerCardSeparator = "╚══╝";
@@ -24,7 +18,7 @@ public class ChapterCardSetSerializer {
     private static final String secondRowStart = "║";
     private static final String leftAlign = " ".repeat(8);
 
-    public static String serialize(RoundChapterCardSet s) {
+    public static SerializedChapterCardSet serialize(RoundChapterCardSet s) {
         var allCards = s.getAllChapterCards();
         // Get the dimensions of the rows -> ROW x COLUMN
         Map<Integer, Long> counts = allCards.values().stream()
@@ -43,6 +37,8 @@ public class ChapterCardSetSerializer {
         // There is a space between cards to show correlation for previous rows
         int width = (int) (2 * maxEntry.getValue() - 1);
         StringBuilder sb = new StringBuilder();
+        addTitle(sb, width * emptySpace.length() + 12);
+
 
         int currID = 0;
         for (var count : counts.entrySet()) {
@@ -83,7 +79,7 @@ public class ChapterCardSetSerializer {
 
                     String strID = String.format("%02d", currID + 1);
                     if (currCard.getRemainingDependencies() == 0) {
-                        strID = AnsiColors.colorize(strID, AnsiColors.ORANGE);
+                        //  strID = AnsiColors.colorize(strID, AnsiColors.ORANGE);
                     }
 
                     secondRow[i] = secondRowStart + strID + "║";
@@ -95,6 +91,8 @@ public class ChapterCardSetSerializer {
             add(spacesLeft, columns, sb, emptySpace, secondRow, leftAlign);
             add(spacesLeft, columns, sb, emptySpace, thirdRow, leftAlign);
         }
+        String titleAndCards = sb.toString();
+        sb.delete(0, sb.length());
 
         for (var chapterCard : allCards.entrySet()) {
             if (chapterCard.getValue().isAlreadyPlayed()) {
@@ -104,14 +102,43 @@ public class ChapterCardSetSerializer {
             if (chapterCard.getValue().isFaceUp()) {
                 String chapterCardSerialized = '(' + String.format("%02d", chapterCard.getKey() + 1) + ") " + ChapterCardSerializer.serialize(chapterCard.getValue(), 7);
                 if (chapterCard.getValue().getRemainingDependencies() == 0) {
-                    chapterCardSerialized = AnsiColors.colorize(chapterCardSerialized, AnsiColors.ORANGE);
+                    //    chapterCardSerialized = AnsiColors.colorize(chapterCardSerialized, AnsiColors.ORANGE);
                 }
 
                 sb.append(chapterCardSerialized);
             }
         }
 
-        return sb.toString();
+        return new SerializedChapterCardSet(titleAndCards, sb.toString());
+    }
+
+    private static void addTitle(StringBuilder stringBuilder, int width) {
+        // Title upper row
+        stringBuilder.append("╔");
+        stringBuilder.append("═".repeat(width - 2));
+        stringBuilder.append("╗\n");
+
+        // Title
+        stringBuilder.append("║");
+        stringBuilder.append(" ".repeat((width - 2 - 13) / 2));
+        stringBuilder.append("Chapter cards");
+        stringBuilder.append(" ".repeat((width - 2 - 12) / 2));
+        stringBuilder.append("║\n");
+
+        // Title lower row
+        stringBuilder.append("╚");
+        stringBuilder.append("═".repeat(width - 2));
+        stringBuilder.append("╝\n");
+    }
+
+    public static class SerializedChapterCardSet {
+        public final String titleAndCards;
+        public final String cardDescriptions;
+
+        private SerializedChapterCardSet(String titleAndCards, String cardDescriptions) {
+            this.titleAndCards = titleAndCards;
+            this.cardDescriptions = cardDescriptions;
+        }
     }
 
     /**

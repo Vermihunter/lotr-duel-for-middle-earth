@@ -1,5 +1,8 @@
 package vermesa.lotr.config;
 
+/**
+ * Represents Bundle keys as constants
+ */
 public class CommandResourceBundleKeys {
 
     // Resource bundle name

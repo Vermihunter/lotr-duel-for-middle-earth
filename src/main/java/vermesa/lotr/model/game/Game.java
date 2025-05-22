@@ -11,8 +11,18 @@ import vermesa.lotr.model.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the main object of the game that is being played
+ */
 public class Game {
+    /**
+     * Context of the game
+     */
     private final GameContext context;
+
+    /**
+     * State of the game
+     */
     private final GameState state;
 
     public Game(GameContext context, GameState state) {
@@ -20,10 +30,10 @@ public class Game {
         this.state = state;
     }
 
+
     public final GameState getState() {
         return state;
     }
-
     public final GameContext getContext() {
         return context;
     }
@@ -44,7 +54,6 @@ public class Game {
 
         // Otherwise construct moves for the current player
         ArrayList<IMove> singleMoveGroup = new ArrayList<>();
-        ;
 
         addChapterCardMoves(singleMoveGroup);
         addLandmarkTileMoves(singleMoveGroup);
@@ -52,12 +61,16 @@ public class Game {
         return List.of(singleMoveGroup);
     }
 
+    /**
+     * Function to send moves to the game
+     * Note that it receives a List of actions and the reason is that some moves consist
+     * of multiple sub-moves and each of them may need a follow-up move to be used.
+     *
+     * @param moves List of actions to execute
+     * @return The result of the move
+     */
     public MoveResult makeMove(List<IAction> moves) {
-        ActionResult moveRes = IMove.performMultiStageMove(context, state, moves); //  move.action(context, state);
-
-        if (moveRes == null) {
-            throw new IllegalArgumentException();
-        }
+        ActionResult moveRes = IMove.performMultiStageMove(context, state, moves);
 
         boolean shiftPlayers = moveRes.shiftNextPlayer();
         boolean followUpActionsEmpty = moveRes.followUpActions().isEmpty();
@@ -93,9 +106,15 @@ public class Game {
         return new MoveResult(true);
     }
 
+    /**
+     * Helper function that appends the playable chapter cards of the current round for the current player
+     * Note that not every chapter card is necessarily playable by any player. Any chapter card that is playable
+     * can be discarded by any player but some chapter cards require coins to pay to play it and the sentence
+     * "playable chapter card" means that it is face up and has no dependencies.
+     * @param moves The container to append the chapter card moves to
+     */
     private void addChapterCardMoves(ArrayList<IMove> moves) {
-
-
+        // Helper configuration
         var playableChapterCards = state.getCurrentRoundInformation().getChapterCards().getPlayableChapterCards();
         Player playerOnMove = state.getPlayerOnMove();
         var playerChainingSymbols = playerOnMove.getPlayerState().getChainingSymbols();
@@ -103,6 +122,7 @@ public class Game {
         var playerSkills = playerOnMove.getSkills();
         int playerCoins = playerOnMove.getCoins();
 
+        // Loop over all the playable chapter cards
         for (var playableChapterCardWrapper : playableChapterCards) {
             var playableChapterCard = playableChapterCardWrapper.getChapterCard();
 
@@ -127,6 +147,10 @@ public class Game {
 
     }
 
+    /**
+     * Helper function that appends Landmark tile moves for the current round
+     * @param moves The container to append the chapter card moves to
+     */
     private void addLandmarkTileMoves(ArrayList<IMove> moves) {
 
         Player playerOnMove = state.getPlayerOnMove();

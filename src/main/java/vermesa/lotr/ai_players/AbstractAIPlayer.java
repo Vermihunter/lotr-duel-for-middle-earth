@@ -7,9 +7,18 @@ import vermesa.lotr.model.player.Player;
 
 import java.util.List;
 
+/**
+ * Abstract AI player holding the common implementations of all players
+ */
 public abstract class AbstractAIPlayer implements IAIPlayer {
     protected Player me;
 
+    /**
+     * Implements the templater design pattern
+     *
+     * @param game The game context where the move to be made
+     * @return The list of moves that the AI player chose
+     */
     @Override
     public final List<IAction> play(Game game) {
         if (game.getState().getPlayerOnMove() != me) {
@@ -24,5 +33,10 @@ public abstract class AbstractAIPlayer implements IAIPlayer {
         return chosenMoves;
     }
 
+    /**
+     * Actual logic of the AI player
+     * @param possibleMoves The possible moves that the AI player can make
+     * @return List of chosen action
+     */
     protected abstract List<IAction> chooseMoves(List<List<IMove>> possibleMoves);
 }

@@ -5,10 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Represents a container for the chapter cards
+ * Represents a container for the chapter cards in a concrete round
  */
 public class RoundChapterCardSet {
+    /**
+     * All chapter cards present in the given round - Keys are chapter card IDs
+     */
     private final HashMap<Integer, ChapterCardWrapper> allChapterCards;
+
+    /**
+     * List of chapter cards that are currently playable i.e. face up and have no dependencies
+     */
     private final ArrayList<ChapterCardWrapper> playableChapterCards;
 
     private RoundChapterCardSet(HashMap<Integer, ChapterCardWrapper> allChapterCards, ArrayList<ChapterCardWrapper> playableChapterCards) {
@@ -20,6 +27,14 @@ public class RoundChapterCardSet {
         return allChapterCards;
     }
 
+    /**
+     * Factory method for constructing a chapter card configuration for a round
+     * Constructs the chapter cards from their configuration and assigns an ID for each one
+     *
+     * @param chapterCards The list of all chapter cards
+     * @param config       Configuration representing how each chapter card depends on others
+     * @return A chapter card configuration for a concrete round
+     */
     public static RoundChapterCardSet from(List<ChapterCard> chapterCards, RoundChapterCardConfig config) {
         HashMap<Integer, ChapterCardWrapper> _allChapterCards = new HashMap<>();
         ArrayList<ChapterCardWrapper> playableChapterCards = new ArrayList<>();
@@ -63,6 +78,8 @@ public class RoundChapterCardSet {
         return playableChapterCards;
     }
 
+
+
     /**
      * Called from Game after a chapter card move was successful to update state
      * of other chapter cards.
@@ -83,6 +100,11 @@ public class RoundChapterCardSet {
         playableChapterCards.remove(chapterCardWrapper);
     }
 
+    /**
+     * Helper function that decreases the dependencies
+     * Automatically reveals if this was the last dependency
+     * @param chapterCard Chapter card to decrease the number of dependencies on
+     */
     private void decreaseDependencies(ChapterCardWrapper chapterCard) {
         chapterCard.remainingDependencies--;
 
@@ -92,13 +114,42 @@ public class RoundChapterCardSet {
         }
     }
 
-
+    /**
+     * A wrapper around chapter cards holding other necessary information about the state of the cards
+     * Not a record because we didn't want to use the parenthesis syntax and some fields are used only by
+     * the parent class
+     */
     public static class ChapterCardWrapper {
+        /**
+         * The chapter card that is wrapped
+         */
         private final ChapterCard chapterCard;
+
+        /**
+         * List of chapter card IDs that the card is dependent on
+         */
         private final ArrayList<Integer> dependsOn;
+
+        /**
+         * The row which the chapter card belongs to
+         */
         private final int row;
+
+        /**
+         * Boolean value representing whether the chapter card is face up i.e. publicly known
+         * for players that what type of card is this
+         */
         private boolean _isFaceUp;
+
+        /**
+         * The number of dependencies for this card i.e. the number of cards that has to be played
+         * to make this card playable
+         */
         private int remainingDependencies;
+
+        /**
+         * Boolean value representing whether the card has been already played or not
+         */
         private boolean alreadyPlayed;
 
         private ChapterCardWrapper(ChapterCard chapterCard, boolean isFaceUp, ArrayList<Integer> dependsOn, int row) {

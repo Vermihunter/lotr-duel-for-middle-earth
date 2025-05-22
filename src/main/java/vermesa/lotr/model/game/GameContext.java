@@ -21,14 +21,49 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Represents the context of the game
+ * It contains components that are once configured and never changed
+ */
 public class GameContext {
+    /**
+     * The list of all landmark tiles in the game
+     */
     private ArrayList<LandmarkTile> landmarkTiles;
+
+    /**
+     * The list of round information that the game is played in
+     */
     private ArrayList<RoundInformation> roundInformations;
+
+    /**
+     * Fellowship player of the game
+     */
     private FellowshipPlayer fellowshipPlayer;
+
+    /**
+     * Sauron player of the game
+     */
     private SauronPlayer sauronPlayer;
+
+    /**
+     * The quest of the ring track of the game
+     */
     private QuestOfTheRingTrack questOfTheRingTrack;
+
+    /**
+     * The central board of the game
+     */
     private CentralBoard centralBoard;
+
+    /**
+     * The landmark tile context of the game that applies to every landmark tile
+     */
     private LandmarkTileContext landmarkTileContext;
+
+    /**
+     * The alliance tokens of the game mapped by the race that they belong to
+     */
     private HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
     /**
@@ -37,34 +72,35 @@ public class GameContext {
     private GameContext() {
     }
 
+    /**
+     * Getters
+     */
     public ArrayList<LandmarkTile> getLandmarkTiles() {
         return landmarkTiles;
     }
-
     public LandmarkTileContext getLandmarkTileContext() {
         return landmarkTileContext;
     }
-
     public CentralBoard getCentralBoard() {
         return centralBoard;
     }
-
     public FellowshipPlayer getFellowshipPlayer() {
         return fellowshipPlayer;
     }
-
     public SauronPlayer getSauronPlayer() {
         return sauronPlayer;
     }
-
     public QuestOfTheRingTrack getQuestOfTheRingTrack() {
         return questOfTheRingTrack;
     }
-
     public ArrayList<RoundInformation> getRoundInformations() {
         return roundInformations;
     }
 
+    /**
+     * Builder for the {@link GameContext} class to make sure the different
+     * components are constructed according to the rules and without side effects
+     */
     public static class Builder {
         ArrayList<Region> regions;
         ArrayList<LandmarkTile> landmarkTiles;
@@ -75,6 +111,7 @@ public class GameContext {
         LandmarkTileContext landmarkTileContext;
         HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
+        /** Hard coded random generator for random events */
         Random rand = new Random(123456);
 
         public Builder addRegions(ArrayList<Region> regions) {
@@ -113,6 +150,10 @@ public class GameContext {
             return this;
         }
 
+        /**
+         * Builds a GameContext with the components configured
+         * @return GameContext object that can be used to construct a GameObject
+         */
         public GameContext build() {
             GameContext gameContext = new GameContext();
             gameContext.landmarkTiles = this.landmarkTiles;

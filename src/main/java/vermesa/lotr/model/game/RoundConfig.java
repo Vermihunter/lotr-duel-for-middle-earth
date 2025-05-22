@@ -5,6 +5,9 @@ import vermesa.lotr.model.chapter_cards.ChapterCardContext;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a configuration for the current round - helper object to construct round informations
+ */
 public class RoundConfig {
     public final ArrayList<ChapterCardConfigBuilder> chapterCardConfigs;
     public final int coinsPerChapterCardDiscard;

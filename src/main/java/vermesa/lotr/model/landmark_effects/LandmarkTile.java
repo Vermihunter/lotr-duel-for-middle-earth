@@ -11,5 +11,4 @@ import vermesa.lotr.model.skills.SkillSet;
 import java.util.List;
 
 public record LandmarkTile(Region region, SkillSet requiredSkillset, List<IAction> actions) {
-
 }

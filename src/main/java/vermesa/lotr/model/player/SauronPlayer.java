@@ -1,5 +1,9 @@
 package vermesa.lotr.model.player;
 
+/**
+ * Sauron player of the game
+ * Note that in every game there is a single SauronPlayer
+ */
 public class SauronPlayer extends Player {
     public static final String NAME = "Sauron";
 

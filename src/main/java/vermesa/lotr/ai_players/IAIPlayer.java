@@ -5,6 +5,9 @@ import vermesa.lotr.model.game.Game;
 
 import java.util.List;
 
+/**
+ * Interface that the AI players have to implement
+ */
 public interface IAIPlayer {
     /**
      * Makes a move for the given AI player and returns the moves made

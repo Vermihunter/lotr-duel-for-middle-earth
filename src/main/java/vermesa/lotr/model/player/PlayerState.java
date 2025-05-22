@@ -6,6 +6,9 @@ import vermesa.lotr.model.chapter_cards.ChainingSymbols;
 
 import java.util.HashSet;
 
+/**
+ * Holds given part of the player's state
+ */
 public class PlayerState {
     private final HashSet<RaceEffectAttributes> raceEffectAttributes;
     private final RaceEffectCallbackEventHandler raceEffectCallbackEventHandler;
@@ -17,6 +20,10 @@ public class PlayerState {
         this.obtainedChainingSymbols = new HashSet<>();
     }
 
+    /**
+     * @param raceEffectAttributes
+     * @return
+     */
     public boolean hasAttribute(RaceEffectAttributes raceEffectAttributes) {
         return this.raceEffectAttributes.contains(raceEffectAttributes);
     }

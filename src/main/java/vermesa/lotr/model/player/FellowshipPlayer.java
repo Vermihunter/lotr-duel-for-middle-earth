@@ -1,5 +1,9 @@
 package vermesa.lotr.model.player;
 
+/**
+ * Fellowship player of the game
+ * Note that in every game there is a single FellowshipPlayer
+ */
 public class FellowshipPlayer extends Player {
     public static final String NAME = "Fellowship";
 

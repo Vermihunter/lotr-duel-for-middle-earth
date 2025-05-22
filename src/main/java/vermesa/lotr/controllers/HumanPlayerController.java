@@ -45,16 +45,7 @@ public class HumanPlayerController implements LotrController {
         playMove();
     }
 
-    public void sendHumanPlayerMoves(List<IAction> moves) {
-        game.makeMove(moves);
-    }
-
-    public void makeNextAIPlayerMove() {
-
-    }
-
     private void playMove() {
-        //System.out.println("HumanPlayerController::playMove");
         synchronized (lock) {
 
             while (true) {

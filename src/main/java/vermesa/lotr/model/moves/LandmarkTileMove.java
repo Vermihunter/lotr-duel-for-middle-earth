@@ -33,6 +33,7 @@ public record LandmarkTileMove(LandmarkTile landmarkTile, int cost) implements I
         // Place the fortress to the given region
         Player playerOnMove = state.getPlayerOnMove();
         landmarkTile.region().placeFortress(playerOnMove);
+        playerOnMove.removeFortress();
 
         // Pay the price for playing the card
         extractCoins(ctx, state, cost);

@@ -80,7 +80,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
                 humanPlayerType, // Sauron/Fellowship player for human player
                 game, // Game that will be played
                 listener, // Event listener for enemy move making
-                Duration.ofMillis(2000), // Minimum time to wait for opponent move
+                Duration.ofMillis(20), // Minimum time to wait for opponent move -→ 2000
                 context.controllerLock
         );
         context.controller = controller;

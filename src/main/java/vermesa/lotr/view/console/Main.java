@@ -12,6 +12,7 @@ import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -30,7 +31,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Construct config from JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonConfig config = objectMapper.readValue(new File("DefaultConfig.json"), JsonConfig.class);
+        InputStream in = Main.class.getResourceAsStream("/DefaultConfig.json");
+
+        JsonConfig config = objectMapper.readValue(in, JsonConfig.class);
 
         ResourceBundle resourceBundle = ResourceBundle.getBundle(
                 CommandResourceBundleKeys.BUNDLE_NAME,

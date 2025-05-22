@@ -466,6 +466,7 @@ public class GameState {
             gameState.currentlyUsableLandmarkTiles = this.currentlyUsableLandmarkTiles;
             gameState.allianceTokens = this.allianceTokens;
             gameState.landmarkTileGlobalIndex = gameContext.getLandmarkTileContext().landmarkTilesAtTime();
+            gameState.discardedChapterCards = new ArrayList<>();
 
             return gameState;
         }

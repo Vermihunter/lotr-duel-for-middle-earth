@@ -103,9 +103,11 @@ public class Game {
         var playerSkills = playerOnMove.getSkills();
         int playerCoins = playerOnMove.getCoins();
 
-        for (var playableChapterCard : playableChapterCards) {
+        for (var playableChapterCardWrapper : playableChapterCards) {
+            var playableChapterCard = playableChapterCardWrapper.getChapterCard();
+
             // Adding the Discard move for each card
-            moves.add(new ChapterCardDiscardMove(playableChapterCard));
+            moves.add(new ChapterCardDiscardMove(playableChapterCardWrapper));
 
             SkillSet requiredSkills = playableChapterCard.context().requiredSkillSet();
             int coinsToPlayCard = playableChapterCard.context().coinsToPlay();
@@ -114,11 +116,11 @@ public class Game {
             // Check if the player can play the card through chaining symbol
             ChainingSymbols freeToPlayChainingSymbol = playableChapterCard.context().playForFreeChainingSymbol();
             if (freeToPlayChainingSymbol != null && playerChainingSymbols.contains(freeToPlayChainingSymbol)) {
-                moves.add(ChapterCardPlayMove.throughChainingSymbols(playableChapterCard));
+                moves.add(ChapterCardPlayMove.throughChainingSymbols(playableChapterCardWrapper));
             }
             // Check if the player has enough Skills+Coins to play the card
             else if (skillsMissing + coinsToPlayCard <= playerCoins) {
-                moves.add(ChapterCardPlayMove.withSkills(playableChapterCard, coinsToPlayCard + skillsMissing));
+                moves.add(ChapterCardPlayMove.withSkills(playableChapterCardWrapper, coinsToPlayCard + skillsMissing));
             }
 
         }

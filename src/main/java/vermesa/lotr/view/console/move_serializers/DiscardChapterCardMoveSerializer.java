@@ -12,10 +12,6 @@ public class DiscardChapterCardMoveSerializer implements IActionSerializer {
     @Override
     public String serialize(IAction _move) {
         var move = (ChapterCardDiscardMove) _move;
-        var chapterCard = move.chaptercard;
-
-        StringBuilder builder = new StringBuilder();
-
 
         return "Discard chapter card " + ChapterCardSerializer.serialize(move.chaptercard, 11);
     }

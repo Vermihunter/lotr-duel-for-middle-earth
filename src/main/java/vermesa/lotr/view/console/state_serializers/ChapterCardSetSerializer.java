@@ -1,6 +1,7 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
+import vermesa.lotr.view.console.utils.AnsiColors;
 
 import java.util.AbstractMap;
 import java.util.TreeMap;
@@ -16,11 +17,12 @@ import java.util.stream.Collectors;
  * Light bottom-right	┘	—	 (db
  */
 public class ChapterCardSetSerializer {
-    private static String upperCardSeparator = "╔══╗";
-    private static String lowerCardSeparator = "╚══╝";
-    private static String faceDownCard = "║XX║";
-    private static String emptySpace = "    ";
-    private static String secondRowStart = "║";
+    private static final String upperCardSeparator = "╔══╗";
+    private static final String lowerCardSeparator = "╚══╝";
+    private static final String faceDownCard = "║XX║";
+    private static final String emptySpace = "    ";
+    private static final String secondRowStart = "║";
+    private static final String leftAlign = " ".repeat(8);
 
     public static String serialize(RoundChapterCardSet s) {
         var allCards = s.getAllChapterCards();
@@ -76,16 +78,22 @@ public class ChapterCardSetSerializer {
                 }
                 // Else show the ID of the number, later display the meanings
                 else {
+                    var currCard = allCards.get(currID);
+
+
                     String strID = String.format("%02d", currID + 1);
+                    if (currCard.getRemainingDependencies() == 0) {
+                        strID = AnsiColors.colorize(strID, AnsiColors.ORANGE);
+                    }
 
                     secondRow[i] = secondRowStart + strID + "║";
                 }
             }
 
             // Actually print rows
-            add(spacesLeft, columns, sb, emptySpace, firstRow);
-            add(spacesLeft, columns, sb, emptySpace, secondRow);
-            add(spacesLeft, columns, sb, emptySpace, thirdRow);
+            add(spacesLeft, columns, sb, emptySpace, firstRow, leftAlign);
+            add(spacesLeft, columns, sb, emptySpace, secondRow, leftAlign);
+            add(spacesLeft, columns, sb, emptySpace, thirdRow, leftAlign);
         }
 
         for (var chapterCard : allCards.entrySet()) {
@@ -94,11 +102,12 @@ public class ChapterCardSetSerializer {
             }
 
             if (chapterCard.getValue().isFaceUp()) {
-                sb.append('(');
-                sb.append(String.format("%02d", chapterCard.getKey() + 1));
-                sb.append(')');
-                sb.append(' ');
-                sb.append(ChapterCardSerializer.serialize(chapterCard.getValue().getChapterCard(), 7));
+                String chapterCardSerialized = '(' + String.format("%02d", chapterCard.getKey() + 1) + ") " + ChapterCardSerializer.serialize(chapterCard.getValue(), 7);
+                if (chapterCard.getValue().getRemainingDependencies() == 0) {
+                    chapterCardSerialized = AnsiColors.colorize(chapterCardSerialized, AnsiColors.ORANGE);
+                }
+
+                sb.append(chapterCardSerialized);
             }
         }
 
@@ -114,7 +123,8 @@ public class ChapterCardSetSerializer {
      * @param emptySpace Cached representation of the empty spaces
      * @param s          Array of strings to print, length should equal to `columns`
      */
-    private static void add(int spacesLeft, int columns, StringBuilder sb, String emptySpace, String[] s) {
+    private static void add(int spacesLeft, int columns, StringBuilder sb, String emptySpace, String[] s, String leftAlign) {
+        sb.append(leftAlign);
         sb.append(String.valueOf(emptySpace).repeat(Math.max(0, spacesLeft)));
 
         for (int i = 0; i < columns; i++) {

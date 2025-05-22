@@ -1,6 +1,5 @@
 package vermesa.lotr.model.central_board;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import vermesa.lotr.model.player.Player;
 
 import java.util.ArrayList;

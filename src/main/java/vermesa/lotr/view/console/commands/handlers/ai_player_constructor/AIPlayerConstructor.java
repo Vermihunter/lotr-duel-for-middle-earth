@@ -1,7 +1,6 @@
 package vermesa.lotr.view.console.commands.handlers.ai_player_constructor;
 
 import org.reflections.Reflections;
-import vermesa.lotr.ai_players.IAIPlayer;
 import vermesa.lotr.ai_players.IAIPlayerConfig;
 
 import java.util.*;

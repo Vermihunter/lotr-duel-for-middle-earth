@@ -56,6 +56,10 @@ public abstract class Player {
     public int getUnits() {
         return units;
     }
+
+    public void removeUnits(int units) {
+        this.units -= units;
+    }
     public int getTowers() {
         return towers;
     }

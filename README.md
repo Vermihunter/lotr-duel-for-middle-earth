@@ -30,3 +30,7 @@ After starting the game, there are two main commands to use:
   present at the beginning of the row. Note that after calling this command, there is no way to retrieve the state so if
   you would like to examine the state and choose a move accordingly, first call the `state` command
 - `state` → displays a console-serialized view of the game state
+
+### Rules
+
+The official rules about the game can be found in the `doc` directory

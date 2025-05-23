@@ -1,5 +1,6 @@
 package vermesa.lotr.controllers;
 
+import vermesa.lotr.model.game.CurrentGameState;
 import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.player.Player;
 
@@ -10,6 +11,7 @@ import java.time.Duration;
  */
 public class HumanPlayerController implements LotrController {
     private final IOpponentController opponentController;
+    private final IGameHasEndedListener gameHasEndedListener;
     private final Player humanPlayer;
     private final Game game;
     private final IEnemyMoveMadeListener listener;
@@ -22,8 +24,9 @@ public class HumanPlayerController implements LotrController {
 
     private final Object lock;
 
-    public HumanPlayerController(IOpponentController opponentController, Player humanPlayerType, Game game, IEnemyMoveMadeListener listener, Duration userExperienceWait, Object lock) {
+    public HumanPlayerController(IOpponentController opponentController, IGameHasEndedListener gameHasEndedListener, Player humanPlayerType, Game game, IEnemyMoveMadeListener listener, Duration userExperienceWait, Object lock) {
         this.opponentController = opponentController;
+        this.gameHasEndedListener = gameHasEndedListener;
         this.humanPlayer = humanPlayerType;
         this.game = game;
         this.listener = listener;
@@ -44,6 +47,10 @@ public class HumanPlayerController implements LotrController {
     }
 
     private void playMove() {
+        if (game.getState().getCurrentGameState() != CurrentGameState.HAS_NOT_ENDED) {
+            return;
+        }
+
         synchronized (lock) {
 
             while (true) {
@@ -58,8 +65,13 @@ public class HumanPlayerController implements LotrController {
                     continue;
                 }
 
+                if (game.getState().getCurrentGameState() != CurrentGameState.HAS_NOT_ENDED) {
+                    return;
+                }
+
                 var start = System.currentTimeMillis();
-                var movesMade = opponentController.makeMove(game);
+                var moveResult = opponentController.makeMove(game);
+                var movesMade = moveResult.movesTaken();
                 var end = System.currentTimeMillis();
 
                 var moveMadeDuration = end - start;
@@ -73,8 +85,12 @@ public class HumanPlayerController implements LotrController {
                     }
                 }
 
-
                 listener.listen(movesMade, game.getState().getPlayerOnMove() == humanPlayer);
+
+                if (game.getState().getCurrentGameState() != CurrentGameState.HAS_NOT_ENDED) {
+                    gameHasEndedListener.listen(moveResult.currentGameState());
+                    return;
+                }
             }
 
         }

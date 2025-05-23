@@ -14,6 +14,7 @@ import vermesa.lotr.view.console.event_handlers.ControllerEnemyMoveMadeListener;
 import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.handlers.ai_player_constructor.AIPlayerConstructor;
 import vermesa.lotr.view.console.ConsoleView;
+import vermesa.lotr.view.console.event_handlers.GameHasEndedListener;
 
 import java.time.Duration;
 import java.util.Random;
@@ -75,8 +76,10 @@ public class StartGameConfigurationHandler extends CommandHandler {
     private Thread getControllerThread(IAIPlayer aiPlayer, Player humanPlayerType, Game game) {
         var opponentController = new OpponentAIController(aiPlayer);
         var listener = new ControllerEnemyMoveMadeListener(context.eventQueue);
+        var gameHasEndedListener = new GameHasEndedListener(context.eventQueue);
         var controller = new HumanPlayerController(
                 opponentController, // Controller for the enemy → AI / Network / ...
+                gameHasEndedListener,
                 humanPlayerType, // Sauron/Fellowship player for human player
                 game, // Game that will be played
                 listener, // Event listener for enemy move making

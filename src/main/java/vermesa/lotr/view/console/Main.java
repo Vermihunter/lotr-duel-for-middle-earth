@@ -6,9 +6,11 @@ import vermesa.lotr.serialization.json.JsonConfig;
 import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.commands.handlers.*;
 import vermesa.lotr.view.console.game_events.EnemyMoveMadeGameEvent;
+import vermesa.lotr.view.console.game_events.GameEndedEvent;
 import vermesa.lotr.view.console.game_events.GameEvent;
 import vermesa.lotr.view.console.game_events.QuitGameEvent;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
+import vermesa.lotr.view.console.utils.BoxPrinter;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +51,12 @@ public class Main {
             try {
                 GameEvent event = eventQueue.take();
                 if (event instanceof QuitGameEvent) {
+                    break;
+                }
+
+                if (event instanceof GameEndedEvent) {
+                    ctx.out.print("\b\b");
+                    BoxPrinter.printBox(((GameEndedEvent) event).finalState().toString(), 20, ctx);
                     break;
                 }
 

@@ -2,6 +2,7 @@ package vermesa.lotr.ai_players;
 
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.game.Game;
+import vermesa.lotr.model.moves.MoveResult;
 
 import java.util.List;
 
@@ -15,6 +16,5 @@ public interface IAIPlayer {
      * @param game The game context where the move to be made
      * @return The moves that were made by the player
      */
-    List<IAction> play(Game game);
-    //String getName();
+    MoveResult play(Game game);
 }

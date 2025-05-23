@@ -205,15 +205,17 @@ public class GameState {
      * Checks if the game has already ended and if not, shifts players i.e. the player that
      * played the previous move will become the nextPlayerOnMove and vica-versa
      */
-    public void shiftPlayers() {
+    public CurrentGameState shiftPlayers() {
         currentGameState = checkGameState();
         if (currentGameState != CurrentGameState.HAS_NOT_ENDED) {
-            return;
+            return currentGameState;
         }
 
         Player tmp = playerOnMove;
         playerOnMove = nextPlayerOnMove;
         nextPlayerOnMove = tmp;
+
+        return currentGameState;
     }
 
     /**

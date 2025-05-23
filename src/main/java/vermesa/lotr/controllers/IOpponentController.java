@@ -2,6 +2,7 @@ package vermesa.lotr.controllers;
 
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.game.Game;
+import vermesa.lotr.model.moves.MoveResult;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
  * It can be an AI type or another human player playing over a network
  */
 public interface IOpponentController {
-    List<IAction> makeMove(Game game);
+    MoveResult makeMove(Game game);
 }

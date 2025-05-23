@@ -2,12 +2,14 @@ package vermesa.lotr.view.console.commands.handlers;
 
 import vermesa.lotr.config.CommandResourceBundleKeys;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.game.CurrentGameState;
 import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.view.console.ConsoleView;
 import vermesa.lotr.view.console.Context;
 import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.CommandResultType;
+import vermesa.lotr.view.console.game_events.GameEndedEvent;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 import vermesa.lotr.view.console.move_serializers.IActionSerializer;
 
@@ -86,7 +88,14 @@ public class ListAvailableMovesHandler extends CommandHandler {
             }
         }
 
-        game.makeMove(chosenMoves);
+        var moveResult = game.makeMove(chosenMoves);
+        if (moveResult.currentGameState() != CurrentGameState.HAS_NOT_ENDED) {
+            context.eventQueue.add(new GameEndedEvent(moveResult.currentGameState()));
+            synchronized (context.controllerLock) {
+                context.controllerLock.notify();
+            }
+
+        }
 
         if (game.getState().getPlayerOnMove() != context.controller.getHumanPlayer()) {
             context.out.println(">>> Enemy player is making a move...");

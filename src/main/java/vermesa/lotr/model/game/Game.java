@@ -79,9 +79,10 @@ public class Game {
             throw new IllegalArgumentException("Cannot shift player while must use follow up actions");
         }
 
+        var currGameState = CurrentGameState.HAS_NOT_ENDED;
         // Act according to the result of actions
         if (shiftPlayers) {
-            state.shiftPlayers();
+            currGameState = state.shiftPlayers();
             state.resetFollowUpMoves();
         } else if (!followUpActionsEmpty) {
             state.setFollowUpMoves(moveRes.followUpActions());
@@ -99,7 +100,7 @@ public class Game {
 
         }
 
-        return new MoveResult(true);
+        return new MoveResult(true, currGameState, moves);
     }
 
     /**

@@ -5,12 +5,7 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
-public class OneTimeImmediateRaceEffect implements IAction {
-    private final IAction action;
-
-    public OneTimeImmediateRaceEffect(IAction action) {
-        this.action = action;
-    }
+public record OneTimeImmediateRaceEffect(IAction action) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

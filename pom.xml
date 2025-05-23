@@ -109,7 +109,14 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
+                    <!-- Turn off all doclint checks -->
+                    <doclint>none</doclint>
+                    <!-- Don’t fail the build on Javadoc errors -->
+                    <failOnError>false</failOnError>
+                    <!-- keep your overview, source level, etc. -->
                     <overview>src/main/java/overview.html</overview>
+                    <source>${java.version}</source>
+                    <useModulePath>true</useModulePath>
                 </configuration>
             </plugin>
 

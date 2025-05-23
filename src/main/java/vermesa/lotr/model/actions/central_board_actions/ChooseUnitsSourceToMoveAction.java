@@ -44,7 +44,7 @@ public record ChooseUnitsSourceToMoveAction(CentralBoardUnitMoveStrategy moveStr
 
         int[] finalRegionRepetitions = Arrays.stream(regionRepetitions).limit(regionsToMove.size()).toArray();
         for (var regionGroup : Combinations.combinationsWithRepeats(regionsToMove, finalRegionRepetitions, unitsToMove)) {
-            followUpMoves.add(new ChooseUnitsDestinationToMoveAction(regionGroup, unitsToMove, moveStrategy));
+            followUpMoves.add(new ChooseUnitsDestinationToMoveAction(regionGroup));
         }
 
         if (followUpMoves.isEmpty()) {

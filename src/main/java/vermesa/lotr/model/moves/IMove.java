@@ -41,25 +41,12 @@ public interface IMove extends IAction {
             }
         }
 
-        // For each sub-result create a list of continuation
-        /*var allFollowUpGroups = followUpActions.stream()
-                .map(followUpGroup -> new MultiChoiceAction(followUpGroup, 1))
-                .toList();*/
 
         if (shiftRounds && !followUpActions.isEmpty()) {
             throw new IllegalArgumentException("");
         }
 
         return new ActionResult(followUpActions, shiftRounds);
-        /*
-        if(allFollowUpGroups.isEmpty()) {
-            return new ActionResult(List.of(), shiftRounds);
-        }
-
-       // var answerAllSubActionsMove = new TakeAllActions(allFollowUpGroups);
-        return new ActionResult(List.of(answerAllSubActionsMove), shiftRounds);
-
-         */
     }
 
     default void extractCoins(GameContext ctx, GameState state, int coinsToExtract) {

@@ -3,6 +3,7 @@ package vermesa.lotr.model.actions.race_effect_actions;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.moves.IMove;
 
 import java.util.ArrayList;
 
@@ -24,12 +25,7 @@ public class RaceEffectCallbackEventHandler {
     }
 
     public void signalEvent(RaceEffectCallbackEventType eventType, GameContext gameContext, GameState gameState) {
-
-        // TODO: use the function defined for running multiple IActions and aggregating result defined in IMove
-        // used for example in the 2nd Hobbits Race Effect -> we must return follow ups to choose which region to place the unit to
-        for (IAction eventHandler : this.eventHandlers.get(eventType.ordinal())) {
-            eventHandler.action(gameContext, gameState);
-        }
+        IMove.performMultiStageMove(gameContext, gameState, this.eventHandlers.get(eventType.ordinal()));
     }
 
 }

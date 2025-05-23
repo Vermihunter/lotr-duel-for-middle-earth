@@ -10,9 +10,8 @@ import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.view.console.Context;
-import vermesa.lotr.view.console.ControllerEnemyMoveMadeListener;
+import vermesa.lotr.view.console.event_handlers.ControllerEnemyMoveMadeListener;
 import vermesa.lotr.view.console.commands.CommandResult;
-import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.commands.handlers.ai_player_constructor.AIPlayerConstructor;
 import vermesa.lotr.view.console.ConsoleView;
 
@@ -37,7 +36,7 @@ public class StartGameConfigurationHandler extends CommandHandler {
         // Start game configuration
         context.out.println(">> ");
         context.out.println(">> Game configuration has been started.");
-        Random rand = new Random(111);
+        Random rand = new Random(113);
 
         // Create game
         var game = context.gameConfig.createGame(rand);
@@ -50,7 +49,6 @@ public class StartGameConfigurationHandler extends CommandHandler {
 
         IAIPlayer aiPlayer = aiPlayerConfig.constructAIPlayer(opponentPlayerType);
 
-        boolean isHumanPlayerOnMove = game.getState().getPlayerOnMove() == humanPlayerType;
 
         // Start controller in the background
         Thread controllerThread = getControllerThread(aiPlayer, humanPlayerType, game);
@@ -58,7 +56,9 @@ public class StartGameConfigurationHandler extends CommandHandler {
 
         // Add this back you want to add adding+removing the list_moves command when the enemy player is moving
         /*
+        boolean isHumanPlayerOnMove = game.getState().getPlayerOnMove() == humanPlayerType;
         if (isHumanPlayerOnMove) {
+            // ...
         }
         */
 

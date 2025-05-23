@@ -1,11 +1,9 @@
 package vermesa.lotr.controllers;
 
-import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.game.Game;
 import vermesa.lotr.model.player.Player;
 
 import java.time.Duration;
-import java.util.List;
 
 /**
  * Represents a controller component that is used when a local human player plays the game
@@ -75,7 +73,8 @@ public class HumanPlayerController implements LotrController {
                     }
                 }
 
-                listener.listen(movesMade);
+
+                listener.listen(movesMade, game.getState().getPlayerOnMove() == humanPlayer);
             }
 
         }

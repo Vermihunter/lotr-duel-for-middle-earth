@@ -48,6 +48,10 @@ public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
 
             var raceAllianceTokens = availableAllianceTokens.get(raceToSupport);
             var revealedAllianceTokens = new AllianceToken[]{raceAllianceTokens.get(0), raceAllianceTokens.get(1)};
+            if (revealedAllianceTokens[0] == null || revealedAllianceTokens[1] == null) {
+                throw new IllegalArgumentException("");
+            }
+
             followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(revealedAllianceTokens, new AllianceToken[]{raceAllianceTokens.get(0)}));
             followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(revealedAllianceTokens, new AllianceToken[]{raceAllianceTokens.get(1)}));
 
@@ -69,6 +73,10 @@ public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
                 AllianceToken at1 = availableAllianceTokens.get(race1).getFirst();
                 AllianceToken at2 = availableAllianceTokens.get(race2).getFirst();
                 AllianceToken at3 = availableAllianceTokens.get(race3).getFirst();
+
+                if (at1 == null || at2 == null || at3 == null) {
+                    throw new IllegalArgumentException("Races must have at least one alliance token");
+                }
 
                 var revealedAllianceTokens = new AllianceToken[]{at1, at2, at3};
                 followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(revealedAllianceTokens, new AllianceToken[]{at1}));

@@ -26,13 +26,14 @@ public record TakeTopTwoAllianceTokensChooseOneAction(Race[] RacesToRevealFrom, 
 
         var allianceTokens = state.getAllianceTokens();
         for (Race race : RacesToRevealFrom) {
-            AllianceToken[] tokensToReveal = (AllianceToken[]) allianceTokens.get(race).stream()
+            AllianceToken[] tokensToReveal = allianceTokens.get(race).stream()
                     .limit(TokensToReveal)
-                    .toArray();
+                    .toArray(AllianceToken[]::new);
 
-            AllianceToken[] tokensToChoose = (AllianceToken[]) allianceTokens.get(race).stream()
+            AllianceToken[] tokensToChoose = allianceTokens.get(race).stream()
                     .limit(TokensToChoose)
-                    .toArray();
+                    .toArray(AllianceToken[]::new);
+
 
             followUpMoves.add(new RevealAllianceTokensAndChooseSomeAction(tokensToReveal, tokensToChoose));
         }

@@ -9,6 +9,7 @@ import vermesa.lotr.view.console.Context;
 import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
+import vermesa.lotr.view.console.move_serializers.IActionSerializer;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;

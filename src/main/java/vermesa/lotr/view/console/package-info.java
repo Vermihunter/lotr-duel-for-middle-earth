@@ -1,4 +1,6 @@
 /**
+ * A view component implementation using Console.
+ *
  * @author Ákos Vermes
  * @since 1.0
  */

@@ -113,7 +113,6 @@ public class Region {
 
     /** Setters and getters */
 
-
     public void removeFortress() {
         fortress = null;
     }

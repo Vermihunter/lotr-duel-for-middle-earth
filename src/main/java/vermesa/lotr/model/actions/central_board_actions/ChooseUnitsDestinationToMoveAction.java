@@ -13,12 +13,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 /**
- * @param fromRegions
- * @param unitsToMove
- * @param moveStrategy
+ * Adds follow-up moves to choose destination for moving units from {@link #fromRegions()}
+ * @param fromRegions The list of regions to move from (1 unit each)
  */
-public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions, int unitsToMove,
-                                                 CentralBoardUnitMoveStrategy moveStrategy) implements IMove {
+public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions) implements IMove {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         List<List<Region>> regionNeighboringRegions = fromRegions.stream()

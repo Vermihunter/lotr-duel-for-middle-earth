@@ -1,6 +1,9 @@
 package vermesa.lotr.view.console.state_serializers;
 
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
+import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
+
+import java.util.stream.Collectors;
 
 public class ChapterCardSerializer {
 
@@ -50,6 +53,14 @@ public class ChapterCardSerializer {
             builder.append("Play for free chaining symbol: ")
                     .append(context.playForFreeChainingSymbol().toString().toLowerCase());
         }
+
+        var serializers = ActionSerializerRegistry.getAll();
+        var actionsSerialized = chapterCard.getChapterCard().context().actions().stream()
+                .map(a -> serializers.get(a.getClass()).serialize(a))
+                .collect(Collectors.joining("           - "));
+
+        builder.append("           Actions:\n           - ");
+        builder.append(actionsSerialized);
 
         return builder.toString();
     }

@@ -8,5 +8,5 @@ import vermesa.lotr.model.central_board.Region;
  * @param region Region where the units are connected to
  * @param units  Number of units
  */
-record UnitsInRegion(Region region, int units) {
+public record UnitsInRegion(Region region, int units) {
 }

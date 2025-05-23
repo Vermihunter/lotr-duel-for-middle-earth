@@ -16,12 +16,13 @@ import java.util.Random;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws Exception {
+        /*
         ObjectMapper objectMapper = new ObjectMapper();
 
         // Read JSON from file
         JsonConfig config = objectMapper.readValue(new File("DefaultConfig.json"), JsonConfig.class);
         //System.out.println(config);
-        Random rand = new Random(1);
+        Random rand = new Random(3);
         var game = config.createGame(rand);
 
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -53,5 +54,7 @@ public class Main {
 
 
         System.out.println(game.getState().getCurrentRoundNumber());
+
+        */
     }
 }

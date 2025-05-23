@@ -1,4 +1,6 @@
 /**
+ * Actions that are specifically connected to chapter cards
+ *
  * @author Ákos Vermes
  * @since 1.0
  */

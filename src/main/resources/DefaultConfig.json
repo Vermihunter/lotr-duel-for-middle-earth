@@ -131,6 +131,7 @@
         {
           "Type": "RevealAllianceTokensAndChooseSome",
           "TokensToReveal": 2,
+          "TokensToChoose": 1,
           "RacesToRevealFrom": [
             "Elves",
             "Humans",

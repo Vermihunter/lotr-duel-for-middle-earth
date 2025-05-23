@@ -14,5 +14,4 @@ import vermesa.lotr.model.actions.IAction;
  * @param action Effect of the Alliance token
  */
 public record AllianceToken(IAction action) {
-
 }

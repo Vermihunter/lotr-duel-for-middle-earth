@@ -4,7 +4,6 @@ import org.reflections.Reflections;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.view.console.annotations.Serializes;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -33,5 +32,9 @@ public class ActionSerializerRegistry {
 
     public static Map<Class<? extends IAction>, IActionSerializer> getAll() {
         return serializers;
+    }
+
+    public static String serialize(IAction action) {
+        return serializers.get(action.getClass()).serialize(action);
     }
 }

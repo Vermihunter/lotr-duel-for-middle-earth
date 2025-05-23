@@ -21,12 +21,6 @@ import java.util.concurrent.BlockingQueue;
 
 public class Main {
 
-    /*
-    String localeTag = Config.get("default.locale");
-    String welcome = Config.get("welcome.message");
-    System.out.println("Welcome message: " + welcome);
-    System.out.println("Default locale: " + localeTag);
-    */
 
     public static void main(String[] args) throws IOException {
         // Construct config from JSON
@@ -54,14 +48,13 @@ public class Main {
         while (true) {
             try {
                 GameEvent event = eventQueue.take();
-
                 if (event instanceof QuitGameEvent) {
                     break;
                 }
 
                 if (event instanceof EnemyMoveMadeGameEvent) {
 
-                    var moves = ((EnemyMoveMadeGameEvent) event).move();
+                    var moves = ((EnemyMoveMadeGameEvent) event).moves();
 
                     for (var move : moves) {
                         var moveSerializer = ActionSerializerRegistry.getAll().get(move.getClass());
@@ -70,6 +63,9 @@ public class Main {
                                 : moveSerializer.serialize(move);
 
                         ctx.out.println("\b>> Enemy player has made move: " + moveSerialized);
+                    }
+
+                    if (((EnemyMoveMadeGameEvent) event).humanPlayersTurn()) {
                         view.printHelp();
                         ctx.out.print("> ");
                     }

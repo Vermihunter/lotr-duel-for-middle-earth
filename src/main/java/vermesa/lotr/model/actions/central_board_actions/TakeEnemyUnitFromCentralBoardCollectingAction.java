@@ -1,6 +1,5 @@
 package vermesa.lotr.model.actions.central_board_actions;
 
-import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
@@ -8,7 +7,8 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Constructs the TakeEnemyUnitFromCentralBoardAction moves that a player can take
 public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) implements IAction {
@@ -27,7 +27,6 @@ public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) imp
     }
 
     // recursively build all bounded compositions of `total` into `regions.size()` parts
-
     private static void dfs(List<UnitsInRegion> regions,
                             int idx, int remaining, int[] current, List<ArrayList<UnitsInRegion>> result) {
         if (idx == regions.size()) {

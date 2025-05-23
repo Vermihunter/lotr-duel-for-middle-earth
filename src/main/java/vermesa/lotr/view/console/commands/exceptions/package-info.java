@@ -1,4 +1,6 @@
 /**
+ * Exceptions that are used in the command processing
+ *
  * @author Ákos Vermes
  * @since 1.0
  */

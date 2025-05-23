@@ -1,4 +1,4 @@
-package vermesa.lotr.view.console;
+package vermesa.lotr.view.console.event_handlers;
 
 import vermesa.lotr.controllers.IEnemyMoveMadeListener;
 import vermesa.lotr.model.actions.IAction;
@@ -16,7 +16,7 @@ public class ControllerEnemyMoveMadeListener implements IEnemyMoveMadeListener {
     }
 
     @Override
-    public void listen(List<IAction> enemyMovesMade) {
-        eventQueue.add(new EnemyMoveMadeGameEvent(enemyMovesMade));
+    public void listen(List<IAction> enemyMovesMade, boolean humanPlayersTurn) {
+        eventQueue.add(new EnemyMoveMadeGameEvent(enemyMovesMade, humanPlayersTurn));
     }
 }

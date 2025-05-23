@@ -8,5 +8,5 @@ import java.util.List;
  * Event listener for components
  */
 public interface IEnemyMoveMadeListener {
-    void listen(List<IAction> enemyMovesMade);
+    void listen(List<IAction> enemyMovesMade, boolean humanPlayersTurn);
 }

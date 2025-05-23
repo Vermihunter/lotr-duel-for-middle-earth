@@ -5,12 +5,7 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
-public class GetCoinsFromReserveAction implements IAction {
-    private final int coinsToGet;
-
-    public GetCoinsFromReserveAction(int coinsToGet) {
-        this.coinsToGet = coinsToGet;
-    }
+public record GetCoinsFromReserveAction(int coinsToGet) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

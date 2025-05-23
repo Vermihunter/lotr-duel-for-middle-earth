@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop, master ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop, master ]
 
 jobs:
   build-and-test:
@@ -34,3 +34,13 @@ jobs:
         with:
           name: surefire-reports-${{ matrix.os }}-jdk${{ matrix.java }}
           path: target/surefire-reports/*.xml
+
+      - name: Generate Javadoc
+        run: mvn javadoc:javadoc
+
+      - name: Archive Javadoc
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: javadoc-${{ matrix.os }}-jdk${{ matrix.java }}
+          path: target/site/apidocs

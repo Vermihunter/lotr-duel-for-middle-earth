@@ -6,13 +6,7 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.PlayerState;
 
-public class GainAttributeRaceEffect implements IAction {
-    private final RaceEffectAttributes raceEffectAttribute;
-
-    public GainAttributeRaceEffect(RaceEffectAttributes raceEffectAttribute) {
-        this.raceEffectAttribute = raceEffectAttribute;
-    }
-
+public record GainAttributeRaceEffect(RaceEffectAttributes raceEffectAttribute) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

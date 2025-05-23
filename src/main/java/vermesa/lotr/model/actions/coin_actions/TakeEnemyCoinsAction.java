@@ -6,13 +6,7 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
 
-public class TakeEnemyCoinsAction implements IAction {
-    public final int coinsToTake;
-
-    public TakeEnemyCoinsAction(int coinsToTake) {
-        this.coinsToTake = coinsToTake;
-
-    }
+public record TakeEnemyCoinsAction(int coinsToTake) implements IAction {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
@@ -20,6 +14,6 @@ public class TakeEnemyCoinsAction implements IAction {
         otherPlayer.removeCoins(coinsToTake);
         state.putBackCoinsToReserve(coinsToTake);
 
-        return null;
+        return ActionResult.OK;
     }
 }

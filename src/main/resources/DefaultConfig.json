@@ -1,0 +1,2537 @@
+{
+  "InitialConfig": {
+    "FellowshipPlayer": {
+      "Coins": 3,
+      "Units": 15,
+      "Towers": 7
+    },
+    "SauronPlayer": {
+      "Coins": 2,
+      "Units": 15,
+      "Towers": 7
+    }
+  },
+  "StartingPlayer": "Sauron",
+  "TotalCoinCount": 30,
+  "LandmarkTileContextConfig": {
+    "CoinPerAlreadyPlacedFortressPawn": 1,
+    "LandmarkTilesAtTime": 3
+  },
+  "LandmarkTilesToUse": [
+    {
+      "FortressToPlaceTo": "Mordor",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 3,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "PlayDiscardedChapterCard",
+          "CardsToPlay": 1
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Enedwaith",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 3,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "DiscardEnemyGreyCard"
+        },
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Rhovanion",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 2,
+        "Courage": 1,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 1
+        },
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 5
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Gondor",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 1,
+        "Courage": 0,
+        "Knowledge": 2,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "UnitsToPlace": 1,
+          "Strategy": "ALL_TO_SAME_REGION",
+          "PossibleRegionsToPlace": [
+            "Gondor"
+          ]
+        },
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Rohan",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "PossibleRegionsToPlace": [
+            "Rohan"
+          ],
+          "UnitsToPlace": 3
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Lindon",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 3,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "RevealAllianceTokensAndChooseSome",
+          "TokensToReveal": 2,
+          "TokensToChoose": 1,
+          "RacesToRevealFrom": [
+            "Elves",
+            "Humans",
+            "Dwarves",
+            "Wizards",
+            "Hobbits",
+            "Ents"
+          ]
+        }
+      ]
+    },
+    {
+      "FortressToPlaceTo": "Arnor",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 3,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Arnor"
+          ]
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
+        }
+      ]
+    }
+  ],
+  "Regions": [
+    {
+      "Name": "Mordor",
+      "Fortress": "BaradDur",
+      "ConnectedWith": [
+        "Rohan",
+        "Gondor"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 2,
+          "Player": "Sauron"
+        }
+      }
+    },
+    {
+      "Name": "Rohan",
+      "Fortress": "HelmsDeep",
+      "ConnectedWith": [
+        "Mordor",
+        "Gondor",
+        "Rhovanion",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
+    },
+    {
+      "Name": "Gondor",
+      "Fortress": "MinasTirith",
+      "ConnectedWith": [
+        "Mordor",
+        "Rohan",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
+    },
+    {
+      "Name": "Enedwaith",
+      "Fortress": "Isengard",
+      "ConnectedWith": [
+        "Rohan",
+        "Gondor",
+        "Arnor",
+        "Rhovanion"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
+    },
+    {
+      "Name": "Rhovanion",
+      "Fortress": "Erebor",
+      "ConnectedWith": [
+        "Rohan",
+        "Arnor",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
+    },
+    {
+      "Name": "Arnor",
+      "Fortress": "Bree",
+      "ConnectedWith": [
+        "Lindon",
+        "Rhovanion",
+        "Enedwaith"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 2,
+          "Player": "Fellowship"
+        }
+      }
+    },
+    {
+      "Name": "Lindon",
+      "Fortress": "GreyHavens",
+      "ConnectedWith": [
+        "Arnor"
+      ],
+      "StartingState": {
+        "Fortress": null,
+        "Units": {
+          "Count": 0,
+          "Player": null
+        }
+      }
+    }
+  ],
+  "ChapterCardsToUse": [
+    {
+      "Color": "GREEN",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Elves"
+        }
+      ],
+      "GainedChainingSymbol": "HARP",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Color": "GREEN",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Dwarves"
+        }
+      ],
+      "GainedChainingSymbol": "ANVIL",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Color": "GREEN",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Hobbits"
+        }
+      ],
+      "GainedChainingSymbol": "POT",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Color": "GREEN",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Humans"
+        }
+      ],
+      "GainedChainingSymbol": "HORSESHOE",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Color": "BLUE",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Color": "BLUE",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": "FISH",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Color": "BLUE",
+      "Round": 1,
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": "BACKPACK",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 1,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": "HORSE",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 1,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 1,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 1,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 1,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 1,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 1,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 1,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 1,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 1,
+          "PossibleRegionsToPlace": [
+            "Gondor",
+            "Rohan"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": "ARROW",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 1,
+          "PossibleRegionsToPlace": [
+            "Enedwaith",
+            "Rhovanion"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": "HELMET",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 1,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 1,
+          "PossibleRegionsToPlace": [
+            "Lindon",
+            "Arnor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": "KNIFE",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 1,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Elves"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "HARP",  
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Hobbits"
+        }
+      ],
+      "GainedChainingSymbol": "ACORN",
+      "PlayForFreeChainingSymbol": "POT",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Dwarves"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "ANVIL",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Humans"
+        }
+      ],
+      "GainedChainingSymbol": "SCROLL",
+      "PlayForFreeChainingSymbol": "HORSESHOE",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "BACKPACK",
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 1,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "HORSE",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 1,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": "FIRE",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": "BEDROLL",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 1,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 3
+        }
+      ],
+      "GainedChainingSymbol": "TREASURE_CASKET",
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 4
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 1,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 1,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 0,
+            "Courage": 2,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 0,
+            "Strength": 2,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 2,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": false
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 1,
+            "Strength": 0,
+            "Courage": 0,
+            "Knowledge": 1,
+            "Leadership": 1,
+            "IsOptional": true
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "GREY",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "GainSkill",
+          "SkillSet": {
+            "Ruse": 1,
+            "Strength": 1,
+            "Courage": 1,
+            "Knowledge": 0,
+            "Leadership": 0,
+            "IsOptional": true
+          }
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 1
+    },
+    {
+      "Round": 2,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Lindon",
+            "Enedwaith"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": "ARMOR",
+      "PlayForFreeChainingSymbol": "HELMET",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Mordor",
+            "Rohan"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": "AXE",
+      "PlayForFreeChainingSymbol": "KNIFE",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Gondor",
+            "Mordor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "ARROW",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 1,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Lindon",
+            "Rohan"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 2,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 2,
+          "PossibleRegionsToPlace": [
+            "Arnor",
+            "Rhovanion"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Wizards"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "SCROLL",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Wizards"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 2,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Ents"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "ACORN",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "GREEN",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "AddSupportOfARace",
+          "RaceToSupport": "Dwarves"
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 3,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "FIRE",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "FISH",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 0,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "BEDROLL",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 3
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 3
+    },
+    {
+      "Round": 3,
+      "Color": "BLUE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "MoveOnTheRingQuestTrack",
+          "MoveCount": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 5
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "YELLOW",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 1,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "GetCoinsFromReserve",
+          "CoinsToGet": 5
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "TREASURE_CASKET",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Enedwaith",
+            "Rohan"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "ARMOR",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 1,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Gondor",
+            "Arnor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": "AXE",
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 2,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Rhovanion",
+            "Mordor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 1,
+        "Knowledge": 2,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Lindon",
+            "Mordor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 3,
+        "Strength": 0,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 2
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Rhovanion",
+            "Gondor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "RED",
+      "RequiredSkills": {
+        "Ruse": 2,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 0,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "PlaceUnitsOnCentralBoard",
+          "Strategy": "ALL_TO_SAME_REGION",
+          "UnitsToPlace": 3,
+          "PossibleRegionsToPlace": [
+            "Enedwaith",
+            "Arnor"
+          ]
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 1,
+        "Strength": 1,
+        "Courage": 1,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 2,
+        "Courage": 0,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 3,
+        "Knowledge": 0,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 1,
+        "Courage": 1,
+        "Knowledge": 2,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 2
+        },
+        {
+          "Type": "TakeEnemyCoins",
+          "CoinsToTake": 1
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 3,
+        "Courage": 0,
+        "Knowledge": 1,
+        "Leadership": 0
+      },
+      "Effects": [
+        {
+          "Type": "TakeEnemyUnitFromCentralBoard",
+          "UnitsToTake": 1
+        },
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 2
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    },
+    {
+      "Round": 3,
+      "Color": "PURPLE",
+      "RequiredSkills": {
+        "Ruse": 0,
+        "Strength": 0,
+        "Courage": 2,
+        "Knowledge": 1,
+        "Leadership": 1
+      },
+      "Effects": [
+        {
+          "Type": "MoveUnitsOnCentralBoard",
+          "Strategy": "NEIGHBORING",
+          "UnitsToMove": 3
+        }
+      ],
+      "GainedChainingSymbol": null,
+      "PlayForFreeChainingSymbol": null,
+      "CoinsToPlay": 0
+    }
+  ],
+  "QuestOfTheRingTrackConfig": {
+    "FellowshipPlayerStartPosition": 14,
+    "SauronPlayerStartPosition": 0,
+    "Width": 29,
+    "BonusActions": [
+      {
+        "Position": 3,
+        "BonusActions": [
+          {
+            "Type": "GetCoinsFromReserve",
+            "CoinsToGet": 1
+          }
+        ]
+      },
+      {
+        "Position": 6,
+        "BonusActions": [
+          {
+            "Type": "PlaceUnitsOnCentralBoard",
+            "UnitsToPlace": 1,
+            "Strategy": "ALL_TO_SAME_REGION",
+            "PossibleRegionsToPlace": [
+              "Arnor",
+              "Mordor",
+              "Rhovanion",
+              "Lindon",
+              "Rohan",
+              "Enedwaith",
+              "Gondor"
+            ]
+          }
+        ]
+      },
+      {
+        "Position": 9,
+        "BonusActions": [
+          {
+            "Type": "TakeAnotherTurn"
+          }
+        ]
+      },
+      {
+        "Position": 12,
+        "BonusActions": [
+          {
+            "Type": "RemoveEnemyFortress"
+          }
+        ]
+      }
+    ]
+  },
+  "Races": [
+    {
+      "Name": "Elves",
+      "AllianceTokens": [
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_YELLOW_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_ANYWHERE_FOR_RED_CARD"
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "BENEFIT_FROM_ANY_SKILL"
+        }
+      ]
+    },
+    {
+      "Name": "Humans",
+      "AllianceTokens": [
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_YELLOW_USED",
+          "Effect": {
+            "Type": "MoveOnTheRingQuestTrack",
+            "MoveCount": 1
+          }
+        },
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "PLACE_EXTRA_UNIT_FOR_RED_CARD"
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_DISCARDED",
+          "Effect": {
+            "Type": "GainExtraCoinsForDiscardedChapterCard",
+            "ExtraCoinsPerRound": [
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Dwarves",
+      "AllianceTokens": [
+        {
+          "Type": "GainAttributeRaceEffect",
+          "Attribute": "IGNORE_LANDMARK_TILE_COST"
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "LANDMARK_TILE_USED",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_GREEN_USED",
+          "Effect": {
+            "Type": "MoveUnitsOnCentralBoard",
+            "Strategy": "NEIGHBORING",
+            "UnitsToMove": 2
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Wizards",
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "MoveOnTheRingQuestTrack",
+            "MoveCount": 2
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "PlaceUnitsOnCentralBoard",
+            "UnitsToPlace": 2,
+            "Strategy": "EVERY_UNIT_FREELY",
+            "PossibleRegionsToPlace": [
+              "Mordor",
+              "Gondor",
+              "Rhovanion",
+              "Enedwaith",
+              "Arnor",
+              "Lindon",
+              "Rohan"
+            ]
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "PlayDiscardedChapterCard",
+            "CardsToPlay": 1
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Hobbits",
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "AddSupportOfARace",
+            "RaceToSupport": "Eagles"
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAPTER_CARD_BLUE_USED",
+          "Effect": {
+            "Type": "PlaceUnitsOnCentralBoard",
+            "UnitsToPlace": 1,
+            "Strategy": "ALL_TO_SAME_REGION",
+            "PossibleRegionsToPlace": [
+              "Mordor",
+              "Gondor",
+              "Rhovanion",
+              "Enedwaith",
+              "Arnor",
+              "Lindon",
+              "Rohan"
+            ]
+          }
+        },
+        {
+          "Type": "EventBasedRaceEffect",
+          "Trigger": "CHAINING_SYMBOL_USED",
+          "Effect": {
+            "Type": "GetCoinsFromReserve",
+            "CoinsToGet": 3
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Ents",
+      "AllianceTokens": [
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "TakeAnotherTurn"
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "RemoveEnemyFortress"
+          }
+        },
+        {
+          "Type": "OneTimeImmediateRaceEffect",
+          "Effect": {
+            "Type": "MultiChoice",
+            "ActionsToTake": 3,
+            "PossibleActions": [
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
+                  }
+                ]
+              },
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
+                  }
+                ]
+              },
+              {
+                "Type": "MultiChoice",
+                "ActionsToTake": 1,
+                "PossibleActions": [
+                  {
+                    "Type": "TakeEnemyUnitFromCentralBoard",
+                    "UnitsToTake": 1
+                  },
+                  {
+                    "Type": "TakeEnemyCoins",
+                    "CoinsToTake": 1
+                  },
+                  {
+                    "Type": "MoveUnitsOnCentralBoard",
+                    "Strategy": "NEIGHBORING",
+                    "UnitsToMove": 1
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "Rounds": [
+    {
+      "Round": 1,
+      "CoinsPerChapterCardDiscard": 1,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [2, 3],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 1,
+          "DependsOn": [3, 4],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 2,
+          "DependsOn": [5, 6],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 3,
+          "DependsOn": [6, 7],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 4,
+          "DependsOn": [7, 8],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 5,
+          "DependsOn": [9, 10],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 6,
+          "DependsOn": [10, 11],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 7,
+          "DependsOn": [11, 12],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 8,
+          "DependsOn": [12, 13],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 9,
+          "DependsOn": [14, 15],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 10,
+          "DependsOn": [15, 16],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 11,
+          "DependsOn": [16, 17],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 12,
+          "DependsOn": [17, 18],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 13,
+          "DependsOn": [
+            18,
+            19
+          ],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 14,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 15,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 16,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 17,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        }
+      ]
+    },
+    {
+      "Round": 2,
+      "CoinsPerChapterCardDiscard": 2,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [6],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 1,
+          "DependsOn": [6, 7],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 2,
+          "DependsOn": [7, 8],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 3,
+          "DependsOn": [8, 9],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 4,
+          "DependsOn": [9, 10],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 5,
+          "DependsOn": [10],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 6,
+          "DependsOn": [11],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 7,
+          "DependsOn": [11, 12],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 8,
+          "DependsOn": [12, 13],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 9,
+          "DependsOn": [13, 14],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 10,
+          "DependsOn": [14],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 11,
+          "DependsOn": [15],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 12,
+          "DependsOn": [15, 16],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 13,
+          "DependsOn": [16, 17],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 14,
+          "DependsOn": [17],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 15,
+          "DependsOn": [18],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 16,
+          "DependsOn": [18, 19],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 17,
+          "DependsOn": [19],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 5
+        }
+      ]
+    },
+    {
+      "Round": 3,
+      "CoinsPerChapterCardDiscard": 3,
+      "ChapterCardConfig": [
+        {
+          "ID": 0,
+          "DependsOn": [2, 3],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 1,
+          "DependsOn": [3, 4],
+          "IsFaceUp": true,
+          "Row": 1
+        },
+        {
+          "ID": 2,
+          "DependsOn": [5, 6],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 3,
+          "DependsOn": [6, 7],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 4,
+          "DependsOn": [7, 8],
+          "IsFaceUp": false,
+          "Row": 2
+        },
+        {
+          "ID": 5,
+          "DependsOn": [9],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 6,
+          "DependsOn": [9],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 7,
+          "DependsOn": [10],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 8,
+          "DependsOn": [10],
+          "IsFaceUp": true,
+          "Row": 3
+        },
+        {
+          "ID": 9,
+          "DependsOn": [11, 12],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 10,
+          "DependsOn": [13, 14],
+          "IsFaceUp": false,
+          "Row": 4
+        },
+        {
+          "ID": 11,
+          "DependsOn": [15],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 12,
+          "DependsOn": [15, 16],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 13,
+          "DependsOn": [16, 17],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 14,
+          "DependsOn": [17],
+          "IsFaceUp": true,
+          "Row": 5
+        },
+        {
+          "ID": 15,
+          "DependsOn": [18],
+          "IsFaceUp": false,
+          "Row": 6
+        },
+        {
+          "ID": 16,
+          "DependsOn": [18, 19],
+          "IsFaceUp": false,
+          "Row": 6
+        },
+        {
+          "ID": 17,
+          "DependsOn": [19],
+          "IsFaceUp": false,
+          "Row": 6
+        },
+        {
+          "ID": 18,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 7
+        },
+        {
+          "ID": 19,
+          "DependsOn": [],
+          "IsFaceUp": true,
+          "Row": 7
+        }
+      ]
+    }
+  ]
+}

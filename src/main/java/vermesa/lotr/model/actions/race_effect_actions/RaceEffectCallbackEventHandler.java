@@ -3,6 +3,7 @@ package vermesa.lotr.model.actions.race_effect_actions;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.moves.IMove;
 
 import java.util.ArrayList;
 
@@ -14,16 +15,17 @@ public class RaceEffectCallbackEventHandler {
 
     public RaceEffectCallbackEventHandler() {
         this.eventHandlers = new ArrayList<>(RaceEffectCallbackEventType.values().length);
+        for (RaceEffectCallbackEventType _ : RaceEffectCallbackEventType.values()) {
+            this.eventHandlers.add(new ArrayList<>());
+        }
     }
 
-    void addEventHandler(RaceEffectCallbackEventType eventType, IAction eventHandler) {
+    public void addEventHandler(RaceEffectCallbackEventType eventType, IAction eventHandler) {
         this.eventHandlers.get(eventType.ordinal()).add(eventHandler);
     }
 
-    void signalEvent(RaceEffectCallbackEventType eventType, GameContext gameContext, GameState gameState) {
-        for (IAction eventHandler : this.eventHandlers.get(eventType.ordinal())) {
-            eventHandler.action(gameContext, gameState);
-        }
+    public void signalEvent(RaceEffectCallbackEventType eventType, GameContext gameContext, GameState gameState) {
+        IMove.performMultiStageMove(gameContext, gameState, this.eventHandlers.get(eventType.ordinal()));
     }
 
 }

@@ -1,8 +1,7 @@
 package vermesa.lotr.serialization.json.actions;
 
-
-//import vermesa.lotr.model.actions.coin_actions.GainExtraCoinsForDiscardedChapterCardAction;
 import vermesa.lotr.model.actions.IAction;
+import vermesa.lotr.model.actions.coin_actions.GainExtraCoinsForDiscardedChapterCardAction;
 import vermesa.lotr.model.central_board.Region;
 
 import java.util.HashMap;
@@ -12,7 +11,6 @@ public class GainExtraCoinsForDiscardedChapterCardActionConfig extends ActionCon
 
     @Override
     public IAction constructAction(HashMap<String, Region> regionMapper) {
-        return null;
-        //      return new GainExtraCoinsForDiscardedChapterCardAction(ExtraCoinsPerRound);
+        return new GainExtraCoinsForDiscardedChapterCardAction(ExtraCoinsPerRound);
     }
 }

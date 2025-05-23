@@ -12,6 +12,6 @@ public class PlayDiscardedChapterCardActionConfig extends ActionConfig {
     @Override
     public IAction constructAction(HashMap<String, Region> regionMapper) {
 
-        return new PlayDiscardedChapterCardAction(CardsToPlay);
+        return new PlayDiscardedChapterCardAction();
     }
 }

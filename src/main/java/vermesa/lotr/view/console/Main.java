@@ -136,6 +136,14 @@ public class Main {
         registry.register(startHandler.getName(), startHandler);
         baseHandler.registerSubCommand(startHandler.getName(), startHandler);
 
+        var listHobbiesHandler = new ListAvailableLobbiesCommandHandler(
+                ctx,
+                "lobbies",
+                "Lists available lobbies");
+        registry.register(listHobbiesHandler.getName(), listHobbiesHandler);
+        baseHandler.registerSubCommand(listHobbiesHandler.getName(), listHobbiesHandler);
+
+
         // Quit application command
         var quitHandler = new QuitCommandHandler(
                 ctx,

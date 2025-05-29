@@ -2,6 +2,9 @@ open module lotr {
     requires com.fasterxml.jackson.databind;
     requires org.reflections;
     requires java.desktop;
+    requires java.rmi;
+    requires org.slf4j;
+    requires java.logging;
 
     // Model
     exports vermesa.lotr.model.central_board;

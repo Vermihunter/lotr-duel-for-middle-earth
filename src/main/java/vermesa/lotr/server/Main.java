@@ -23,7 +23,7 @@ public class Main {
 
         Registry registry = LocateRegistry.createRegistry(port);
 
-        registry.rebind(ServerServiceKeys.LOBBY_SERVICE_FACTORY_NAME, new LobbyServiceFactory());
+        registry.rebind(ServerServiceKeys.LOBBY_SERVICE_FACTORY_ENDPOINT, new LobbyServiceFactory());
 
         log.info("Server started on port {}", port);
     }

@@ -136,12 +136,21 @@ public class Main {
         registry.register(startHandler.getName(), startHandler);
         baseHandler.registerSubCommand(startHandler.getName(), startHandler);
 
-        var listHobbiesHandler = new ListAvailableLobbiesCommandHandler(
+        var listLobbiesHandler = new ListAvailableLobbiesCommandHandler(
                 ctx,
                 "lobbies",
                 "Lists available lobbies");
-        registry.register(listHobbiesHandler.getName(), listHobbiesHandler);
-        baseHandler.registerSubCommand(listHobbiesHandler.getName(), listHobbiesHandler);
+        registry.register(listLobbiesHandler.getName(), listLobbiesHandler);
+        baseHandler.registerSubCommand(listLobbiesHandler.getName(), listLobbiesHandler);
+
+        var createLobbyHandler = new CreateLobbyCommandHandler(
+                ctx,
+                "createLobby",
+                "Creates a new lobby");
+        registry.register(createLobbyHandler.getName(), createLobbyHandler);
+        baseHandler.registerSubCommand(createLobbyHandler.getName(), createLobbyHandler);
+
+
 
 
         // Quit application command

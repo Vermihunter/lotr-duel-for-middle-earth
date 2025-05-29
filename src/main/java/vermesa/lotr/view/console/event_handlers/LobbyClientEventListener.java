@@ -8,10 +8,8 @@ import java.rmi.RemoteException;
 
 public class LobbyClientEventListener implements LobbyEventListener, Serializable {
 
-    private final Context context;
+    public LobbyClientEventListener() {
 
-    public LobbyClientEventListener(Context context) {
-        this.context = context;
     }
 
     @Override

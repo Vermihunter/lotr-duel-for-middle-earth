@@ -1,6 +1,6 @@
 package vermesa.lotr.server.lobby;
 
-import vermesa.lotr.controllers.LotrController;
+import vermesa.lotr.controllers.IOpponentController;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -26,11 +26,11 @@ public interface LobbyService extends Remote {
     UUID createLobby(String lobbyName) throws RemoteException;
 
     /**
-     * @param lobbyUUID
+     * @param lobbyName
      * @return
      * @throws RemoteException
      */
-    LobbyInfo joinLobby(UUID lobbyUUID) throws RemoteException;
+    LobbyInfo joinLobby(String lobbyName) throws RemoteException;
 
     /**
      * Leaves the lobby that the player is currently in
@@ -41,11 +41,11 @@ public interface LobbyService extends Remote {
     void leaveCurrentLobby() throws RemoteException;
 
     /**
-     * Starts a game and returns a communication interface {@link LotrController} to communicate
+     * Starts a game and returns a communication interface {@link IOpponentController} to communicate
      *
      * @return
      * @throws RemoteException
      */
-    LotrController startGame() throws RemoteException;
+    IOpponentController startGame() throws RemoteException;
 
 }

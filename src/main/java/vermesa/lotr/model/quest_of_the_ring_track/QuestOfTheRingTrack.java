@@ -7,9 +7,10 @@ import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuestOfTheRingTrack {
+public class QuestOfTheRingTrack implements Serializable {
     /**
      * Width of the track - note that this width does not map to the original width of the Quest of the ring track
      * in the physical copy of the game. To make computation easy, the fellowship player starts at the "middle" of

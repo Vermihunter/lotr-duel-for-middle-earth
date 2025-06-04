@@ -12,9 +12,9 @@ import vermesa.lotr.view.console.game_events.QuitGameEvent;
 import vermesa.lotr.view.console.move_serializers.ActionSerializerRegistry;
 import vermesa.lotr.view.console.utils.BoxPrinter;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.rmi.RemoteException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -76,11 +76,13 @@ public class Main {
                     if (((EnemyMoveMadeGameEvent) event).humanPlayersTurn()) {
                         view.printHelp();
                         ctx.out.print("> ");
+                    } else {
+                        //ctx.notifyController();
                     }
 
-                    synchronized (ctx.controllerLock) {
+                    /*synchronized (ctx.controllerLock) {
                         ctx.controllerLock.notify();
-                    }
+                    }*/
                 }
 
             } catch (InterruptedException ignored) {
@@ -106,7 +108,11 @@ public class Main {
                     ctx.out.println(">>> " + commandResult.message());
                 }
                 if (commandResult.printHelp()) {
-                    view.printHelp();
+                    try {
+                        view.printHelp();
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
@@ -128,29 +134,37 @@ public class Main {
         registry.register(listHandler.getName(), listHandler);
         baseHandler.registerSubCommand(listHandler.getName(), listHandler);
 
+
+        // Start network game
+        var startNetworkHandler = new StartNetworkGameConfigurationHandler(
+                ctx,
+                "startLobby",
+                "Starts the game from the lobby the player is currently in");
+        registry.register(startNetworkHandler.getName(), startNetworkHandler);
+        baseHandler.registerSubCommand(startNetworkHandler.getName(), startNetworkHandler);
+
         // Start game command
-        var startHandler = new StartGameConfigurationHandler(
+        var startHandler = new StartLocalGameConfigurationHandler(
                 ctx,
                 resourceBundle.getString(CommandResourceBundleKeys.START_NAME),
                 resourceBundle.getString(CommandResourceBundleKeys.START_HELP_MESSAGE));
         registry.register(startHandler.getName(), startHandler);
         baseHandler.registerSubCommand(startHandler.getName(), startHandler);
 
-        var listLobbiesHandler = new ListAvailableLobbiesCommandHandler(
+
+        var listLobbiesHandler = new JoinLobbyCommandHandler(
                 ctx,
-                "lobbies",
-                "Lists available lobbies");
+                "joinLobby",
+                "Joins to a lobby with a given name");
         registry.register(listLobbiesHandler.getName(), listLobbiesHandler);
         baseHandler.registerSubCommand(listLobbiesHandler.getName(), listLobbiesHandler);
 
         var createLobbyHandler = new CreateLobbyCommandHandler(
                 ctx,
                 "createLobby",
-                "Creates a new lobby");
+                "Creates a new lobby with a given name");
         registry.register(createLobbyHandler.getName(), createLobbyHandler);
         baseHandler.registerSubCommand(createLobbyHandler.getName(), createLobbyHandler);
-
-
 
 
         // Quit application command

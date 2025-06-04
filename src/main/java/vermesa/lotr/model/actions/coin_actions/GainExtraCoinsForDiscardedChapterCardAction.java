@@ -6,10 +6,12 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
+
 /**
  * Humans race effect → takes double amount of coins for discarding Chapter cards
  */
-public record GainExtraCoinsForDiscardedChapterCardAction(int[] extraCoinsPerRound) implements IAction {
+public record GainExtraCoinsForDiscardedChapterCardAction(int[] extraCoinsPerRound) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

@@ -5,6 +5,7 @@ import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.exceptions.CommandNotFoundException;
 import vermesa.lotr.view.console.ConsoleView;
 
+import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -39,7 +40,7 @@ public class CommandHandler implements ICommandHandler {
     }
 
     @Override
-    public CommandResult handleCommand(String[] commandParts, ConsoleView console) {
+    public CommandResult handleCommand(String[] commandParts, ConsoleView console) throws RemoteException {
         var subcommand = subcommandHandlers.get(commandParts[0]);
         if (subcommand == null) {
             throw new CommandNotFoundException("No such subcommand: " + commandParts[0]);

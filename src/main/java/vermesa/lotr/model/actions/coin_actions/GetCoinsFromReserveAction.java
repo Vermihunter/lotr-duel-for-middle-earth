@@ -5,7 +5,9 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
-public record GetCoinsFromReserveAction(int coinsToGet) implements IAction {
+import java.io.Serializable;
+
+public record GetCoinsFromReserveAction(int coinsToGet) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

@@ -2,7 +2,6 @@ package vermesa.lotr.server.lobby;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class LobbyRegistry {
     private static final LobbyRegistry INSTANCE = new LobbyRegistry();
@@ -25,16 +24,15 @@ public class LobbyRegistry {
         return lobbies;
     }
 
-    public Lobby getLobbyById(UUID id) {
+    public Lobby getLobbyByName(String name) {
         return lobbies.stream()
-                .filter(lobby -> ((Lobby) (lobby)).getId().equals(id))
+                .filter(lobby -> ((Lobby) (lobby)).getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
     public void deleteLobby(Lobby lobby) {
         lobbies.remove(lobby);
-        //lobbies.removeIf(lobby -> lobby.getLobbyId().equals(lobbyID));
     }
 
 

@@ -1,50 +1,65 @@
 package vermesa.lotr.server.lobby;
 
+import vermesa.lotr.server.player.RemotePlayerInformation;
+
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
 
-public class Lobby extends UnicastRemoteObject {
-    private final UUID id;
+public class Lobby {
     private final String name;
-    private UUID ownerId;
-    private UUID enemyId;
+    private RemotePlayerInformation owner;
+    private RemotePlayerInformation enemy;
 
-    protected Lobby(UUID lobbyId, String lobbyName, UUID ownerId) throws RemoteException {
-        this.id = lobbyId;
+    //private UUID ownerId;
+    //private UUID enemyId;
+
+    protected Lobby(String lobbyName, RemotePlayerInformation owner) throws RemoteException {
         this.name = lobbyName;
-        this.ownerId = ownerId;
-        this.enemyId = null;
+        this.owner = owner;
+        this.enemy = null;
     }
 
     public LobbyInfo extractInfo() {
-        return new LobbyInfo(id, name);
+        return new LobbyInfo(name);
     }
 
-    public UUID getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
     }
 
 
-    public UUID getOwnerId() {
-        return ownerId;
+    public RemotePlayerInformation getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(UUID ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(RemotePlayerInformation owner) {
+        this.owner = owner;
     }
 
 
-    public UUID getEnemyId() {
-        return enemyId;
+    public RemotePlayerInformation getEnemy() {
+        return enemy;
     }
 
-    public void setEnemyId(UUID enemyId) {
-        this.enemyId = enemyId;
+    public void setEnemy(RemotePlayerInformation enemy) {
+        this.enemy = enemy;
+    }
+
+    public LobbyClientState getState(UUID clientId) {
+        if (clientId.equals(owner.id())) {
+            return LobbyClientState.OWNER;
+        }
+
+        if (enemy == null) {
+            return LobbyClientState.NONE;
+        }
+
+        if (clientId.equals(enemy.id())) {
+            return LobbyClientState.OPPONENT;
+        }
+
+        return LobbyClientState.NONE;
     }
 
 
@@ -54,9 +69,8 @@ public class Lobby extends UnicastRemoteObject {
         if (o == null || getClass() != o.getClass()) return false;
 
         Lobby lobby = (Lobby) o;
-        return id.equals(lobby.id) &&
-                name.equals(lobby.name) &&
-                ownerId.equals(lobby.ownerId) &&
-                enemyId.equals(lobby.enemyId);
+        return name.equals(lobby.name) &&
+                owner.id().equals(lobby.owner.id()) &&
+                enemy.id().equals(lobby.enemy.id());
     }
 }

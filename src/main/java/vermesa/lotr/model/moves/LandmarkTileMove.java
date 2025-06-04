@@ -6,6 +6,8 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
+
 /**
  * Represents a Landmark tile move that
  * <ul>
@@ -17,7 +19,7 @@ import vermesa.lotr.model.player.Player;
  * @param landmarkTile The landmark tile that is being used
  * @param cost         The coins it costs to play this card
  */
-public record LandmarkTileMove(LandmarkTile landmarkTile, int cost) implements IMove {
+public record LandmarkTileMove(LandmarkTile landmarkTile, int cost) implements IMove, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

@@ -6,7 +6,9 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.Player;
 
-public record TakeEnemyCoinsAction(int coinsToTake) implements IAction {
+import java.io.Serializable;
+
+public record TakeEnemyCoinsAction(int coinsToTake) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

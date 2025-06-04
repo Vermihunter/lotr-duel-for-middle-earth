@@ -5,12 +5,13 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Every player has one instance → if collects enough race effect cards, adds the given handler
  */
-public class RaceEffectCallbackEventHandler {
+public class RaceEffectCallbackEventHandler implements Serializable {
     private final ArrayList<ArrayList<IAction>> eventHandlers;
 
     public RaceEffectCallbackEventHandler() {

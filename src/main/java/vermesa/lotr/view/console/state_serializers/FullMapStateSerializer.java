@@ -13,7 +13,7 @@ public class FullMapStateSerializer {
     private static final int columns = 120;
 
     public static String serialize(Game game) {
-        var chapterCardsSerialized = ChapterCardSetSerializer.serialize(game.getState().getCurrentRoundInformation().getChapterCards());
+        var chapterCardsSerialized = ChapterCardSetSerializer.serialize(game.state().getCurrentRoundInformation().getChapterCards());
 
 
         var reserve = getCoinReserveComponent(game);
@@ -22,8 +22,8 @@ public class FullMapStateSerializer {
         var questOfTheRingTrack = getQuestOfTheRingTrackComponent(game);
         var chapterCards = getChapterCardsComponent(chapterCardsSerialized);
         var chapterCardsDescriptions = getChapterCardsDescriptionComponent(chapterCardsSerialized);
-        var fellowshipPlayerState = getPlayerStateComponent(game.getContext().getFellowshipPlayer());
-        var sauronPlayerState = getPlayerStateComponent(game.getContext().getSauronPlayer());
+        var fellowshipPlayerState = getPlayerStateComponent(game.context().getFellowshipPlayer());
+        var sauronPlayerState = getPlayerStateComponent(game.context().getSauronPlayer());
 
         var components = new ConsoleComponent[]{
                 reserve, landmarks, centralBoard, questOfTheRingTrack, chapterCards,
@@ -75,7 +75,7 @@ public class FullMapStateSerializer {
     }
 
     private static ConsoleComponent getQuestOfTheRingTrackComponent(Game game) {
-        String questOfTheRingTrackSerialized = QuestOfTheRingTrackSerializer.seralize(game.getContext().getQuestOfTheRingTrack());
+        String questOfTheRingTrackSerialized = QuestOfTheRingTrackSerializer.seralize(game.context().getQuestOfTheRingTrack());
         String[] lines = questOfTheRingTrackSerialized.split("\n");
         int width = lines[0].length();
 
@@ -83,7 +83,7 @@ public class FullMapStateSerializer {
     }
 
     private static ConsoleComponent getCentralBoardComponent(Game game) {
-        String centralBoardSerialized = CentralBoardSerializer.serialize(game.getContext().getCentralBoard());
+        String centralBoardSerialized = CentralBoardSerializer.serialize(game.context().getCentralBoard());
         String[] lines = centralBoardSerialized.split("\n");
         int width = lines[0].length();
 
@@ -91,7 +91,7 @@ public class FullMapStateSerializer {
     }
 
     private static ConsoleComponent getLandmarkComponent(Game game) {
-        String landmarksSerialized = LandmarkTileSerializer.serialize(game.getState().getCurrentlyUsableLandmarkTiles());
+        String landmarksSerialized = LandmarkTileSerializer.serialize(game.state().getCurrentlyUsableLandmarkTiles());
         String[] lines = landmarksSerialized.split("\n");
         int width = lines[0].length();
 
@@ -99,7 +99,7 @@ public class FullMapStateSerializer {
     }
 
     private static ConsoleComponent getCoinReserveComponent(Game game) {
-        String reserveSerialized = CoinsSerializer.serialize("Coins in reserve", game.getState().getTotalCoins());
+        String reserveSerialized = CoinsSerializer.serialize("Coins in reserve", game.state().getTotalCoins());
         String[] lines = reserveSerialized.split("\n");
         int width = lines[0].length();
 

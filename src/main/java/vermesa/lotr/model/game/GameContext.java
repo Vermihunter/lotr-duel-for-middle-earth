@@ -14,6 +14,7 @@ import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
 import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import java.util.stream.IntStream;
  * Represents the context of the game
  * It contains components that are once configured and never changed
  */
-public class GameContext {
+public class GameContext implements Serializable {
     /**
      * The list of all landmark tiles in the game
      */

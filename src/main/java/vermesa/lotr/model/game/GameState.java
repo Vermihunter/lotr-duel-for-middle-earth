@@ -9,6 +9,7 @@ import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Game state object that holds the values of the game that do change
  */
-public class GameState {
+public class GameState implements Serializable {
     /**
      * Context of the game - needed for some state manipulation
      */

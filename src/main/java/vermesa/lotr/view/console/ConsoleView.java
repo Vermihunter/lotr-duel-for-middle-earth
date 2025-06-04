@@ -9,6 +9,8 @@ import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.utils.BoxPrinter;
 import vermesa.lotr.view.console.utils.BoxPrinter.Section;
 
+import java.rmi.RemoteException;
+
 public class ConsoleView {
     private final CommandHandler baseCommandHandler;
     private final Context context;
@@ -58,7 +60,7 @@ public class ConsoleView {
         );
     }
 
-    public void printHelp() {
+    public void printHelp() throws RemoteException {
         baseCommandHandler.handleCommand(new String[]{context.resourceBundle.getString(CommandResourceBundleKeys.LIST_NAME)}, this);
     }
 }

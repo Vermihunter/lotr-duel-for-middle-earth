@@ -6,6 +6,7 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  * @param pos    Position where the bonus is at
  * @param action Action bonuses that are invoked when the bonus is reached
  */
-public record QuestOfTheRingBonusAction(int pos, List<IAction> action) implements IAction {
+public record QuestOfTheRingBonusAction(int pos, List<IAction> action) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

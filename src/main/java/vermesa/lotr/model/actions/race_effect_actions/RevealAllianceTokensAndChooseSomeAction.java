@@ -7,6 +7,7 @@ import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.actions.ActionResult;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * @param tokensToChoose Alliance tokens that's effect is used on the player on move
  */
 public record RevealAllianceTokensAndChooseSomeAction(AllianceToken[] tokensToReveal,
-                                                      AllianceToken[] tokensToChoose) implements IMove {
+                                                      AllianceToken[] tokensToChoose) implements IMove, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

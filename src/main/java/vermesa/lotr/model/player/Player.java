@@ -3,13 +3,15 @@ package vermesa.lotr.model.player;
 import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.skills.ExtendedSkillSet;
 
+import java.io.Serializable;
+
 
 /**
  * An abstract parent of players holding common implementation details:
  * - {@link FellowshipPlayer}
  * - {@link SauronPlayer}
  */
-public abstract class Player {
+public abstract class Player implements Serializable {
     /**
      * The skill set that the player has gained through different actions
      */

@@ -7,12 +7,13 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * A move that creates follow-up moves to choose concrete fortresses to remove
  */
-public class ChooseEnemyFortressToRemoveAction implements IAction {
+public class ChooseEnemyFortressToRemoveAction implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

@@ -8,10 +8,11 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface IMove extends IAction {
+public interface IMove extends IAction, Serializable {
     default int coinsToPlay() {
         return 0;
     }

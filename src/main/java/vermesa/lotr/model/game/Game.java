@@ -8,35 +8,17 @@ import vermesa.lotr.model.moves.*;
 import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents the main object of the game that is being played
+ *
+ * @param context Context of the game
+ * @param state   State of the game
  */
-public class Game {
-    /**
-     * Context of the game
-     */
-    private final GameContext context;
-
-    /**
-     * State of the game
-     */
-    private final GameState state;
-
-    public Game(GameContext context, GameState state) {
-        this.context = context;
-        this.state = state;
-    }
-
-
-    public final GameState getState() {
-        return state;
-    }
-    public final GameContext getContext() {
-        return context;
-    }
+public record Game(GameContext context, GameState state) implements Serializable {
 
     /**
      * Returns the moves that the player who is on move has as opportunities
@@ -108,6 +90,7 @@ public class Game {
      * Note that not every chapter card is necessarily playable by any player. Any chapter card that is playable
      * can be discarded by any player but some chapter cards require coins to pay to play it and the sentence
      * "playable chapter card" means that it is face up and has no dependencies.
+     *
      * @param moves The container to append the chapter card moves to
      */
     private void addChapterCardMoves(ArrayList<IMove> moves) {
@@ -146,6 +129,7 @@ public class Game {
 
     /**
      * Helper function that appends Landmark tile moves for the current round
+     *
      * @param moves The container to append the chapter card moves to
      */
     private void addLandmarkTileMoves(ArrayList<IMove> moves) {

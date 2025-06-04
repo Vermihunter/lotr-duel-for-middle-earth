@@ -1,5 +1,6 @@
 package vermesa.lotr.model.chapter_cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Represents a container for the chapter cards in a concrete round
  */
-public class RoundChapterCardSet {
+public class RoundChapterCardSet implements Serializable {
     /**
      * All chapter cards present in the given round - Keys are chapter card IDs
      */
@@ -119,7 +120,7 @@ public class RoundChapterCardSet {
      * Not a record because we didn't want to use the parenthesis syntax and some fields are used only by
      * the parent class
      */
-    public static class ChapterCardWrapper {
+    public static class ChapterCardWrapper implements Serializable {
         /**
          * The chapter card that is wrapped
          */

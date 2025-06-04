@@ -7,11 +7,12 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public record ChooseWhereToPlaceUnitsOnCentralBoardAction_EveryUnitFreely(List<Region> possibleRegions,
-                                                                          int unitsToPlace) implements IAction {
+                                                                          int unitsToPlace) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

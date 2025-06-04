@@ -2,13 +2,14 @@ package vermesa.lotr.model.central_board;
 
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a Region on the Central board
  */
-public class Region {
+public class Region implements Serializable {
     /**
      * Type of the Region
      */

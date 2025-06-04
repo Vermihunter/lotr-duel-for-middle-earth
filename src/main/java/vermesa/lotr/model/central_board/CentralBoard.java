@@ -1,5 +1,6 @@
 package vermesa.lotr.model.central_board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,5 +9,5 @@ import java.util.Iterator;
  *
  * @param regions The regions present on the central board
  */
-public record CentralBoard(ArrayList<Region> regions) {
+public record CentralBoard(ArrayList<Region> regions) implements Serializable {
 }

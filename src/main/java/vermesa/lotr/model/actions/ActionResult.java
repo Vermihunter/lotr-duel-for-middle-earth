@@ -2,6 +2,7 @@ package vermesa.lotr.model.actions;
 
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @param followUpActions Follow-up actions that must follow the given action
  * @param shiftNextPlayer Boolean value representing whether to shift the round to the next player or not
  */
-public record ActionResult(List<List<IMove>> followUpActions, boolean shiftNextPlayer) {
+public record ActionResult(List<List<IMove>> followUpActions, boolean shiftNextPlayer) implements Serializable {
     /**
      * Cached basic answer
      */

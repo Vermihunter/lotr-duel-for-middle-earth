@@ -7,13 +7,15 @@ import vermesa.lotr.model.skills.SkillSet;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
+import java.io.Serializable;
+
 /**
  * Gains a {@link vermesa.lotr.model.skills.SkillSet}
  * It is the implementation of Grey chapter cards from the physical copy
  *
  * @param skillsToGain
  */
-public record GainSkillAction(SkillSet skillsToGain) implements IAction {
+public record GainSkillAction(SkillSet skillsToGain) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

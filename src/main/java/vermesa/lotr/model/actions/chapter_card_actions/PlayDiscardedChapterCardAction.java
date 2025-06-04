@@ -7,6 +7,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.ChapterCardPlayMove;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  * </ul>
  * Creates {@link ChapterCardPlayMove} for every chapter card that has been discarded so far
  */
-public record PlayDiscardedChapterCardAction() implements IAction {
+public record PlayDiscardedChapterCardAction() implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

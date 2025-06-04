@@ -7,11 +7,12 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 // Constructs the TakeEnemyUnitFromCentralBoardAction moves that a player can take
-public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) implements IAction {
+public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) implements IAction, Serializable {
 
 
     /**

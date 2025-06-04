@@ -10,6 +10,7 @@ import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.utils.Combinations;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.stream.IntStream;
  * @param unitsToMove
  */
 public record ChooseUnitsSourceToMoveAction(CentralBoardUnitMoveStrategy moveStrategy,
-                                            int unitsToMove) implements IAction {
+                                            int unitsToMove) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

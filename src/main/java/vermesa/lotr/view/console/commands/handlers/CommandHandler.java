@@ -49,4 +49,13 @@ public class CommandHandler implements ICommandHandler {
         return subcommand.handleCommand(Arrays.copyOfRange(commandParts, 1, commandParts.length), console);
     }
 
+    public void printHelp() {
+        context.out.println(">> Available commands: ");
+
+        subcommandHandlers.forEach((commandName, handler) -> {
+            context.out.println(">>\t" + commandName + "\t\t- " + handler.getDescription());
+        });
+
+    }
+
 }

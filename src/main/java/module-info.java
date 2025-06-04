@@ -5,6 +5,7 @@ open module lotr {
     requires java.rmi;
     requires org.slf4j;
     requires java.logging;
+    requires java.compiler;
 
     // Model
     exports vermesa.lotr.model.central_board;

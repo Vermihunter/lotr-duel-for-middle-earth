@@ -98,7 +98,7 @@ public class RoundChapterCardSet implements Serializable {
                 .forEach(this::decreaseDependencies);
 
         // Remove the card from playable ones
-        playableChapterCards.remove(chapterCardWrapper);
+        playableChapterCards.removeIf(c -> c.getChapterCard().id() == id);
     }
 
     /**

@@ -9,6 +9,8 @@ import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.view.console.Context;
+import vermesa.lotr.view.console.annotations.CommandInfo;
+import vermesa.lotr.view.console.commands.AppState;
 import vermesa.lotr.view.console.event_handlers.ControllerEnemyMoveMadeListener;
 import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.handlers.ai_player_constructor.AIPlayerConstructor;
@@ -19,6 +21,12 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+
+@CommandInfo(
+        nameKey = CommandResourceBundleKeys.START_NAME,
+        descKey = CommandResourceBundleKeys.START_HELP_MESSAGE,
+        states = {AppState.MAIN}
+)
 public class StartLocalGameConfigurationHandler extends StartGameConfigurationHandler {
 
     public StartLocalGameConfigurationHandler(Context context, String name, String description) {

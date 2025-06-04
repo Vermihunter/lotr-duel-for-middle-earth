@@ -125,6 +125,7 @@ public class LobbyServiceImpl extends UnicastRemoteObject implements LobbyServic
         }
 
         Game game = gameConfig.createGame(new Random());
+        //Game game = UnicastRemoteObject.exportObject(_game, 5000);
         FellowshipPlayer fellowshipPlayer = game.context().getFellowshipPlayer();
         SauronPlayer sauronPlayer = game.context().getSauronPlayer();
 

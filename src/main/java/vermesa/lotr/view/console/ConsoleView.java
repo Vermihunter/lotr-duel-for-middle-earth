@@ -1,27 +1,45 @@
 package vermesa.lotr.view.console;
 
 import vermesa.lotr.config.CommandResourceBundleKeys;
-import vermesa.lotr.view.console.commands.CommandResultType;
+import vermesa.lotr.view.console.commands.*;
 import vermesa.lotr.view.console.commands.exceptions.BadCommandArgumentsException;
 import vermesa.lotr.view.console.commands.exceptions.CommandNotFoundException;
 import vermesa.lotr.view.console.commands.handlers.CommandHandler;
-import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.utils.BoxPrinter;
 import vermesa.lotr.view.console.utils.BoxPrinter.Section;
 
 import java.rmi.RemoteException;
 
 public class ConsoleView {
-    private final CommandHandler baseCommandHandler;
+    private final CommandViewRegistry commandViewRegistry;
+    //private final CommandHandler baseCommandHandler;
     private final Context context;
+    private CommandView currentHandler;
+    private AppState currentAppState;
 
-    public ConsoleView(CommandHandler baseCommandHandler, Context context) {
-        this.baseCommandHandler = baseCommandHandler;
+    public ConsoleView(CommandViewRegistry commandViewRegistry, Context context, AppState currentAppState) {
+        this.commandViewRegistry = commandViewRegistry;
+        //  this.baseCommandHandler = baseCommandHandler;
         this.context = context;
+        this.currentAppState = currentAppState;
+        this.currentHandler = commandViewRegistry.getCommandView(currentAppState);
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void switchToView(AppState appState) {
+        currentHandler = commandViewRegistry.getCommandView(appState);
+        currentAppState = appState;
+    }
+
+    public AppState getCurrentAppState() {
+        return currentAppState;
     }
 
     public CommandHandler getBaseCommandHandler() {
-        return baseCommandHandler;
+        return currentHandler.getCommandHandler();
     }
 
     public CommandResult execute(String[] command) {
@@ -32,9 +50,9 @@ public class ConsoleView {
         CommandResult result;
 
         try {
-            result = baseCommandHandler.handleCommand(command, this);
+            result = currentHandler.handle(command, this);
         } catch (Exception e) {
-            result = new CommandResult(CommandResultType.ERROR, e.getMessage(), true);
+            result = new CommandResult(CommandResultType.ERROR, e.getMessage(), true, currentAppState);
         }
 
         return result;
@@ -61,6 +79,7 @@ public class ConsoleView {
     }
 
     public void printHelp() throws RemoteException {
-        baseCommandHandler.handleCommand(new String[]{context.resourceBundle.getString(CommandResourceBundleKeys.LIST_NAME)}, this);
+        //baseCommandHandler.handleCommand(new String[]{context.resourceBundle.getString(CommandResourceBundleKeys.LIST_NAME)}, this);
+        currentHandler.printHelp();
     }
 }

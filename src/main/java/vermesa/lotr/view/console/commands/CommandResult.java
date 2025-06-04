@@ -1,5 +1,9 @@
 package vermesa.lotr.view.console.commands;
 
-public record CommandResult(CommandResultType commandResult, String message, boolean printHelp) {
-    public static final CommandResult OK = new CommandResult(CommandResultType.CONTINUE, null, true);
+import vermesa.lotr.view.console.ConsoleView;
+
+public record CommandResult(CommandResultType commandResult, String message, boolean printHelp, AppState nextView) {
+    public static CommandResult OK(ConsoleView consoleView) {
+        return new CommandResult(CommandResultType.CONTINUE, null, true, consoleView.getCurrentAppState());
+    }
 }

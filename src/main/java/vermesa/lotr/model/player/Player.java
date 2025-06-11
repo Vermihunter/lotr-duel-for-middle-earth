@@ -172,4 +172,12 @@ public abstract class Player implements Serializable {
     public void placeBackFortress() {
         fortresses++;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+
+        return getClass() == o.getClass();
+    }
 }

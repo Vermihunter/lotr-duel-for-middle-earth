@@ -2,7 +2,6 @@ package vermesa.lotr.view.console.event_handlers;
 
 import vermesa.lotr.controllers.IEnemyMoveMadeListener;
 import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.game.Game;
 import vermesa.lotr.server.game.GameEventListener;
 import vermesa.lotr.view.console.Context;
 

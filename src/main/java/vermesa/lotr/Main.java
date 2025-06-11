@@ -1,16 +1,66 @@
 package vermesa.lotr;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import vermesa.lotr.model.actions.IAction;
-import vermesa.lotr.model.game.CurrentGameState;
-import vermesa.lotr.serialization.json.JsonConfig;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collection;
+
+interface Consumer<T> {
+    void accept(T t);
+}
+
+class First {
+}
+
+class Second extends First {
+}
+
+class A {
+    First aMethod(First arg) {
+        return null;
+    }
+}
+
+class B extends A {
+    static <E> void addDefaults(Collection<? super E> target, E defaultValue) {
+        // We know `target` can accept E (or some supertype of E).
+        // Even if `target` is List<Object>, we can still add an E.
+        target.add(defaultValue);
+        Consumer<First> animalConsumer = a -> System.out.println(a.getClass().getSimpleName());
+        Consumer<? super Second> dogConsumer = animalConsumer;
+
+    }
+
+    @Override
+    Second aMethod(First arg) {
+
+        return null;
+    }
+
+    /*
+    <T> T[] makeArray(T t) {
+        return new T[100]; // ← impossible
+    }
+    */
+}
+
+/*
+class First { }
+class Second extends First { }
+
+class A {
+    First aMethod(First arg) {
+        System.out.println("A: got a First; returning a First");
+        return new First();
+    }
+}
+
+class B extends A {
+    @Override
+    Second aMethod(First arg) {
+        System.out.println("B: got a First; returning a Second");
+        return new Second();
+    }
+}
+*/
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.

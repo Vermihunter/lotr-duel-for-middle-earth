@@ -43,7 +43,6 @@ public class CommandViewRegistry {
             } catch (InstantiationException | IllegalAccessException |
                      InvocationTargetException | NoSuchMethodException ex) {
                 // If instantiation fails, just skip this handler
-                ex.printStackTrace();
                 continue;
             }
 

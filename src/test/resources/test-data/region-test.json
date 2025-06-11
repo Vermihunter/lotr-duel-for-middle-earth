@@ -1,0 +1,116 @@
+[
+  {
+    "testCaseName": "Basic add same player unit - Sauron player",
+    "sauronPlayer": {
+      "startingCoins": 10,
+      "units": 5,
+      "towers": 2
+    },
+    "fellowshipPlayer": {
+      "startingCoins": 12,
+      "units": 4,
+      "towers": 3
+    },
+    "region": {
+      "regionType": "Mordor",
+      "fortressName": null
+    },
+    "initialPlayerUnitsInRegion": {
+      "type": "SauronPlayer"
+    },
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": {
+      "type": "SauronPlayer"
+    },
+    "playerUnitCountInRegion": 3,
+    "expectedPlayerUnitsInRegion": {
+      "type": "SauronPlayer"
+    },
+    "expectedUnitCountInRegion": 5
+  },
+  {
+    "testCaseName": "Take same amount of enemy unit",
+    "sauronPlayer": {
+      "startingCoins": 10,
+      "units": 5,
+      "towers": 2
+    },
+    "fellowshipPlayer": {
+      "startingCoins": 12,
+      "units": 4,
+      "towers": 3
+    },
+    "region": {
+      "regionType": "Mordor",
+      "fortressName": null
+    },
+    "initialPlayerUnitsInRegion": {
+      "type": "SauronPlayer"
+    },
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "playerUnitCountInRegion": 2,
+    "expectedPlayerUnitsInRegion": null,
+    "expectedUnitCountInRegion": 0
+  },
+  {
+    "testCaseName": "Place more enemy unit",
+    "sauronPlayer": {
+      "startingCoins": 10,
+      "units": 5,
+      "towers": 2
+    },
+    "fellowshipPlayer": {
+      "startingCoins": 12,
+      "units": 4,
+      "towers": 3
+    },
+    "region": {
+      "regionType": "Mordor",
+      "fortressName": null
+    },
+    "initialPlayerUnitsInRegion": {
+      "type": "SauronPlayer"
+    },
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "playerUnitCountInRegion": 3,
+    "expectedPlayerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "expectedUnitCountInRegion": 1
+  },
+  {
+    "testCaseName": "Basic add same player unit - Fellowship player",
+    "sauronPlayer": {
+      "startingCoins": 8,
+      "units": 3,
+      "towers": 1
+    },
+    "fellowshipPlayer": {
+      "startingCoins": 15,
+      "units": 6,
+      "towers": 0
+    },
+    "region": {
+      "regionType": "Rohan",
+      "fortressName": null
+    },
+    "initialPlayerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "initialUnitCountInRegion": 3,
+    "playerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "playerUnitCountInRegion": 4,
+    "expectedPlayerUnitsInRegion": {
+      "type": "FellowshipPlayer"
+    },
+    "expectedUnitCountInRegion": 7
+  }
+]

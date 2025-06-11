@@ -72,7 +72,7 @@ public class Region implements Serializable {
      */
     public void addUnits(Player player, int unitCount) {
         // There were no units in this region before or the same player already has units in this region
-        if(unit == null || player == unit) {
+        if (unit == null || player.equals(unit)) {
             this.unitCount += unitCount;
             unit = player;
             return;

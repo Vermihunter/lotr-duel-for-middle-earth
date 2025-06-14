@@ -1870,7 +1870,7 @@
   "QuestOfTheRingTrackConfig": {
     "FellowshipPlayerStartPosition": 14,
     "SauronPlayerStartPosition": 0,
-    "Width": 29,
+    "Width": 28,
     "BonusActions": [
       {
         "Position": 3,

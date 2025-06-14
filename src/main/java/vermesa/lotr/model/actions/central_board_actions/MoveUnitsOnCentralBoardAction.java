@@ -23,7 +23,7 @@ public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movem
 
         for (CentralBoardUnitMovement movement : movements) {
             movement.from().removeUnits(movement.unitsToMove());
-            movement.to().addUnits(playerOnMove, movement.unitsToMove());
+            movement.to().addUnits(playerOnMove.getType(), movement.unitsToMove());
         }
 
         return ActionResult.OK;

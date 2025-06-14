@@ -3,13 +3,17 @@ package vermesa.lotr.model.quest_of_the_ring_track;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
-import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
-import vermesa.lotr.model.player.SauronPlayer;
+import vermesa.lotr.model.player.PlayerType;
 
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The best way to imagine the implementation of the Quest of the Ring Track is
+ * as if there were actually two tracks of width ⌊{@link QuestOfTheRingTrack#width} / 2⌋ and if any
+ * of the players reach the end of their relative track, they won the game
+ */
 public class QuestOfTheRingTrack implements Serializable {
     /**
      * Width of the track - note that this width does not map to the original width of the Quest of the ring track
@@ -93,38 +97,38 @@ public class QuestOfTheRingTrack implements Serializable {
      * @param gameContext Context of the game (used for the bonus actions)
      * @param gameState   State of the game (used for the bonus actions)
      */
-    public void movePlayer(Player player, int moveCount, GameContext gameContext, GameState gameState) {
+    public void movePlayer(PlayerType player, int moveCount, GameContext gameContext, GameState gameState) {
 
         switch (player) {
-            case SauronPlayer ignored -> {
-                applyBonuses(fellowshipPlayerMovesMade, moveCount, gameContext, gameState);
+            case PlayerType.Sauron -> {
+                applyBonuses(sauronPlayerMovesMade, moveCount, gameContext, gameState);
 
-                sauronPlayerIndex += moveCount;
+                sauronPlayerIndex = Math.min(sauronPlayerIndex + moveCount, width);
+                ;
                 sauronPlayerMovesMade += moveCount;
             }
-            case FellowshipPlayer ignored -> {
+            case PlayerType.Fellowship -> {
                 applyBonuses(fellowshipPlayerMovesMade, moveCount, gameContext, gameState);
 
                 sauronPlayerIndex += moveCount;
-                fellowshipPlayerIndex += moveCount;
+                fellowshipPlayerIndex = Math.min(fellowshipPlayerIndex + moveCount, width);
                 fellowshipPlayerMovesMade += moveCount;
             }
-            default -> {
-                throw new IllegalStateException("Unexpected value: " + player);
-            }
+
+            default -> throw new IllegalStateException("Unexpected value: " + player);
         }
     }
 
     /**
      * Checks if some bonuses have been earned and if so, applies them
+     * Is done first to be able to apply bonuses that were achieved in this round
      *
      * @param ind         Index of the player before the move
      * @param moveCount   Number of moves to make on the track
      * @param gameContext Context of the game (used for the bonus actions)
      * @param gameState   State of the game (used for the bonus actions)
-     * @return The new position of the player
      */
-    private int applyBonuses(int ind, int moveCount, GameContext gameContext, GameState gameState) {
+    private void applyBonuses(int ind, int moveCount, GameContext gameContext, GameState gameState) {
         int newPlayerPosition = ind + moveCount;
 
         bonusActions.stream()
@@ -132,8 +136,6 @@ public class QuestOfTheRingTrack implements Serializable {
                 .forEach(bonus -> {
                     applyBonus(bonus.action(), gameContext, gameState);
                 });
-
-        return newPlayerPosition;
     }
 
     /**

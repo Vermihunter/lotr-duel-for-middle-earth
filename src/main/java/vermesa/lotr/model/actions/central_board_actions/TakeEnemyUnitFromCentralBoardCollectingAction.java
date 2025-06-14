@@ -61,7 +61,7 @@ public record TakeEnemyUnitFromCentralBoardCollectingAction(int unitsToTake) imp
 
         // Construct helper for possible regions
         var enemyUnitsInRegions = regions.stream()
-                .filter(region -> region.getUnit() == enemy)
+                .filter(region -> region.getUnit() == enemy.getType())
                 .map(region -> new UnitsInRegion(region, region.getUnitCount()))
                 .toList();
 

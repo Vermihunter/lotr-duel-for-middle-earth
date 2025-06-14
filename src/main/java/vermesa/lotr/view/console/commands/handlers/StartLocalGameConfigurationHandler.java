@@ -5,21 +5,15 @@ import vermesa.lotr.ai_players.IAIPlayerConfig;
 import vermesa.lotr.config.CommandResourceBundleKeys;
 import vermesa.lotr.controllers.*;
 import vermesa.lotr.model.game.Game;
-import vermesa.lotr.model.player.FellowshipPlayer;
 import vermesa.lotr.model.player.Player;
-import vermesa.lotr.model.player.SauronPlayer;
+import vermesa.lotr.model.player.PlayerType;
 import vermesa.lotr.view.console.Context;
 import vermesa.lotr.view.console.annotations.CommandInfo;
 import vermesa.lotr.view.console.commands.AppState;
-import vermesa.lotr.view.console.event_handlers.ControllerEnemyMoveMadeListener;
-import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.commands.handlers.ai_player_constructor.AIPlayerConstructor;
-import vermesa.lotr.view.console.ConsoleView;
-import vermesa.lotr.view.console.event_handlers.GameHasEndedListener;
 
 import java.time.Duration;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 
 @CommandInfo(
@@ -111,11 +105,11 @@ public class StartLocalGameConfigurationHandler extends StartGameConfigurationHa
             }
 
             String type = elements[0];
-            if (type.equals(SauronPlayer.NAME)) {
+            if (type.equals(PlayerType.Sauron.name())) {
                 return game.context().getSauronPlayer();
             }
 
-            if (type.equals(FellowshipPlayer.NAME)) {
+            if (type.equals(PlayerType.Fellowship.name())) {
                 return game.context().getFellowshipPlayer();
             }
 

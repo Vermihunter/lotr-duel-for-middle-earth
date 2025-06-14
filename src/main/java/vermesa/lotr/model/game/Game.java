@@ -136,7 +136,7 @@ public record Game(GameContext context, GameState state) implements Serializable
 
         Player playerOnMove = state.getPlayerOnMove();
         int alreadyPlacedTowers = (int) context.getCentralBoard().regions().stream()
-                .filter(region -> region.getFortress() == playerOnMove)
+                .filter(region -> region.getFortress() == playerOnMove.getType())
                 .count();
 
         int generalLandmarkTileCost = alreadyPlacedTowers * context.getLandmarkTileContext().coinPerAlreadyPlacedFortressPawn();

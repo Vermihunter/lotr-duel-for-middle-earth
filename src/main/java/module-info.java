@@ -45,5 +45,4 @@ open module lotr {
     // Serialization
     exports vermesa.lotr.serialization;
     exports vermesa.lotr.serialization.json;
-    exports vermesa.lotr.serialization.json.players;
 }

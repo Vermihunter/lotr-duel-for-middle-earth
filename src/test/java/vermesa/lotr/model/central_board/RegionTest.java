@@ -3,62 +3,27 @@ package vermesa.lotr.model.central_board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
-import vermesa.lotr.model.player.FellowshipPlayer;
-import vermesa.lotr.model.player.Player;
-import vermesa.lotr.model.player.SauronPlayer;
-import vermesa.lotr.serialization.utils.TestConfigLoader;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.List;
+import vermesa.lotr.model.player.PlayerType;
+import vermesa.lotr.serialization.utils.JsonConfigs;
+
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegionTest {
-    SauronPlayer sauronPlayer;
-    FellowshipPlayer fellowshipPlayer;
     Region region;
-
-    static Stream<AddUnitsTestConfig> jsonConfigsProvider() throws Exception {
-        // loadAllConfigs("/add_units_test_config.json") reads from src/test/resources
-        List<AddUnitsTestConfig> configs = TestConfigLoader.loadAllConfigs("/test-data/region-test.json");
-
-        // Wrap each AddUnitsTestConfig into an Arguments; JUnit will pass it to the test method.
-        return configs.stream();
-    }
-
-    static Stream<AddUnitsTestConfig> regionTestConfigStream() {
-        SauronPlayer sauronPlayer = new SauronPlayer(15, 10, 7);
-        FellowshipPlayer fellowshipPlayer = new FellowshipPlayer(15, 10, 7);
-        Region region = new Region(RegionType.Arnor, null);
-
-        AddUnitsTestConfig regionTestConfig = new AddUnitsTestConfig();
-        regionTestConfig.sauronPlayer = sauronPlayer;
-        regionTestConfig.fellowshipPlayer = fellowshipPlayer;
-        regionTestConfig.region = region;
-        regionTestConfig.initialPlayerUnitsInRegion = sauronPlayer;
-        regionTestConfig.initialUnitCountInRegion = 1;
-        regionTestConfig.playerUnitsInRegion = sauronPlayer;
-        regionTestConfig.playerUnitCountInRegion = 1;
-        regionTestConfig.expectedPlayerUnitsInRegion = sauronPlayer;
-        regionTestConfig.expectedUnitCountInRegion = 3;
-
-        return Stream.of(regionTestConfig);
-    }
 
     @BeforeEach
     void setUp() {
-        sauronPlayer = new SauronPlayer(15, 10, 7);
-        fellowshipPlayer = new FellowshipPlayer(15, 10, 7);
-        region = new Region(RegionType.Arnor, null);
+        region = new Region(null, null);
     }
 
     @ParameterizedTest(name = "[{index}] {0}")
-    @MethodSource("jsonConfigsProvider")
+    @JsonConfigs(value = AddUnitsTestConfig.class, resource = "/test-data/region-tests/add-units-region-test.json")
     void addUnits(AddUnitsTestConfig config) {
-        Region region = config.region;
-
         // Arrange
         if (config.initialUnitCountInRegion > 0) {
             region.addUnits(config.initialPlayerUnitsInRegion, config.initialUnitCountInRegion);
@@ -72,59 +37,95 @@ public class RegionTest {
         assertEquals(config.expectedPlayerUnitsInRegion, region.getUnit());
     }
 
+    @ParameterizedTest(name = "[{index}] {0}")
+    @JsonConfigs(value = AddUnitsTestConfig.class, resource = "/test-data/region-tests/remove-units-region-test.json")
+    void removeUnits_EnoughUnits(AddUnitsTestConfig config) {
+        // Arrange
+        if (config.initialUnitCountInRegion > 0) {
+            region.addUnits(config.initialPlayerUnitsInRegion, config.initialUnitCountInRegion);
+        }
+
+        // Act
+        region.removeUnits(config.playerUnitCountInRegion);
+
+        // Assert
+        assertEquals(config.expectedUnitCountInRegion, region.getUnitCount());
+        assertEquals(config.expectedPlayerUnitsInRegion, region.getUnit());
+    }
+
     @Test
-    void removeUnits() {
+    void removeUnits_TooFewUnits() {
+        assertThrows(IllegalArgumentException.class, () -> region.removeUnits(1));
     }
 
     @Test
     void removeFortress_Empty() {
+        assertThrows(IllegalArgumentException.class, region::removeFortress);
     }
 
-    @Test
-    void removeFortress_Sauron() {
 
+    @ParameterizedTest
+    @EnumSource(PlayerType.class)
+    void removeFortress_Fellowship(PlayerType player) {
+        // Arrange
+        region.placeFortress(player);
+
+        // Act
+        region.removeFortress();
+
+        // Assert
+        assertNull(region.getFortress());
     }
 
-    @Test
-    void removeFortress_Fellowship() {
+    @ParameterizedTest(name = "[{index}] {0}")
+    @JsonConfigs(value = FortressTestConfig.class, resource = "/test-data/region-tests/place-fortress-test.json")
+    void placeFortress_Correct(FortressTestConfig config) {
+        // Arrange
+        if (config.initialPlayer != null) {
+            region.placeFortress(config.initialPlayer);
+        }
 
+        // Act
+        region.placeFortress(config.playerPlacingFortress);
+
+        // Assert
+        assertEquals(config.playerHoldingFortress, region.getFortress());
     }
 
-    @Test
-    void placeFortress_EmptyFellowship() {
 
+    @ParameterizedTest
+    @EnumSource(PlayerType.class)
+    void placeFortress_OccupiedFellowship(PlayerType player) {
+        region.placeFortress(player);
+
+        assertThrows(IllegalStateException.class, () -> region.placeFortress(player));
     }
 
-    @Test
-    void placeFortress_EmptySauron() {
+    public static class FortressTestConfig {
+        public String testCaseName;
+        public PlayerType initialPlayer;
+        public PlayerType playerPlacingFortress;
+        public PlayerType playerHoldingFortress;
 
-    }
-
-    @Test
-    void placeFortress_OccupiedFellowship() {
-    }
-
-    @Test
-    void placeFortress_OccupiedSauron() {
-
+        @Override
+        public String toString() {
+            return testCaseName;
+        }
     }
 
     public static class AddUnitsTestConfig {
         public String testCaseName;
-        public SauronPlayer sauronPlayer;
-        public FellowshipPlayer fellowshipPlayer;
-        public Region region;
 
         // Initial config
-        public Player initialPlayerUnitsInRegion;
+        public PlayerType initialPlayerUnitsInRegion;
         public int initialUnitCountInRegion;
 
         // Actual placing
-        public Player playerUnitsInRegion;
+        public PlayerType playerUnitsInRegion;
         public int playerUnitCountInRegion;
 
         // Expected result
-        public Player expectedPlayerUnitsInRegion;
+        public PlayerType expectedPlayerUnitsInRegion;
         public int expectedUnitCountInRegion;
 
         @Override

@@ -21,7 +21,7 @@ public record PlaceUnitsOnCentralBoardAction(List<UnitsInRegion> unitPlacings) i
         Player playerOnMove = state.getPlayerOnMove();
 
         unitPlacings.forEach(unitPlacing -> {
-            unitPlacing.region().addUnits(playerOnMove, unitPlacing.units());
+            unitPlacing.region().addUnits(playerOnMove.getType(), unitPlacing.units());
             playerOnMove.removeUnits(unitPlacing.units());
         });
 

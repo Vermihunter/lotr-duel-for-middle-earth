@@ -18,7 +18,7 @@ public record MoveOnTheRingQuestTrackAction(int moveCount) implements IAction, S
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player playerOnMove = state.getPlayerOnMove();
-        ctx.getQuestOfTheRingTrack().movePlayer(playerOnMove, moveCount, ctx, state);
+        ctx.getQuestOfTheRingTrack().movePlayer(playerOnMove.getType(), moveCount, ctx, state);
 
         return ActionResult.OK;
     }

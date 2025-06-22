@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vermesa.lotr.model.game.Game;
-import vermesa.lotr.model.player.FellowshipPlayer;
-import vermesa.lotr.model.player.SauronPlayer;
+import vermesa.lotr.model.player.Player;
 import vermesa.lotr.serialization.IGameConfig;
 import vermesa.lotr.server.game.GameEventListener;
 import vermesa.lotr.server.player.RemotePlayerInformation;
@@ -126,8 +125,8 @@ public class LobbyServiceImpl extends UnicastRemoteObject implements LobbyServic
 
         Game game = gameConfig.createGame(new Random());
         //Game game = UnicastRemoteObject.exportObject(_game, 5000);
-        FellowshipPlayer fellowshipPlayer = game.context().getFellowshipPlayer();
-        SauronPlayer sauronPlayer = game.context().getSauronPlayer();
+        Player fellowshipPlayer = game.context().getFellowshipPlayer();
+        Player sauronPlayer = game.context().getSauronPlayer();
 
         OpponentNetworkController enemyController = new OpponentNetworkController(
                 new OpponentControllerContext(game, fellowshipPlayer, sauronPlayer),

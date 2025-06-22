@@ -4,6 +4,7 @@ import vermesa.lotr.model.central_board.CentralBoard;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.central_board.RegionType;
 import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.player.PlayerType;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -113,12 +114,12 @@ public class CentralBoardSerializer {
      * @return String representation of the row
      */
     private static String getRegionUnitsRow(Region region) {
-        Player unitHolder = region.getUnit();
+        PlayerType unitHolder = region.getUnit();
         int unitCount = region.getUnitCount();
 
         String unitsString = (unitHolder == null)
                 ? "0"
-                : unitCount + "(" + unitHolder.getName().charAt(0) + ")";
+                : unitCount + "(" + unitHolder.name().charAt(0) + ")";
 
         // Attributes
         return "║ Units: " +
@@ -134,8 +135,8 @@ public class CentralBoardSerializer {
      * @return String representation of the row
      */
     private static String getRegionFortressRow(Region region) {
-        Player fortressHolder = region.getFortress();
-        char fortressChar = (fortressHolder == null) ? 'X' : fortressHolder.getName().charAt(0);
+        PlayerType fortressHolder = region.getFortress();
+        char fortressChar = (fortressHolder == null) ? 'X' : fortressHolder.name().charAt(0);
 
         return "║ Fortress: " +
                 fortressChar +

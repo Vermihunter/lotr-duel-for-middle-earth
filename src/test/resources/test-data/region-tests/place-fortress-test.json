@@ -1,0 +1,12 @@
+[
+  {
+    "initialPlayer": null,
+    "playerPlacingFortress": "Sauron",
+    "playerHoldingFortress": "Sauron"
+  },
+  {
+    "initialPlayer": null,
+    "playerPlacingFortress": "Fellowship",
+    "playerHoldingFortress": "Fellowship"
+  }
+]

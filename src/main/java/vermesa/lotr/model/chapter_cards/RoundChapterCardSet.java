@@ -24,6 +24,22 @@ public class RoundChapterCardSet implements Serializable {
         this.playableChapterCards = playableChapterCards;
     }
 
+    public static RoundChapterCardSet deepCopy(RoundChapterCardSet roundChapterCardSet) {
+        HashMap<Integer, ChapterCardWrapper> allChapterCards = new HashMap<>();
+        ArrayList<ChapterCardWrapper> playableChapterCards = new ArrayList<>();
+
+        for (var chapterCardConfig : roundChapterCardSet.allChapterCards.entrySet()) {
+            var wrapperDeepCopy = ChapterCardWrapper.deepCopy(chapterCardConfig.getValue());
+            allChapterCards.put(chapterCardConfig.getKey(), wrapperDeepCopy);
+
+            if (wrapperDeepCopy.remainingDependencies == 0) {
+                playableChapterCards.add(wrapperDeepCopy);
+            }
+        }
+
+        return new RoundChapterCardSet(allChapterCards, playableChapterCards);
+    }
+
     public HashMap<Integer, ChapterCardWrapper> getAllChapterCards() {
         return allChapterCards;
     }
@@ -160,6 +176,14 @@ public class RoundChapterCardSet implements Serializable {
             this.remainingDependencies = dependsOn.size();
             this.row = row;
             this.alreadyPlayed = false;
+        }
+
+        private static ChapterCardWrapper deepCopy(ChapterCardWrapper chapterCardWrapper) {
+            ChapterCardWrapper deepCopy = new ChapterCardWrapper(chapterCardWrapper.chapterCard, chapterCardWrapper._isFaceUp, chapterCardWrapper.dependsOn, chapterCardWrapper.row);
+            deepCopy.alreadyPlayed = chapterCardWrapper.alreadyPlayed;
+            deepCopy.remainingDependencies = chapterCardWrapper.remainingDependencies;
+
+            return deepCopy;
         }
 
         public int getRemainingDependencies() {

@@ -11,7 +11,9 @@ import java.io.Serializable;
  * - {@link FellowshipPlayer}
  * - {@link SauronPlayer}
  */
-public abstract class Player implements Serializable {
+public class Player implements Serializable {
+    private final PlayerType type;
+
     /**
      * The skill set that the player has gained through different actions
      */
@@ -43,7 +45,8 @@ public abstract class Player implements Serializable {
      */
     private int fortresses;
 
-    public Player(int startingCoins, int units, int towers) {
+    public Player(PlayerType type, int startingCoins, int units, int towers) {
+        this.type = type;
         this.coins = startingCoins;
         this.units = units;
         this.fortresses = towers;
@@ -53,21 +56,12 @@ public abstract class Player implements Serializable {
     }
 
     /**
-     * @return Helper function to detect whether the player is the fellowship player or not
-     */
-    public abstract boolean isFellowshipPlayer();
-
-    /**
      *
-     * @return Helper function to detect whether the player is the sauron player or not
+     * @return Returns the type of the player {@link PlayerType}
      */
-    public abstract boolean isSauronPlayer();
-
-    /**
-     *
-     * @return Helper function to get the name of the player
-     */
-    public abstract String getName();
+    public PlayerType getType() {
+        return type;
+    }
 
     /**
      *

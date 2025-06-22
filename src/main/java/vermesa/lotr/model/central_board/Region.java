@@ -1,6 +1,7 @@
 package vermesa.lotr.model.central_board;
 
 import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.player.PlayerType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Region implements Serializable {
      * The Player reference that has a fortress placed in this Region
      * If no player has a fortress in this region, the value is null
      */
-    private Player fortress;
+    private PlayerType fortress;
 
     /**
      * The Player reference that has unit(s) placed in this Region
@@ -38,7 +39,7 @@ public class Region implements Serializable {
      * Note that according to the official rules, there cannot be units from
      * both players in the same Region at the same time
      */
-    private Player unit;
+    private PlayerType unit;
 
     /**
      * The number of units that are currently placed in this region by player {@link #unit}
@@ -70,7 +71,7 @@ public class Region implements Serializable {
      * @param player    The player who is placing units in this region
      * @param unitCount The number of units being placed
      */
-    public void addUnits(Player player, int unitCount) {
+    public void addUnits(PlayerType player, int unitCount) {
         // There were no units in this region before or the same player already has units in this region
         if (unit == null || player.equals(unit)) {
             this.unitCount += unitCount;
@@ -107,7 +108,7 @@ public class Region implements Serializable {
         }
 
         this.unitCount -= unitCount;
-        if(unitCount == this.unitCount) {
+        if (this.unitCount == 0) {
             this.unit = null;
         }
     }
@@ -115,16 +116,29 @@ public class Region implements Serializable {
     /** Setters and getters */
 
     public void removeFortress() {
+        if (fortress == null) {
+            throw new IllegalArgumentException();
+        }
+
         fortress = null;
     }
 
-    public void placeFortress(Player player) {
+    public void placeFortress(PlayerType player) {
+        if (fortress != null) {
+            throw new IllegalStateException();
+        }
+
         fortress = player;
     }
-    public Player getFortress() { return fortress; }
+
+    public PlayerType getFortress() {
+        return fortress;
+    }
 
 
-    public Player getUnit() { return unit; }
+    public PlayerType getUnit() {
+        return unit;
+    }
     public int getUnitCount() { return unitCount; }
 
     public RegionType getRegionType() { return regionType; }

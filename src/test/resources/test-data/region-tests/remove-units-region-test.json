@@ -1,0 +1,26 @@
+[
+  {
+    "testCaseName": "Basic remove - Sauron Player",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 2,
+    "playerUnitCountInRegion": 1,
+    "expectedPlayerUnitsInRegion": "Sauron",
+    "expectedUnitCountInRegion": 1
+  },
+  {
+    "testCaseName": "Take same amount of enemy unit",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 2,
+    "playerUnitCountInRegion": 2,
+    "expectedPlayerUnitsInRegion": null,
+    "expectedUnitCountInRegion": 0
+  },
+  {
+    "testCaseName": "Basic remove - Fellowship Player",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 4,
+    "playerUnitCountInRegion": 2,
+    "expectedPlayerUnitsInRegion": "Sauron",
+    "expectedUnitCountInRegion": 2
+  }
+]

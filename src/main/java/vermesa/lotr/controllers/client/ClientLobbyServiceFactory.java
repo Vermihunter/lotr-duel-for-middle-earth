@@ -5,10 +5,8 @@ import vermesa.lotr.server.game.GameEventListener;
 import vermesa.lotr.server.lobby.LobbyEventListener;
 import vermesa.lotr.server.lobby.LobbyService;
 import vermesa.lotr.server.lobby.LobbyServiceFactoryRemote;
-import vermesa.lotr.view.console.event_handlers.LobbyClientEventListener;
 
 import java.net.MalformedURLException;
-import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -17,11 +15,6 @@ import java.util.UUID;
 
 public class ClientLobbyServiceFactory {
     public static LobbyService lobbyService;
-    private static LobbyServiceFactoryRemote factory;
-
-    static {
-        //initialize();
-    }
 
     public static void initialize(LobbyEventListener lobbyEventListener, GameEventListener gameEventListener) {
         ResourceBundle serverBundle = ResourceBundle.getBundle("server");
@@ -30,7 +23,7 @@ public class ClientLobbyServiceFactory {
 
         String lobbyServiceFactoryUrl = "rmi://" + host + ":" + port + "/" + ServerServiceKeys.LOBBY_SERVICE_FACTORY_ENDPOINT;
 
-        factory = getLobbyServiceFactory(lobbyServiceFactoryUrl);
+        LobbyServiceFactoryRemote factory = getLobbyServiceFactory(lobbyServiceFactoryUrl);
         lobbyService = getLobbyService(factory, lobbyEventListener, gameEventListener);
 
         if (factory == null || lobbyService == null) {

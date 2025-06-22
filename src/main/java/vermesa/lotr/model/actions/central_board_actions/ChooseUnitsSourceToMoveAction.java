@@ -34,7 +34,7 @@ public record ChooseUnitsSourceToMoveAction(CentralBoardUnitMoveStrategy moveStr
         int[] regionRepetitions = new int[regions.size()];
 
         IntStream.range(0, regions.size())
-                .filter(i -> regions.get(i).getUnit() == playerOnMove)
+                .filter(i -> regions.get(i).getUnit() == playerOnMove.getType())
                 .forEach(region -> {
                     regionRepetitions[regionsToMove.size()] = regions.get(region).getUnitCount();
                     regionsToMove.add(regions.get(region));

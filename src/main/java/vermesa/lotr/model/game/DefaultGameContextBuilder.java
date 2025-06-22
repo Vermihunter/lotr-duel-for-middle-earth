@@ -28,7 +28,7 @@ public class DefaultGameContextBuilder {
 
         var questOfTheRingTrack = DefaultQuestOfTheRingTrackCreator.createQuestOfTheRingTrack(regions);
 
-        var roundConfigs = DefaultRoundConfigCreator.getDefaultRoundConfigs();
+        var roundConfigs = DefaultRoundConfigCreator.getDefaultRoundConfigs(regions);
         var allianceTokens = DefaultAllianceTokenCreator.createDefaultAllianceTokens(regions);
 
 

@@ -4,15 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import vermesa.lotr.TestedGameState;
+import vermesa.lotr.TestedGameStateFactory;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.central_board.RegionType;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.model.player.PlayerType;
+import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.serialization.utils.JsonConfigs;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -84,8 +89,51 @@ class GameStateTest {
 
     }
 
-    @Test
-    void startNewRound() {
+    /**
+     * {@link GameState#checkSupportOfTheRacesState()} TESTS
+     */
+
+    static Stream<int[]> notAllRaceSupportsStream() {
+        if (Race.values().length != 7) {
+            throw new AssertionError("The number of Race elements should be 7");
+        }
+
+        return Stream.of(
+                new int[]{0, 0, 0, 0, 0, 0, 0},
+                new int[]{0, 1, 0, 1, 0, 1, 0},
+                new int[]{1, 0, 0, 0, 0, 0, 1},
+                new int[]{0, 1, 0, 0, 1, 1, 1},
+                new int[]{1, 0, 1, 0, 1, 0, 1},
+                new int[]{1, 1, 1, 1, 1, 0, 0},
+
+                new int[]{0, 1, 0, 0, 2, 1, 2},
+                new int[]{1, 2, 1, 0, 1, 0, 1},
+                new int[]{2, 0, 1, 2, 1, 2, 0}
+        );
+    }
+
+    static Stream<int[]> allRaceSupportsStream() {
+        if (Race.values().length != 7) {
+            throw new AssertionError("The number of Race elements should be 7");
+        }
+
+        return Stream.of(
+                // All race support variations with support 1
+                new int[]{1, 1, 1, 1, 1, 1, 1},
+                new int[]{1, 1, 1, 1, 1, 1, 0},
+                new int[]{1, 1, 1, 1, 1, 0, 1},
+                new int[]{1, 1, 1, 1, 0, 1, 1},
+                new int[]{1, 1, 1, 0, 1, 1, 1},
+                new int[]{1, 1, 0, 1, 1, 1, 1},
+                new int[]{1, 0, 1, 1, 1, 1, 1},
+                new int[]{0, 1, 1, 1, 1, 1, 1},
+
+
+                new int[]{1, 2, 1, 2, 1, 2, 0},
+                new int[]{1, 1, 2, 1, 1, 1, 2},
+                new int[]{3, 1, 1, 3, 2, 1, 1}
+
+        );
     }
 
     private void initRegions(List<Region> regions, ConqueringMiddleEarthStateConfig config) {
@@ -151,17 +199,60 @@ class GameStateTest {
         assertEquals(expectedResult, result);
     }
 
-
-    /**
-     * {@link GameState#checkSupportOfTheRacesState()} TESTS
-     */
-
-    /*
     @Test
-    void checkSupportOfTheRacesState() {
-
+    void startNewRound_RoundHasNotEnded() {
+        assertThrows(IllegalStateException.class, () -> state.startNewRound());
     }
-     */
+
+    @Test
+    void startNewRound_NoMoreRounds() {
+        var game = TestedGameStateFactory.createGame(TestedGameState.THIRD_ROUND_FIRST_MOVE);
+        var gameState = game.state();
+
+        assertThrows(IllegalStateException.class, () -> gameState.startNewRound());
+    }
+
+    private void addSupportForRaces(int[] supportedRaces) {
+        var playerOnMove = game.state().getPlayerOnMove();
+
+        for (int i = 0; i < supportedRaces.length; i++) {
+            Race race = Race.values()[i];
+
+            for (int r = 0; r < supportedRaces[i]; ++r) {
+                playerOnMove.addSupportingRace(race);
+            }
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("notAllRaceSupportsStream")
+    void checkSupportOfTheRacesState_NobodyHasAllRaces(int[] supportedRaces) {
+        // Arrange
+        addSupportForRaces(supportedRaces);
+
+        // Act
+        var result = state.checkSupportOfTheRacesState();
+
+        // Assert
+        assertEquals(CurrentGameState.HAS_NOT_ENDED, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("allRaceSupportsStream")
+    void checkSupportOfTheRacesState_AllRaceSupportAcquired(int[] supportedRaces) {
+        // Arrange
+        addSupportForRaces(supportedRaces);
+
+        // Act
+        var result = state.checkSupportOfTheRacesState();
+
+        // Assert
+        CurrentGameState expectedGameState = (game.state().getPlayerOnMove().getType() == PlayerType.Sauron)
+                ? CurrentGameState.SAURON_WON
+                : CurrentGameState.FELLOWSHIP_WON;
+        assertEquals(expectedGameState, result);
+    }
+
 
     @ParameterizedTest(name = "[index] - Sauron player moved: {0}")
     @ValueSource(ints = {14, 15, 22, 27, 30})

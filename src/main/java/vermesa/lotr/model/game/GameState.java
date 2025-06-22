@@ -1,11 +1,9 @@
 package vermesa.lotr.model.game;
 
-import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
-import vermesa.lotr.model.player.PlayerType;
 import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
@@ -358,6 +356,14 @@ public class GameState implements Serializable {
      * Also adds new landmark tiles if the old ones were used up to {@link vermesa.lotr.model.landmark_effects.LandmarkTileContext#landmarkTilesAtTime()}
      */
     public void startNewRound() {
+        if (currentRoundNumber == gameContext.getRoundInformations().size()) {
+            throw new IllegalStateException("There are no more rounds");
+        }
+
+        if (!currentRoundInformation.getChapterCards().getPlayableChapterCards().isEmpty()) {
+            throw new IllegalStateException("Cannot shift rounds - there are still chapter cards left to play");
+        }
+
         currentRoundNumber++;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
 

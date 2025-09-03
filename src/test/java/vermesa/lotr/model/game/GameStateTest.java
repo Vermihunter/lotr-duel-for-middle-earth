@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import vermesa.lotr.TestedGameState;
@@ -199,18 +200,30 @@ class GameStateTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    void startNewRound_RoundHasNotEnded() {
-        assertThrows(IllegalStateException.class, () -> state.startNewRound());
-    }
-
-    @Test
-    void startNewRound_NoMoreRounds() {
-        var game = TestedGameStateFactory.createGame(TestedGameState.THIRD_ROUND_FIRST_MOVE);
+    @ParameterizedTest
+    @EnumSource(
+            value = TestedGameState.class,
+            names = {"GAME_ENDED"}
+    )
+    void startNewRound_NoMoreRounds(TestedGameState testedGamestate) {
+        var game = TestedGameStateFactory.createGame(testedGamestate);
         var gameState = game.state();
 
-        assertThrows(IllegalStateException.class, () -> gameState.startNewRound());
+        assertThrows(IllegalStateException.class, gameState::startNewRound);
     }
+
+    @ParameterizedTest
+    @EnumSource(
+            value = TestedGameState.class,
+            names = {"FIRST_ROUND_FIRST_MOVE", "SECOND_ROUND_FIRST_MOVE", "THIRD_ROUND_FIRST_MOVE"}
+    )
+    void startNewRound_RoundHasNotEnded(TestedGameState testedGamestate) {
+        var game = TestedGameStateFactory.createGame(testedGamestate);
+        var gameState = game.state();
+
+        assertThrows(IllegalStateException.class, gameState::startNewRound);
+    }
+
 
     private void addSupportForRaces(int[] supportedRaces) {
         var playerOnMove = game.state().getPlayerOnMove();

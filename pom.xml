@@ -13,7 +13,10 @@
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <junit.jupiter.version>5.13.0</junit.jupiter.version>
+
+        <mockito.version>5.1.1</mockito.version>
+
     </properties>
 
     <dependencies>
@@ -24,12 +27,35 @@
             <version>2.15.2</version> <!-- Use the latest version -->
         </dependency>
 
+        <!-- JUnit 5 API + Engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JUnit 5 Parameterized Tests support -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.reflections</groupId>
@@ -57,6 +83,19 @@
 
     <build>
         <plugins>
+
+            <!-- 1) Compile with JPMS support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <!-- Use Java 22 and enable module‐path resolution -->
+                    <release>22</release>
+                </configuration>
+            </plugin>
+
+
             <!-- Surefire runs your unit tests during “test”/“verify” phases -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

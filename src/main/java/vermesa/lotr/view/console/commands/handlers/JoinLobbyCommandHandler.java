@@ -83,7 +83,7 @@ public class JoinLobbyCommandHandler extends CommandHandler {
             break;
         }
 
-        return CommandResult.OK(console);
+        return new CommandResult(CommandResultType.CONTINUE, null, true, AppState.IN_LOBBY);
     }
 
 }

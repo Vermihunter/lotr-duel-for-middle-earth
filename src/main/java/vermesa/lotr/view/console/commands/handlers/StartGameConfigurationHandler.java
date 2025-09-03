@@ -22,6 +22,10 @@ public abstract class StartGameConfigurationHandler extends CommandHandler {
     public CommandResult handleCommand(String[] commandParts, ConsoleView console) throws RemoteException {
         context.controller = getOpponentController();
 
+        if (context.controller == null) {
+            return new CommandResult(CommandResultType.CONTINUE, "Cannot start the game - There is no opponent player present in the lobby.", true, AppState.LOBBY_OWNER);
+        }
+
         return new CommandResult(CommandResultType.CONTINUE, null, true, AppState.GAME_PLAY);
     }
 

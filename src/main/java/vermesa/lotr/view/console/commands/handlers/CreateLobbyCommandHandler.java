@@ -9,6 +9,7 @@ import vermesa.lotr.view.console.Context;
 import vermesa.lotr.view.console.annotations.CommandInfo;
 import vermesa.lotr.view.console.commands.AppState;
 import vermesa.lotr.view.console.commands.CommandResult;
+import vermesa.lotr.view.console.commands.CommandResultType;
 import vermesa.lotr.view.console.event_handlers.LobbyClientEventListener;
 import vermesa.lotr.view.console.event_handlers.NetworkEnemyMoveMadeListener;
 
@@ -65,6 +66,6 @@ public class CreateLobbyCommandHandler extends CommandHandler {
 
         context.out.println(">> Successfully created a lobby.");
 
-        return CommandResult.OK(console);
+        return new CommandResult(CommandResultType.CONTINUE, null, false, AppState.LOBBY_OWNER);
     }
 }

@@ -14,7 +14,7 @@ import static vermesa.lotr.controllers.client.ClientLobbyServiceFactory.lobbySer
 @CommandInfo(
         nameKey = CommandResourceBundleKeys.START_LOBBY_STATE_NAME,
         descKey = CommandResourceBundleKeys.START_LOBBY_HELP_MESSAGE,
-        states = {AppState.MAIN}
+        states = {AppState.LOBBY_OWNER}
 )
 public class StartNetworkGameConfigurationHandler extends StartGameConfigurationHandler {
     public StartNetworkGameConfigurationHandler(Context context, String name, String description) {

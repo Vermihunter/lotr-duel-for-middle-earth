@@ -10,9 +10,6 @@ public class Lobby {
     private RemotePlayerInformation owner;
     private RemotePlayerInformation enemy;
 
-    //private UUID ownerId;
-    //private UUID enemyId;
-
     protected Lobby(String lobbyName, RemotePlayerInformation owner) throws RemoteException {
         this.name = lobbyName;
         this.owner = owner;

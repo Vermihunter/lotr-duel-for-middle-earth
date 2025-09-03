@@ -121,6 +121,14 @@
                             <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>server</id>
+                        <configuration>
+                            <mainClass>vermesa.lotr.server.Main</mainClass>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 

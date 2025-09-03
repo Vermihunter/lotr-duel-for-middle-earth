@@ -19,7 +19,7 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 
-    public static void main(String[] args) throws IOException, AlreadyBoundException {
+    public static void main(String[] args) throws IOException, AlreadyBoundException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream in = vermesa.lotr.view.console.Main.class.getResourceAsStream("/DefaultConfig.json");
 
@@ -36,5 +36,8 @@ public class Main {
         registry.rebind(ServerServiceKeys.LOBBY_SERVICE_FACTORY_ENDPOINT, new LobbyServiceFactory(config));
 
         log.info("Server started on port {}", port);
+
+        new java.util.concurrent.CountDownLatch(1).await();
+
     }
 }

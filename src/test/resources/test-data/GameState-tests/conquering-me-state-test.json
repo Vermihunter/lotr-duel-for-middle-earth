@@ -1,0 +1,328 @@
+[
+  {
+    "TestName": "Minimal - nobody won",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "HAS_NOT_ENDED"
+  },
+  {
+    "TestName": "All regions occupied - nobody won",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "FortressHolder": "Sauron"
+      },
+      {
+        "RegionType": "Lindon",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "HAS_NOT_ENDED"
+  },
+  {
+    "TestName": "Sauron all fortress occupied",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "FortressHolder": "Sauron"
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "SAURON_WON"
+  },
+  {
+    "TestName": "Fellowship all fortress occupied",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "FortressHolder": "Fellowship"
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Fellowship"
+      },
+      {
+        "RegionType": "Mordor",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Fellowship"
+      }
+    ],
+    "ExpectedGameState": "FELLOWSHIP_WON"
+  },
+  {
+    "TestName": "Sauron units present in all regions",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "UnitHolder": "Sauron",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "SAURON_WON"
+  },
+  {
+    "TestName": "Fellowship units present in all regions",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "FELLOWSHIP_WON"
+  },
+  {
+    "TestName": "Fellowship wins - mixed fortresses and units",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Fellowship"
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 4
+      },
+      {
+        "RegionType": "Gondor",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "FELLOWSHIP_WON"
+  },
+  {
+    "TestName": "Sauron wins - mixed fortresses and units",
+    "Config": [
+      {
+        "RegionType": "Arnor",
+        "UnitHolder": "Sauron",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Lindon",
+        "FortressHolder": "Sauron"
+      },
+      {
+        "RegionType": "Enedwaith",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Fellowship",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Rohan",
+        "FortressHolder": "Sauron",
+        "UnitHolder": "Sauron",
+        "UnitCount": 4
+      },
+      {
+        "RegionType": "Gondor",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      },
+      {
+        "RegionType": "Mordor",
+        "UnitHolder": "Sauron",
+        "UnitCount": 3
+      },
+      {
+        "RegionType": "Rhovanion",
+        "FortressHolder": "Fellowship",
+        "UnitHolder": "Sauron",
+        "UnitCount": 2
+      }
+    ],
+    "ExpectedGameState": "SAURON_WON"
+  }
+]

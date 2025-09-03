@@ -1,6 +1,5 @@
 package vermesa.lotr.model.game;
 
-import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.moves.IMove;
@@ -9,6 +8,7 @@ import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Game state object that holds the values of the game that do change
  */
-public class GameState {
+public class GameState implements Serializable {
     /**
      * Context of the game - needed for some state manipulation
      */
@@ -160,6 +160,10 @@ public class GameState {
      * @param coins Number of coins to take
      */
     public void takeCoinsFromReserve(int coins) {
+        if (coins > totalCoins) {
+            throw new IllegalArgumentException("There are not enough coins to take!");
+        }
+
         totalCoins -= coins;
     }
 
@@ -224,7 +228,7 @@ public class GameState {
      *
      * @return The game state stating whether someone has won the game
      */
-    private CurrentGameState checkGameState() {
+    public CurrentGameState checkGameState() {
         // Collect win conditions
         CurrentGameState[] winConditions = new CurrentGameState[]{
                 checkQuestOfTheRingState(),
@@ -232,7 +236,7 @@ public class GameState {
                 checkConqueringMiddleEarthState()
         };
 
-        // Go through win conditions, if any of them is met, return -→ someone has won the game
+        // Go through win conditions, if any of them is met, return → someone has won the game
         for (CurrentGameState currentGameState : winConditions) {
             if (currentGameState != CurrentGameState.HAS_NOT_ENDED) {
                 return currentGameState;
@@ -247,7 +251,7 @@ public class GameState {
      * Checks if any of the player have conquered Middle-earth and has won the game
      * @return A game stat representing the fact that a player has won the game or not
      */
-    private CurrentGameState checkConqueringMiddleEarthState() {
+    public CurrentGameState checkConqueringMiddleEarthState() {
         long fellowShipPlayerPresentInRegions = playerPresentInRegions(gameContext.getFellowshipPlayer());
         long sauronPlayerPresentInRegions = playerPresentInRegions(gameContext.getSauronPlayer());
         var regions = gameContext.getCentralBoard().regions();
@@ -291,7 +295,7 @@ public class GameState {
     private long playerPresentInRegions(Player player) {
         var regions = gameContext.getCentralBoard().regions();
         return regions.stream()
-                .filter(region -> region.getFortress() == player || region.getUnit() == player)
+                .filter(region -> region.getFortress() == player.getType() || region.getUnit() == player.getType())
                 .count();
     }
 
@@ -300,7 +304,7 @@ public class GameState {
      * Checks if any of the players have won the game through having the support of enough races
      * @return Game state
      */
-    private CurrentGameState checkSupportOfTheRacesState() {
+    public CurrentGameState checkSupportOfTheRacesState() {
         if (playerHasSupportOfTheRaces(gameContext.getFellowshipPlayer())) {
             return CurrentGameState.FELLOWSHIP_WON;
         }
@@ -329,7 +333,7 @@ public class GameState {
      * - If the Fellowship player ha reached Mount Doom
      * @return The game state according to the quest of the ring track
      */
-    private CurrentGameState checkQuestOfTheRingState() {
+    public CurrentGameState checkQuestOfTheRingState() {
         var questOfTheRingTrack = gameContext.getQuestOfTheRingTrack();
         int fellowShipInd = questOfTheRingTrack.getFellowshipPlayerIndex();
         int sauronInd = questOfTheRingTrack.getSauronPlayerIndex();
@@ -352,6 +356,14 @@ public class GameState {
      * Also adds new landmark tiles if the old ones were used up to {@link vermesa.lotr.model.landmark_effects.LandmarkTileContext#landmarkTilesAtTime()}
      */
     public void startNewRound() {
+        if (currentRoundNumber == gameContext.getRoundInformations().size()) {
+            throw new IllegalStateException("There are no more rounds");
+        }
+
+        if (!currentRoundInformation.getChapterCards().getPlayableChapterCards().isEmpty()) {
+            throw new IllegalStateException("Cannot shift rounds - there are still chapter cards left to play");
+        }
+
         currentRoundNumber++;
         this.currentRoundInformation = gameContext.getRoundInformations().get(currentRoundNumber - 1);
 

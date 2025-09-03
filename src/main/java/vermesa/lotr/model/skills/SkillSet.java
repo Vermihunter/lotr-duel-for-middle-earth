@@ -1,12 +1,13 @@
 package vermesa.lotr.model.skills;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.IntStream;
 
 /**
  * Base implementation of a SkillSet that represents the fixed skill sets in {@link ExtendedSkillSet}
  */
-public class SkillSet {
+public class SkillSet implements Serializable {
     /**
      * Represents an array holding the number of skills for each type of {@link Skill}
      */

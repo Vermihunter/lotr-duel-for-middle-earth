@@ -3,6 +3,8 @@ package vermesa.lotr.view.console.commands.handlers;
 import vermesa.lotr.view.console.commands.CommandResult;
 import vermesa.lotr.view.console.ConsoleView;
 
+import java.rmi.RemoteException;
+
 /**
  * Represents a command handler that is used to process the input from the user
  * using the console view
@@ -33,7 +35,7 @@ public interface ICommandHandler {
      * @param console Context to print in
      * @return Result of the command
      */
-    CommandResult handleCommand(String[] commandParts, ConsoleView console);
+    CommandResult handleCommand(String[] commandParts, ConsoleView console) throws RemoteException;
 
     /** Helpers */
     String getDescription();

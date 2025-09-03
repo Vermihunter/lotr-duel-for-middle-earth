@@ -7,6 +7,7 @@ import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @param movements The movements to be made
  */
-public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movements) implements IMove {
+public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movements) implements IMove, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
@@ -22,7 +23,7 @@ public record MoveUnitsOnCentralBoardAction(List<CentralBoardUnitMovement> movem
 
         for (CentralBoardUnitMovement movement : movements) {
             movement.from().removeUnits(movement.unitsToMove());
-            movement.to().addUnits(playerOnMove, movement.unitsToMove());
+            movement.to().addUnits(playerOnMove.getType(), movement.unitsToMove());
         }
 
         return ActionResult.OK;

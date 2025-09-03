@@ -6,18 +6,21 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.player.PlayerType;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record TakeEnemyUnitFromCentralBoardAction(List<UnitsInRegion> unitsToTake) implements IMove {
+public record TakeEnemyUnitFromCentralBoardAction(List<UnitsInRegion> unitsToTake) implements IMove, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         unitsToTake.forEach(unit -> {
-            Player playerOwningRegion = unit.region().getUnit();
+            PlayerType playerOwningRegion = unit.region().getUnit();
 
             unit.region().removeUnits(unit.units());
-            playerOwningRegion.placeBackUnits(unit.units());
+
+            state.getNextPlayerOnMove().placeBackUnits(unit.units());
         });
 
         return ActionResult.OK;

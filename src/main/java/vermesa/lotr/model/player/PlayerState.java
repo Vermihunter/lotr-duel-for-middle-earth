@@ -4,12 +4,13 @@ import vermesa.lotr.model.actions.race_effect_actions.RaceEffectAttributes;
 import vermesa.lotr.model.actions.race_effect_actions.RaceEffectCallbackEventHandler;
 import vermesa.lotr.model.chapter_cards.ChainingSymbols;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  * Holds given part of the player's state
  */
-public class PlayerState {
+public class PlayerState implements Serializable {
     private final HashSet<RaceEffectAttributes> raceEffectAttributes;
     private final RaceEffectCallbackEventHandler raceEffectCallbackEventHandler;
     private final HashSet<ChainingSymbols> obtainedChainingSymbols;

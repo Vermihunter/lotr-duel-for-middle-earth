@@ -9,6 +9,7 @@ import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
  *
  * @param raceToSupport The race that the player has gained the support of
  */
-public record AddSupportOfARaceAction(Race raceToSupport) implements IAction {
+public record AddSupportOfARaceAction(Race raceToSupport) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

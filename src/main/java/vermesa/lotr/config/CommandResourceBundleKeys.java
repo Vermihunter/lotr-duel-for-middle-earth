@@ -36,4 +36,27 @@ public class CommandResourceBundleKeys {
     private static final String DISPLAY_GAME_STATE_COMMAND_NAME = "state";
     public static final String DISPLAY_GAME_STATE_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + DISPLAY_GAME_STATE_COMMAND_NAME;
     public static final String DISPLAY_GAME_STATE_NAME = NAME_PREFIX + "." + DISPLAY_GAME_STATE_COMMAND_NAME;
+
+
+    // Create a lobby over a network configuration
+    private static final String CREATE_LOBBY_COMMAND_NAME = "createLobby";
+    public static final String CREATE_LOBBY_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + CREATE_LOBBY_COMMAND_NAME;
+    public static final String CREATE_LOBBY_STATE_NAME = NAME_PREFIX + "." + CREATE_LOBBY_COMMAND_NAME;
+
+
+    // Leave a lobby over a network configuration
+    private static final String LEAVE_LOBBY_COMMAND_NAME = "leaveLobby";
+    public static final String LEAVE_LOBBY_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + LEAVE_LOBBY_COMMAND_NAME;
+    public static final String LEAVE_LOBBY_STATE_NAME = NAME_PREFIX + "." + LEAVE_LOBBY_COMMAND_NAME;
+
+    // Leave a lobby over a network configuration
+    private static final String START_LOBBY_COMMAND_NAME = "startLobby";
+    public static final String START_LOBBY_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + START_LOBBY_COMMAND_NAME;
+    public static final String START_LOBBY_STATE_NAME = NAME_PREFIX + "." + START_LOBBY_COMMAND_NAME;
+
+
+    // Join a lobby over a network configuration
+    private static final String JOIN_LOBBY_COMMAND_NAME = "joinLobby";
+    public static final String JOIN_LOBBY_HELP_MESSAGE = HELP_MESSAGES_PREFIX + "." + JOIN_LOBBY_COMMAND_NAME;
+    public static final String JOIN_LOBBY_STATE_NAME = NAME_PREFIX + "." + JOIN_LOBBY_COMMAND_NAME;
 }

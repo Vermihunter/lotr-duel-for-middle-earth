@@ -1,0 +1,38 @@
+[
+  {
+    "testCaseName": "Basic add same player unit - Sauron player",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": "Sauron",
+    "playerUnitCountInRegion": 3,
+    "expectedPlayerUnitsInRegion": "Sauron",
+    "expectedUnitCountInRegion": 5
+  },
+  {
+    "testCaseName": "Take same amount of enemy unit",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": "Fellowship",
+    "playerUnitCountInRegion": 2,
+    "expectedPlayerUnitsInRegion": null,
+    "expectedUnitCountInRegion": 0
+  },
+  {
+    "testCaseName": "Place more enemy unit",
+    "initialPlayerUnitsInRegion": "Sauron",
+    "initialUnitCountInRegion": 2,
+    "playerUnitsInRegion": "Fellowship",
+    "playerUnitCountInRegion": 3,
+    "expectedPlayerUnitsInRegion": "Fellowship",
+    "expectedUnitCountInRegion": 1
+  },
+  {
+    "testCaseName": "Basic add same player unit - Fellowship player",
+    "initialPlayerUnitsInRegion": "Fellowship",
+    "initialUnitCountInRegion": 3,
+    "playerUnitsInRegion": "Fellowship",
+    "playerUnitCountInRegion": 4,
+    "expectedPlayerUnitsInRegion": "Fellowship",
+    "expectedUnitCountInRegion": 7
+  }
+]

@@ -6,12 +6,14 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.player.PlayerState;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Adds callback to given event for the current player
  */
-public record EventBasedRaceEffect(RaceEffectCallbackEventType callbackEventType, IAction action) implements IAction {
+public record EventBasedRaceEffect(RaceEffectCallbackEventType callbackEventType,
+                                   IAction action) implements IAction, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

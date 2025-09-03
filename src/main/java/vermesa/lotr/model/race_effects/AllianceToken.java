@@ -2,6 +2,8 @@ package vermesa.lotr.model.race_effects;
 
 import vermesa.lotr.model.actions.IAction;
 
+import java.io.Serializable;
+
 /**
  * Represents an AllianceToken in the game
  * <p>
@@ -13,5 +15,5 @@ import vermesa.lotr.model.actions.IAction;
  *
  * @param action Effect of the Alliance token
  */
-public record AllianceToken(IAction action) {
+public record AllianceToken(IAction action) implements Serializable {
 }

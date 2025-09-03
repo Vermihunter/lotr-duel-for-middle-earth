@@ -3,13 +3,17 @@ package vermesa.lotr.model.player;
 import vermesa.lotr.model.race_effects.Race;
 import vermesa.lotr.model.skills.ExtendedSkillSet;
 
+import java.io.Serializable;
+
 
 /**
  * An abstract parent of players holding common implementation details:
  * - {@link FellowshipPlayer}
  * - {@link SauronPlayer}
  */
-public abstract class Player {
+public class Player implements Serializable {
+    private final PlayerType type;
+
     /**
      * The skill set that the player has gained through different actions
      */
@@ -41,7 +45,8 @@ public abstract class Player {
      */
     private int fortresses;
 
-    public Player(int startingCoins, int units, int towers) {
+    public Player(PlayerType type, int startingCoins, int units, int towers) {
+        this.type = type;
         this.coins = startingCoins;
         this.units = units;
         this.fortresses = towers;
@@ -51,21 +56,12 @@ public abstract class Player {
     }
 
     /**
-     * @return Helper function to detect whether the player is the fellowship player or not
-     */
-    public abstract boolean isFellowshipPlayer();
-
-    /**
      *
-     * @return Helper function to detect whether the player is the sauron player or not
+     * @return Returns the type of the player {@link PlayerType}
      */
-    public abstract boolean isSauronPlayer();
-
-    /**
-     *
-     * @return Helper function to get the name of the player
-     */
-    public abstract String getName();
+    public PlayerType getType() {
+        return type;
+    }
 
     /**
      *
@@ -169,5 +165,13 @@ public abstract class Player {
      */
     public void placeBackFortress() {
         fortresses++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+
+        return getClass() == o.getClass();
     }
 }

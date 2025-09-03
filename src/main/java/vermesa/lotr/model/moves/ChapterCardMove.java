@@ -5,6 +5,8 @@ import vermesa.lotr.model.chapter_cards.RoundChapterCardSet.ChapterCardWrapper;
 import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 
+import java.io.Serializable;
+
 /**
  * Base class for the two chapter card moves:
  * <ul>
@@ -12,7 +14,7 @@ import vermesa.lotr.model.game.GameState;
  *     <li>{@link ChapterCardPlayMove}</li>
  * </ul>
  */
-public abstract class ChapterCardMove implements IMove {
+public abstract class ChapterCardMove implements IMove, Serializable {
     public final ChapterCardWrapper chapterCard;
 
     public ChapterCardMove(ChapterCardWrapper chaptercard) {

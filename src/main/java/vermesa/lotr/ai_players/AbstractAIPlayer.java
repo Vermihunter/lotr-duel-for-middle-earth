@@ -25,15 +25,18 @@ public abstract class AbstractAIPlayer implements IAIPlayer {
      * @return The list of moves that the AI player chose
      */
     @Override
-    public final MoveResult play(Game game) {
-        if (game.getState().getPlayerOnMove() != me) {
+    public final List<IAction> chooseMoves(Game game) {
+        if (!game.state().getPlayerOnMove().equals(me)) {
             throw new IllegalArgumentException("Its not this AI player's turn to move!");
         }
 
         var possibleMoves = game.getPossibleMoves();
-        var chosenMoves = chooseMoves(possibleMoves);
+        return chooseMoves(possibleMoves);
+    }
 
-        return game.makeMove(chosenMoves);
+    @Override
+    public final Player getPlayer() {
+        return me;
     }
 
     /**

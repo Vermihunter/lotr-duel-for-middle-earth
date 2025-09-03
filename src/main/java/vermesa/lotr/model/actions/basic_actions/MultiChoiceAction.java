@@ -6,6 +6,7 @@ import vermesa.lotr.model.actions.ActionResult;
 import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,8 @@ import java.util.stream.Collectors;
  * @param possibleActions The list of actions where {@link #actionsToTake} to be chosen
  * @param actionsToTake The number of actions to choose from {@link #possibleActions}
  */
-public record MultiChoiceAction(List<? extends IAction> possibleActions, int actionsToTake) implements IMove {
+public record MultiChoiceAction(List<? extends IAction> possibleActions,
+                                int actionsToTake) implements IMove, Serializable {
 
     public static <T> List<ArrayList<T>> combinations(List<T> list, int k) {
         List<ArrayList<T>> result = new ArrayList<>();

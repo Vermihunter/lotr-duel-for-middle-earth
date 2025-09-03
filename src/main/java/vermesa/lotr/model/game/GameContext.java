@@ -7,13 +7,14 @@ import vermesa.lotr.model.chapter_cards.RoundChapterCardConfig;
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 import vermesa.lotr.model.landmark_effects.LandmarkTile;
 import vermesa.lotr.model.landmark_effects.LandmarkTileContext;
-import vermesa.lotr.model.player.FellowshipPlayer;
-import vermesa.lotr.model.player.SauronPlayer;
 import vermesa.lotr.model.central_board.Region;
+import vermesa.lotr.model.player.Player;
+import vermesa.lotr.model.player.PlayerType;
 import vermesa.lotr.model.quest_of_the_ring_track.QuestOfTheRingTrack;
 import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import java.util.stream.IntStream;
  * Represents the context of the game
  * It contains components that are once configured and never changed
  */
-public class GameContext {
+public class GameContext implements Serializable {
     /**
      * The list of all landmark tiles in the game
      */
@@ -39,12 +40,12 @@ public class GameContext {
     /**
      * Fellowship player of the game
      */
-    private FellowshipPlayer fellowshipPlayer;
+    private Player fellowshipPlayer;
 
     /**
      * Sauron player of the game
      */
-    private SauronPlayer sauronPlayer;
+    private Player sauronPlayer;
 
     /**
      * The quest of the ring track of the game
@@ -84,10 +85,12 @@ public class GameContext {
     public CentralBoard getCentralBoard() {
         return centralBoard;
     }
-    public FellowshipPlayer getFellowshipPlayer() {
+
+    public Player getFellowshipPlayer() {
         return fellowshipPlayer;
     }
-    public SauronPlayer getSauronPlayer() {
+
+    public Player getSauronPlayer() {
         return sauronPlayer;
     }
     public QuestOfTheRingTrack getQuestOfTheRingTrack() {
@@ -101,6 +104,19 @@ public class GameContext {
         return allianceTokens;
     }
 
+    public Player playerByType(PlayerType playerType) {
+        switch (playerType) {
+            case Sauron -> {
+                return sauronPlayer;
+            }
+            case Fellowship -> {
+                return fellowshipPlayer;
+            }
+        }
+
+        throw new IllegalArgumentException("Unknown player type: " + playerType);
+    }
+
     /**
      * Builder for the {@link GameContext} class to make sure the different
      * components are constructed according to the rules and without side effects
@@ -109,14 +125,14 @@ public class GameContext {
         ArrayList<Region> regions;
         ArrayList<LandmarkTile> landmarkTiles;
         ArrayList<RoundConfig> roundConfigs;
-        FellowshipPlayer fellowshipPlayer;
-        SauronPlayer sauronPlayer;
+        Player fellowshipPlayer;
+        Player sauronPlayer;
         QuestOfTheRingTrack questOfTheRingTrack;
         LandmarkTileContext landmarkTileContext;
         HashMap<Race, ArrayList<AllianceToken>> allianceTokens;
 
         /** Hard coded random generator for random events */
-        Random rand = new Random(123456);
+        //private final ; // = new Random(123456);
 
         public Builder addRegions(ArrayList<Region> regions) {
             this.regions = regions;
@@ -128,7 +144,7 @@ public class GameContext {
             return this;
         }
 
-        public Builder withPlayers(FellowshipPlayer fellowshipPlayer, SauronPlayer sauronPlayer) {
+        public Builder withPlayers(Player fellowshipPlayer, Player sauronPlayer) {
             this.fellowshipPlayer = fellowshipPlayer;
             this.sauronPlayer = sauronPlayer;
             return this;
@@ -158,10 +174,12 @@ public class GameContext {
          * Builds a GameContext with the components configured
          * @return GameContext object that can be used to construct a GameObject
          */
-        public GameContext build() {
+        public GameContext build(Random rand, Config config) {
             GameContext gameContext = new GameContext();
             gameContext.landmarkTiles = this.landmarkTiles;
-            Collections.shuffle(gameContext.landmarkTiles, rand);
+            if (config.shuffleLandmarkTiles) {
+                Collections.shuffle(gameContext.landmarkTiles, rand);
+            }
 
             gameContext.fellowshipPlayer = this.fellowshipPlayer;
             gameContext.sauronPlayer = this.sauronPlayer;
@@ -169,12 +187,16 @@ public class GameContext {
             gameContext.questOfTheRingTrack = this.questOfTheRingTrack;
             gameContext.allianceTokens = this.allianceTokens;
 
-            allianceTokens.values().forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
+            if (config.shuffleAllianceTokens) {
+                allianceTokens.values()
+                        .forEach(raceAllianceTokens -> Collections.shuffle(raceAllianceTokens, rand));
+            }
+
             gameContext.landmarkTileContext = this.landmarkTileContext;
 
             allianceTokens.values().forEach(Collections::shuffle);
             gameContext.roundInformations = roundConfigs.stream()
-                    .map(this::createRoundInformation)
+                    .map(roundInfo -> createRoundInformation(roundInfo, rand, config))
                     .collect(Collectors.toCollection(ArrayList::new));
 
 
@@ -188,8 +210,8 @@ public class GameContext {
          * @param roundConfig Configuration to use
          * @return RoundInformation with initialized ChapterCard IDs
          */
-        private RoundInformation createRoundInformation(RoundConfig roundConfig) {
-            var chapterCards = initializeChapterCards(roundConfig.roundChaptercardsContexts);
+        private RoundInformation createRoundInformation(RoundConfig roundConfig, Random rand, Config config) {
+            var chapterCards = initializeChapterCards(roundConfig.roundChaptercardsContexts, rand, config);
 
             RoundChapterCardConfig roundChapterCardConfig = new RoundChapterCardConfig(roundConfig.chapterCardConfigs);
             RoundChapterCardSet cardSet = RoundChapterCardSet.from(chapterCards, roundChapterCardConfig);
@@ -202,18 +224,23 @@ public class GameContext {
          *
          * @param chapterCardContexts The chapter cards to initialize
          */
-        private ArrayList<ChapterCard> initializeChapterCards(ArrayList<ChapterCardContext> chapterCardContexts) {
+        private ArrayList<ChapterCard> initializeChapterCards(ArrayList<ChapterCardContext> chapterCardContexts, Random rand, Config config) {
             var IDStream = IntStream
                     .range(0, chapterCardContexts.size())
                     .boxed()
                     .collect(Collectors.toCollection(ArrayList::new));
 
-            Collections.shuffle(IDStream, rand);
+            if (config.shuffleChapterCards) {
+                Collections.shuffle(IDStream, rand);
+            }
 
             return IntStream.range(0, chapterCardContexts.size())
                     .mapToObj(i -> new ChapterCard(IDStream.get(i), chapterCardContexts.get(i)))
                     .collect(Collectors.toCollection(ArrayList::new));
 
+        }
+
+        public record Config(boolean shuffleLandmarkTiles, boolean shuffleAllianceTokens, boolean shuffleChapterCards) {
         }
     }
 

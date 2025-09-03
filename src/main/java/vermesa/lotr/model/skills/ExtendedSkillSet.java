@@ -1,5 +1,6 @@
 package vermesa.lotr.model.skills;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
  * Every instance in the fixedSkillSets and in the optionalSkillSets
  * lists is a SkillSet instance of a Grey chapter card.
  */
-public class ExtendedSkillSet {
+public class ExtendedSkillSet implements Serializable {
     /**
      * Results of grey chapter cards that offer all the skills present on the card
      */

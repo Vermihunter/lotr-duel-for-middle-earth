@@ -7,6 +7,7 @@ import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.race_effects.AllianceToken;
 import vermesa.lotr.model.race_effects.Race;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  * @param TokensToChoose    The number of tokens to choose from
  */
 public record TakeTopTwoAllianceTokensChooseOneAction(Race[] RacesToRevealFrom, int TokensToReveal,
-                                                      int TokensToChoose) implements IMove {
+                                                      int TokensToChoose) implements IMove, Serializable {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         List<IMove> followUpMoves = new ArrayList<>();

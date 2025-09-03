@@ -7,6 +7,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * Note that the grey chapter cards in the physical copy are simply represented
  * with a {@link vermesa.lotr.model.skills.SkillSet} object.
  */
-public class CreateDiscardEnemyGreyCardActionsAction implements IAction {
+public class CreateDiscardEnemyGreyCardActionsAction implements IAction, Serializable {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player otherPlayer = state.getNextPlayerOnMove();

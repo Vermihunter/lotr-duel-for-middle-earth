@@ -4,6 +4,7 @@ import vermesa.lotr.model.actions.IAction;
 import vermesa.lotr.model.central_board.Region;
 import vermesa.lotr.model.skills.SkillSet;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ import java.util.List;
  * @param requiredSkillset The skill set that is required to play this Landmark tile
  * @param actions          The actions that will be executed when playing this card
  */
-public record LandmarkTile(Region region, SkillSet requiredSkillset, List<IAction> actions) {
+public record LandmarkTile(Region region, SkillSet requiredSkillset, List<IAction> actions) implements Serializable {
 }

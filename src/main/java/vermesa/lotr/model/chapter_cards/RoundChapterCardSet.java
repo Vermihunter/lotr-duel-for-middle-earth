@@ -1,5 +1,6 @@
 package vermesa.lotr.model.chapter_cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Represents a container for the chapter cards in a concrete round
  */
-public class RoundChapterCardSet {
+public class RoundChapterCardSet implements Serializable {
     /**
      * All chapter cards present in the given round - Keys are chapter card IDs
      */
@@ -21,6 +22,22 @@ public class RoundChapterCardSet {
     private RoundChapterCardSet(HashMap<Integer, ChapterCardWrapper> allChapterCards, ArrayList<ChapterCardWrapper> playableChapterCards) {
         this.allChapterCards = allChapterCards;
         this.playableChapterCards = playableChapterCards;
+    }
+
+    public static RoundChapterCardSet deepCopy(RoundChapterCardSet roundChapterCardSet) {
+        HashMap<Integer, ChapterCardWrapper> allChapterCards = new HashMap<>();
+        ArrayList<ChapterCardWrapper> playableChapterCards = new ArrayList<>();
+
+        for (var chapterCardConfig : roundChapterCardSet.allChapterCards.entrySet()) {
+            var wrapperDeepCopy = ChapterCardWrapper.deepCopy(chapterCardConfig.getValue());
+            allChapterCards.put(chapterCardConfig.getKey(), wrapperDeepCopy);
+
+            if (wrapperDeepCopy.remainingDependencies == 0) {
+                playableChapterCards.add(wrapperDeepCopy);
+            }
+        }
+
+        return new RoundChapterCardSet(allChapterCards, playableChapterCards);
     }
 
     public HashMap<Integer, ChapterCardWrapper> getAllChapterCards() {
@@ -97,7 +114,7 @@ public class RoundChapterCardSet {
                 .forEach(this::decreaseDependencies);
 
         // Remove the card from playable ones
-        playableChapterCards.remove(chapterCardWrapper);
+        playableChapterCards.removeIf(c -> c.getChapterCard().id() == id);
     }
 
     /**
@@ -119,7 +136,7 @@ public class RoundChapterCardSet {
      * Not a record because we didn't want to use the parenthesis syntax and some fields are used only by
      * the parent class
      */
-    public static class ChapterCardWrapper {
+    public static class ChapterCardWrapper implements Serializable {
         /**
          * The chapter card that is wrapped
          */
@@ -159,6 +176,14 @@ public class RoundChapterCardSet {
             this.remainingDependencies = dependsOn.size();
             this.row = row;
             this.alreadyPlayed = false;
+        }
+
+        private static ChapterCardWrapper deepCopy(ChapterCardWrapper chapterCardWrapper) {
+            ChapterCardWrapper deepCopy = new ChapterCardWrapper(chapterCardWrapper.chapterCard, chapterCardWrapper._isFaceUp, chapterCardWrapper.dependsOn, chapterCardWrapper.row);
+            deepCopy.alreadyPlayed = chapterCardWrapper.alreadyPlayed;
+            deepCopy.remainingDependencies = chapterCardWrapper.remainingDependencies;
+
+            return deepCopy;
         }
 
         public int getRemainingDependencies() {

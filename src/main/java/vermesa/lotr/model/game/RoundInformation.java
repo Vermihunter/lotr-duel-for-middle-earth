@@ -2,7 +2,9 @@ package vermesa.lotr.model.game;
 
 import vermesa.lotr.model.chapter_cards.RoundChapterCardSet;
 
-public class RoundInformation {
+import java.io.Serializable;
+
+public class RoundInformation implements Serializable {
     private final RoundChapterCardSet chapterCards;
     private final int coinsPerDiscardedCards;
 

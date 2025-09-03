@@ -13,7 +13,7 @@ public class PlayerStateSerializer {
 
     public static String serialize(Player player) {
         StringBuilder builder = new StringBuilder();
-        String playerName = player.getName() + " player";
+        String playerName = player.getType().name() + " player";
         int rowsAdded = 0;
 
         String middleSeparatorRow = "╠" + "═".repeat(width - 2) + "╣\n";

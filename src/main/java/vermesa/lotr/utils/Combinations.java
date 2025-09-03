@@ -31,7 +31,7 @@ public class Combinations {
         for (int i = start; i <= input.size() - (k - current.size()); i++) {
             current.add(input.get(i));
             combineRecursive(input, k, i + 1, current, result);
-            current.remove(current.size() - 1);
+            current.removeLast();
         }
     }
 
@@ -79,7 +79,7 @@ public class Combinations {
             }
             combineRepeatRecursive(input, repeats, index + 1, k, current, result);
             for (int i = 0; i < count; i++) {
-                current.remove(current.size() - 1);
+                current.removeLast();
             }
         }
     }
@@ -118,7 +118,7 @@ public class Combinations {
         for (T item : choices) {
             current.add(item);
             cartesianRecursive(lists, depth + 1, current, result);
-            current.remove(current.size() - 1);
+            current.removeLast();
         }
     }
 

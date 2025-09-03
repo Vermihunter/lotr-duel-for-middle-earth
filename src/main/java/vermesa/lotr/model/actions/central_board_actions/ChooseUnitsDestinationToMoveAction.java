@@ -8,6 +8,7 @@ import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 import vermesa.lotr.utils.Combinations;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -16,7 +17,7 @@ import java.util.stream.IntStream;
  * Adds follow-up moves to choose destination for moving units from {@link #fromRegions()}
  * @param fromRegions The list of regions to move from (1 unit each)
  */
-public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions) implements IMove {
+public record ChooseUnitsDestinationToMoveAction(List<Region> fromRegions) implements IMove, Serializable {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         List<List<Region>> regionNeighboringRegions = fromRegions.stream()

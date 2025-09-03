@@ -331,7 +331,7 @@
         "Strength": 0,
         "Courage": 0,
         "Knowledge": 0,
-        "Leadership": 0
+        "Leadership": 1
       },
       "Effects": [
         {
@@ -350,7 +350,7 @@
         "Ruse": 0,
         "Strength": 0,
         "Courage": 0,
-        "Knowledge": 0,
+        "Knowledge": 1,
         "Leadership": 0
       },
       "Effects": [
@@ -1870,7 +1870,7 @@
   "QuestOfTheRingTrackConfig": {
     "FellowshipPlayerStartPosition": 14,
     "SauronPlayerStartPosition": 0,
-    "Width": 29,
+    "Width": 28,
     "BonusActions": [
       {
         "Position": 3,

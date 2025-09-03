@@ -9,11 +9,12 @@ import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.moves.IMove;
 import vermesa.lotr.model.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public record ChooseWhereToPlaceUnitsOnCentralBoardAction_AllToSameRegion(List<Region> possibleRegions,
-                                                                          int unitsToPlace) implements IAction {
+                                                                          int unitsToPlace) implements IAction, Serializable {
     @Override
     public ActionResult action(GameContext ctx, GameState state) {
         Player playerOnMove = state.getPlayerOnMove();

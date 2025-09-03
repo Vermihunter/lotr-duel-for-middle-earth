@@ -6,6 +6,7 @@ import vermesa.lotr.model.game.GameContext;
 import vermesa.lotr.model.game.GameState;
 import vermesa.lotr.model.moves.IMove;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @param actions The actions to be taken
  */
-public record TakeAllActions(List<? extends IAction> actions) implements IMove {
+public record TakeAllActions(List<? extends IAction> actions) implements IMove, Serializable {
 
     @Override
     public ActionResult action(GameContext ctx, GameState state) {

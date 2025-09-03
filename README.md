@@ -14,6 +14,12 @@ To play the game, execute the following command:
 mvn exec:java@play
 ```
 
+To run the RMI server, execute the following command:
+
+```shell
+mvn exec:java@server
+```
+
 ## Documentation
 
 To generate the `javadoc` documentation, execute the following command:
